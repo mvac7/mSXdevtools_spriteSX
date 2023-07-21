@@ -1,16 +1,14 @@
-# spriteSX devtool v0.9.4b
+# spriteSX devtool
 
 ```
-Short:        Tool to create a collection of sprites, for TMS9918 & V9938            
-Author:       mvac7
-Version:      0.9.4b (August 2014)
-Architecture: Microsoft .Net Framework 3.0
-Programming language: Visual BASIC .net
+Short:        Tool to create a collection of sprites for TMS9918 & V9938 Video Display Processors           
+Architecture: Microsoft .Net Framework 4.0
+Language:     Visual BASIC .net
 License:      GNU General Public License v3   
 ```
 
 ---
-## 1. Description
+## Description
 
 Tool to create a collection of sprites, for TMS9918 & V9938 video processors (MSX, colecovision, etc...), 
 which provides the source code for Assembler, C and Basic.
@@ -22,14 +20,14 @@ enhance and add functionality, using the code provided on project website.
 This application is designed for agile and intuitive handling, but always can be improved. 
 We are working on it. We are waiting your suggestions. 
 
-This software was developed in Microsoft Visual Basic 2008 Express. 
+This software is developed with Microsoft Visual Studio Community 2019.
    
 
 
 ---
-## 2. License
+## License
 
-Copyright (C) 2014 mvac7
+Copyright (C) 2023 mvac7 (aka AOrante)
    
 ```
    This program is free software: you can redistribute it and/or modify
@@ -49,23 +47,15 @@ Copyright (C) 2014 mvac7
 
     
 ---
-## 3. Requirements 
+## Requirements 
  
-PC with Microsoft Windows OS and Framework 3.0
+- Computer with Microsoft Windows OS and Framework 4.0
+- Display with minimum resolution: XVGA (1024x768)
 
 
 
 ---
-## 4. How to install 
- 
-Unpack and Copy spriteSXED folder somewhere on your hard disk. 
-   
-For run, execute spriteSXED.exe  
-
-
-
----
-## 5. Features
+## Features
 
 * Assistant to initialize a new project.
 * Projects with different types of sprites. (8x8, 16x16, mono and multicolor)
@@ -86,7 +76,7 @@ For run, execute spriteSXED.exe
 
 
 ---
-## 6. History
+## History
 
 ### v0.9.4b (August 2014)
 * Paint functions: Draw, Lines, Rectangles, Fill rectangles, Circles, Fill circles and Fill. Positive or negative (right mouse button).
@@ -117,67 +107,9 @@ For run, execute spriteSXED.exe
            
 
 ---
-## 7. Acknowledgements
+## Acknowledgements
    
-* JamQue/TPM for the idea
-* JamQue, MsxKun, pentacour, kabish & zilogZ80a for testing.
-* Fubu for the algorithm to the fill tool.
-* Dedicated to clubSPRITE
+* JamQue for the idea
+* JamQue, MsxKun, @Pentacour, kabish & zilogZ80a for testing.
+* @Fubukimaru for the algorithm to the fill tool.
 
-
----
-## 8. Components List
-
-```
-   spriteSXdevtool.exe       v0.9.4.7
-   WizardSpriteProject.dll   v1
-   GUIcontrols.dll           v1.1.2
-   MSXLibrary.dll            v1.2.5
-
-   Projects_sprite\          Projects.
-   Palettes\                 Palettes.
-   code_examples\            Example codes.
-   SC2\                      MSX Basic VRAM binary files.
-   Bitmaps\                  PNG files.
-```
-
-
-
----
-## 9. Code Examples
-
-The package includes a few examples of sources in C (SDCC), Assembler (asMSX) and MSX BASIC, to test the data output and learning.
-   
-
-### File List: (code_examples\)
-```   
-   *Assembler (ASM\)
-    To assemble asMSX need. https://code.google.com/p/asmsx-license-gpl/
-    sprite8_test\        <-- 8x8   monochrome MSX ROM 
-    sprite16_test\       <-- 16x16 monochrome MSX ROM
-    sprite8C_test\       <-- 8x8   multicolor MSX2 ROM 
-    sprite16C_test\      <-- 16x16 multicolor MSX2 ROM
-    
-   *C (C\)
-    Includes a Readme with notes for the compilation.      
-    sprite8_test\        <-- 8x8   monochrome 16k MSX ROM 
-    sprite16_test\       <-- 16x16 monochrome 16k MSX ROM
-    sprite8C_test\       <-- 8x8   multicolor 16k MSX2 ROM
-    sprite16C_test\      <-- 16x16 multicolor 16k MSX2 ROM
-   
-   *MSX BASIC (MSX_BASIC\)
-    SP8.BAS              <-- 8x8   monochrome 
-    SP16.BAS             <-- 16x16 monochrome
-    SP8C.BAS             <-- 8x8   multicolor
-    SP16C.BAS            <-- 16x16 multicolor
-    SP16C_OR.BAS         <-- 16x16 multicolor OR (mixing of 2 sprites)
-    
-    LOADSPR.BAS          <-- test Sprites MSX Basic binary
-    FRUTAS16.SC2         <-- for LOADSPR.BAS
-    
-    LOADSC2.BAS          <-- test SC2 output 
-    LOADSC4.BAS          <-- test SC2 output with palette (V9938 or higher)
-    FRUIT16C.SC2         <-- for LOADSC2.BAS and LOADSC4.BAS
-    
-    msx_spritesBASIC.dsk <-- Disk image with all examples in BASIC.
-```

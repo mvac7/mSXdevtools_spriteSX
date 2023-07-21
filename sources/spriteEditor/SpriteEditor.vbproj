@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{38DC4C11-F4A9-40A6-8DAD-B5259C2CBCF3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <RootNamespace>mSXdevtools.spriteEditor</RootNamespace>
+    <AssemblyName>spriteEditor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>spriteEditor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>spriteEditor.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataCompressEncoders, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\DataCompressEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="DataStructures, Version=0.9.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\DataStructures.dll</HintPath>
+    </Reference>
+    <Reference Include="FileDataTypes, Version=0.9.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\FileDataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="GUIcontrols, Version=1.4.23.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\GUIcontrols.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TMS9918A, Version=1.0.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\TMS9918A.dll</HintPath>
+    </Reference>
+    <Reference Include="Tools4devtools, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\Tools4devtools.dll</HintPath>
+    </Reference>
+    <Reference Include="V9938PaletteEditor, Version=0.9.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\V9938PaletteEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="mSXdevtools.DataCompressEncoders" />
+    <Import Include="mSXdevtools.DataStructures" />
+    <Import Include="mSXdevtools.FileDataTypes" />
+    <Import Include="mSXdevtools.GUI.Controls" />
+    <Import Include="mSXdevtools.GUI.TMS9918A" />
+    <Import Include="mSXdevtools.Tools4devtools" />
+    <Import Include="mSXdevtools.V9938PaletteEditor" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SourceCodeDialog.Designer.vb">
+      <DependentUpon>SourceCodeDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SourceCodeDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadBitmapDialog.Designer.vb">
+      <DependentUpon>LoadBitmapDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LoadBitmapDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveBitmapDialog.Designer.vb">
+      <DependentUpon>SaveBitmapDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SaveBitmapDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigSpritesetDialog.Designer.vb">
+      <DependentUpon>ConfigSpritesetDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigSpritesetDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MSXBASICGraphicsDialog.Designer.vb">
+      <DependentUpon>MSXBASICGraphicsDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MSXBASICGraphicsDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ISpriteContainer.vb" />
+    <Compile Include="SpriteEditor.Designer.vb">
+      <DependentUpon>SpriteEditor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SpriteEditor.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SpritePanel16.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritePanel16mode2.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritePanel8.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritePanel8mode2.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritePanelBase.Designer.vb">
+      <DependentUpon>SpritePanelBase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SpritePanelBase.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SpritesetDataControl.Designer.vb">
+      <DependentUpon>SpritesetDataControl.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SpritesetDataControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UndoItem.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SourceCodeDialog.resx">
+      <DependentUpon>SourceCodeDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadBitmapDialog.resx">
+      <DependentUpon>LoadBitmapDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveBitmapDialog.resx">
+      <DependentUpon>SaveBitmapDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigSpritesetDialog.resx">
+      <DependentUpon>ConfigSpritesetDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MSXBASICGraphicsDialog.resx">
+      <DependentUpon>MSXBASICGraphicsDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpriteEditor.resx">
+      <DependentUpon>SpriteEditor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePanel16.resx">
+      <DependentUpon>SpritePanel16.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePanel16mode2.resx">
+      <DependentUpon>SpritePanel16mode2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePanel8.resx">
+      <DependentUpon>SpritePanel8.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePanel8mode2.resx">
+      <DependentUpon>SpritePanel8mode2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritePanelBase.resx">
+      <DependentUpon>SpritePanelBase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpritesetDataControl.resx">
+      <DependentUpon>SpritesetDataControl.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle_tool_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\circle_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\column_info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\column_info_mono.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy_blue_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk_bitmap_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dragdrop_48_06Y.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flip-horizontal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flip-vertical.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gtk-go-back-ltr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gtk-go-back-rtl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gtk-go-down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gtk-go-up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_dataOutput_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_trashcan3_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\invert_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\invert_x24_02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\line_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load_20x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load_24x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\load_24x24x32b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\merge_24x24x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\more_9x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new2_241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\object-rotate-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\object-rotate-right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paint_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\palette3_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\project_properties_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_20x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_as_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save2_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save2_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sprite_viewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sprite_viewer36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square_tool_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tick_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash_red_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash3_red_x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Resources\undo_clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Load_file_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\merge_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_bitmap3_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil_x241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exchange2_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy2_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trashcan01R_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CopyPaste2_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveSC_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveTXT_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ellipse00_x24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cursor_draw01.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_Ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_Cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_CopyAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_savesource.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_savebinary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spriteSX_icon_128px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spriteSX_logo_x2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\controlWin_maxi_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\controlWin_exit_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_Next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_Load.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_save-bitmap_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_save-bin_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_save_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_trash_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_config-prj_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_copy-paste_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_merge_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_new_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_selecter_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_exchange_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_copy_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_tick_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_down_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_up_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_right_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_left_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_invert_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_flip-horizontal_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_flip-vertical_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_rotate-left_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_rotate-right_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_pencil_x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_line_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_square_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_ellipse_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_paint_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_undo_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button_paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_Ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\H_ruler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\V_ruler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\H_ruler_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\V_ruler_16px.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
