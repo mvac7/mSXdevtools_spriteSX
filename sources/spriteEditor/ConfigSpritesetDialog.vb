@@ -19,7 +19,7 @@
 
     Public DialogType As DIALOG_TYPE
 
-    Private PageState As PAGE
+    Private PageState As PAGE = PAGE.SPRITESET_CONFIG
 
     Public Enum DIALOG_TYPE As Integer
         NEW_PROJECT

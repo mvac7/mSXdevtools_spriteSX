@@ -46,9 +46,8 @@ Public Class mainWin
 
         If Me.AppConfig.Load() Then
             lastProjects = Me.AppConfig.GetRecentProjectList(My.Application.Info.AssemblyName)
-            If Not lastProjects Is Nothing Then
-                Me.InitLauncher1.SetData(lastProjects) 'AppConfig.RecentProjects)
-            End If
+            Me.InitLauncher1.SetProjectsList(lastProjects)
+
         Else
             ' if not exist config file
             ShowLicense()
