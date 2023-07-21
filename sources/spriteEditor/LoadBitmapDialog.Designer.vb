@@ -28,6 +28,7 @@ Partial Class LoadBitmapDialog
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.infoBGColorLabel = New System.Windows.Forms.Label()
         Me.BGColorButton = New mSXdevtools.GUI.Controls.ColorButton()
+        Me.DraganddropPictureBox = New System.Windows.Forms.PictureBox()
         Me.BankComboBox = New System.Windows.Forms.ComboBox()
         Me.NameTextBox = New System.Windows.Forms.TextBox()
         Me.BGcolorLabel = New System.Windows.Forms.Label()
@@ -43,10 +44,9 @@ Partial Class LoadBitmapDialog
         Me.Title_Label = New mSXdevtools.GUI.Controls.piXelST_Label()
         Me.LoadBitmapButton = New mSXdevtools.GUI.Controls.piXelST_Button()
         Me.patternsPictureBox = New System.Windows.Forms.PictureBox()
-        Me.DraganddropPictureBox = New System.Windows.Forms.PictureBox()
+        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BottonsPanel.SuspendLayout()
         CType(Me.patternsPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
@@ -73,13 +73,26 @@ Partial Class LoadBitmapDialog
         '
         'BGColorButton
         '
+        Me.BGColorButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.BGColorButton.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BGColorButton.Location = New System.Drawing.Point(296, 168)
-        Me.BGColorButton.Margin = New System.Windows.Forms.Padding(9, 3, 9, 3)
+        Me.BGColorButton.Margin = New System.Windows.Forms.Padding(0)
+        Me.BGColorButton.MinimumSize = New System.Drawing.Size(32, 22)
         Me.BGColorButton.Name = "BGColorButton"
-        Me.BGColorButton.Size = New System.Drawing.Size(43, 26)
+        Me.BGColorButton.Size = New System.Drawing.Size(40, 26)
         Me.BGColorButton.TabIndex = 256
         Me.ToolTip1.SetToolTip(Me.BGColorButton, "Color priority to use as a background in the conversion.")
+        '
+        'DraganddropPictureBox
+        '
+        Me.DraganddropPictureBox.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.dragdrop_48_06Y
+        Me.DraganddropPictureBox.Location = New System.Drawing.Point(342, 112)
+        Me.DraganddropPictureBox.Margin = New System.Windows.Forms.Padding(0)
+        Me.DraganddropPictureBox.Name = "DraganddropPictureBox"
+        Me.DraganddropPictureBox.Size = New System.Drawing.Size(50, 50)
+        Me.DraganddropPictureBox.TabIndex = 14
+        Me.DraganddropPictureBox.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.DraganddropPictureBox, "Drag & Drop your picture files " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(PNG, GIF or SC2)")
         '
         'BankComboBox
         '
@@ -256,17 +269,6 @@ Partial Class LoadBitmapDialog
         Me.patternsPictureBox.TabIndex = 269
         Me.patternsPictureBox.TabStop = False
         '
-        'DraganddropPictureBox
-        '
-        Me.DraganddropPictureBox.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.dragdrop_48_06Y
-        Me.DraganddropPictureBox.Location = New System.Drawing.Point(342, 112)
-        Me.DraganddropPictureBox.Margin = New System.Windows.Forms.Padding(0)
-        Me.DraganddropPictureBox.Name = "DraganddropPictureBox"
-        Me.DraganddropPictureBox.Size = New System.Drawing.Size(50, 50)
-        Me.DraganddropPictureBox.TabIndex = 14
-        Me.DraganddropPictureBox.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.DraganddropPictureBox, "Drag & Drop your picture files " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(PNG, GIF or SC2)")
-        '
         'LoadBitmapDialog
         '
         Me.AcceptButton = Me.Ok_Button
@@ -301,9 +303,9 @@ Partial Class LoadBitmapDialog
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.BottonsPanel.ResumeLayout(False)
         CType(Me.patternsPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

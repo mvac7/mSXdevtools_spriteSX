@@ -72,20 +72,24 @@ Partial Class SpritesetDataControl
         '
         'FGColorButton
         '
+        Me.FGColorButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.FGColorButton.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FGColorButton.Location = New System.Drawing.Point(135, 23)
         Me.FGColorButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.FGColorButton.MinimumSize = New System.Drawing.Size(32, 22)
         Me.FGColorButton.Name = "FGColorButton"
-        Me.FGColorButton.Size = New System.Drawing.Size(32, 24)
+        Me.FGColorButton.Size = New System.Drawing.Size(37, 24)
         Me.FGColorButton.TabIndex = 236
         '
         'BGColorButton
         '
+        Me.BGColorButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.BGColorButton.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BGColorButton.Location = New System.Drawing.Point(135, 54)
         Me.BGColorButton.Margin = New System.Windows.Forms.Padding(4, 3, 4, 3)
+        Me.BGColorButton.MinimumSize = New System.Drawing.Size(33, 22)
         Me.BGColorButton.Name = "BGColorButton"
-        Me.BGColorButton.Size = New System.Drawing.Size(32, 24)
+        Me.BGColorButton.Size = New System.Drawing.Size(37, 24)
         Me.BGColorButton.TabIndex = 238
         '
         'NameTextBox

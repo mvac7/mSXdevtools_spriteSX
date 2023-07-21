@@ -97,9 +97,15 @@ Public Class mainWin
         Me.Hide()
         Application.DoEvents()
 
-        anEditorWin = New mSXdevtools.GUI.Controls.EditorWin(Me.AppConfig, anEditor, filePath)
+        If filePath IsNot "" Then
+            anEditorWin = New mSXdevtools.GUI.Controls.EditorWin(Me.AppConfig, anEditor, filePath)
+        Else
+            anEditorWin = New mSXdevtools.GUI.Controls.EditorWin(Me.AppConfig, anEditor)
+        End If
+
         anEditorWin.Icon = Me.Icon
-        anEditorWin.MinimumSize = New System.Drawing.Size(640, 620)
+        'anEditorWin.MinimumSize = New System.Drawing.Size(680, 640)
+        anEditorWin.Size = New System.Drawing.Size(680, 670)
         'anEditorWin.MaximizeBox = True
         anEditorWin.StartPosition = FormStartPosition.CenterScreen
         anEditorWin.FormBorderStyle = FormBorderStyle.FixedSingle
@@ -139,6 +145,7 @@ Public Class mainWin
         Dim aboutWinObject As New mSXdevtools.GUI.Controls.AboutWin()
         aboutWinObject.SetIcon = Me.anEditor.AboutIcon()
         aboutWinObject.SetLogo = Me.anEditor.AboutLogo()
+        aboutWinObject.StartPosition = FormStartPosition.CenterScreen
         aboutWinObject.ShowDialog()
 
         'Dim LicenseDialog As New LicenseWin(True)
@@ -151,6 +158,7 @@ Public Class mainWin
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
+
 
     Private Sub LicenseLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LicenseLinkLabel.LinkClicked
         System.Diagnostics.Process.Start(URL_GPL3)  'open default system WEB browser

@@ -226,16 +226,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\about_24.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cancel_16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\circle_tool_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\circle_x24.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\column_info.png" />
@@ -244,106 +235,13 @@
     <None Include="Resources\column_info_mono.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\copy_blue_16px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\disk_bitmap_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\dragdrop_48_06Y.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\flip-horizontal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\flip-vertical.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gtk-go-back-ltr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gtk-go-back-rtl.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gtk-go-down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gtk-go-up.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\help_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_dataOutput_24x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ico_trashcan3_24x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\invert_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\invert_x24_02.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\line_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\load_20x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\load_24x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\load_24x24x32b.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\merge_24x24x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\more_9x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\new.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\new2_241.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\object-rotate-left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\object-rotate-right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\paint_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\palette3_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pencil_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\project_properties_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save_20x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save_as_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save2_16x16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save2_x24.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\sprite_viewer.png" />
@@ -352,95 +250,22 @@
     <None Include="Resources\sprite_viewer36.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\square_tool_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\square_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\tick_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\trash_red_16px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\trash3_red_x16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="Resources\undo_clear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Load_file_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\merge_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\new_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save_bitmap3_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pencil_x241.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\exchange2_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\copy2_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\trashcan01R_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CopyPaste2_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\config_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\saveSC_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\saveTXT_x24.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ellipse00_x24.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cursor_draw01.cur" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button_Ok.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button_Cancel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button_CopyAll.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button_savesource.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\button_savebinary.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spriteSX_icon_128px.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\spriteSX_logo_x2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\controlWin_maxi_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\controlWin_exit_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_Back.png" />
@@ -518,9 +343,6 @@
     <None Include="Resources\ico_rotate-right_32px.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ico_pencil_x32.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ico_line_32px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -555,6 +377,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\V_ruler_16px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ico_draw_32px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -38,7 +38,7 @@ Partial Class ConfigSpritesetDialog
         Me.BottonsPanel.Controls.Add(Me.Ok_Button)
         Me.BottonsPanel.Controls.Add(Me.Cancel_Button)
         Me.BottonsPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottonsPanel.Location = New System.Drawing.Point(0, 680)
+        Me.BottonsPanel.Location = New System.Drawing.Point(0, 383)
         Me.BottonsPanel.Name = "BottonsPanel"
         Me.BottonsPanel.Padding = New System.Windows.Forms.Padding(4)
         Me.BottonsPanel.Size = New System.Drawing.Size(534, 44)
@@ -67,7 +67,6 @@ Partial Class ConfigSpritesetDialog
         Me.Ok_Button.ButtonColor = System.Drawing.Color.Gray
         Me.Ok_Button.ButtonType = mSXdevtools.GUI.Controls.piXelST_Button.Button_TYPES.Confirmation
         Me.Ok_Button.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Ok_Button.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Ok_Button.Dock = System.Windows.Forms.DockStyle.Right
         Me.Ok_Button.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
         Me.Ok_Button.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
@@ -142,17 +141,15 @@ Partial Class ConfigSpritesetDialog
         '
         'ConfigSpritesetDialog
         '
-        Me.AcceptButton = Me.Ok_Button
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 18.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(534, 724)
+        Me.ClientSize = New System.Drawing.Size(534, 427)
         Me.ControlBox = False
+        Me.Controls.Add(Me.BottonsPanel)
         Me.Controls.Add(Me.ProjectInfoUserControl1)
         Me.Controls.Add(Me.SpritesetDataUC)
         Me.Controls.Add(Me.Title_Label)
-        Me.Controls.Add(Me.BottonsPanel)
         Me.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Margin = New System.Windows.Forms.Padding(4)
