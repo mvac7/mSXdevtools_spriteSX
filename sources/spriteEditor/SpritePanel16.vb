@@ -179,21 +179,21 @@
 
 
 
-    Public Overrides Sub MoveUp()
+    Public Overrides Sub MoveUp(ByVal rotate As Boolean)
 
         AddUndo()
 
-        MyBase.MoveUp()
+        MyBase.MoveUp(rotate)
 
     End Sub
 
 
 
-    Public Overrides Sub MoveDown()
+    Public Overrides Sub MoveDown(ByVal rotate As Boolean)
 
         AddUndo()
 
-        MyBase.MoveDown()
+        MyBase.MoveDown(rotate)
 
     End Sub
 

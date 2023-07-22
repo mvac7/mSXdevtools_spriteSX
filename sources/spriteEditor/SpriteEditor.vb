@@ -1293,19 +1293,19 @@ Public Class SpriteEditor
             End If
 
             If e.KeyCode = Keys.Up Then
-                Me.SpriteContainer.MoveUp()
+                Me.SpriteContainer.MoveUp(False)
             End If
 
             If e.KeyCode = Keys.Down Then
-                Me.SpriteContainer.MoveDown()
+                Me.SpriteContainer.MoveDown(False)
             End If
 
             If e.KeyCode = Keys.Right Then
-                Me.SpriteContainer.MoveRight()
+                Me.SpriteContainer.MoveRight(False)
             End If
 
             If e.KeyCode = Keys.Left Then
-                Me.SpriteContainer.MoveLeft()
+                Me.SpriteContainer.MoveLeft(False)
             End If
 
 
@@ -1495,20 +1495,36 @@ Public Class SpriteEditor
         Me.SpriteContainer.RotateRight()
     End Sub
 
-    Private Sub Move2LeftButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Move2LeftButton.Click
-        Me.SpriteContainer.MoveLeft()
+    Private Sub Move2LeftButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2LeftButton.MouseDown
+        If e.Button = MouseButtons.Right Then
+            Me.SpriteContainer.MoveLeft(True)
+        Else
+            Me.SpriteContainer.MoveLeft(False)
+        End If
     End Sub
 
-    Private Sub Move2RightButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Move2RightButton.Click
-        Me.SpriteContainer.MoveRight()
+    Private Sub Move2RightButton_MouseDownk(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2RightButton.MouseDown
+        If e.Button = MouseButtons.Right Then
+            Me.SpriteContainer.MoveRight(True)
+        Else
+            Me.SpriteContainer.MoveRight(False)
+        End If
     End Sub
 
-    Private Sub Move2UpButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Move2UpButton.Click
-        Me.SpriteContainer.MoveUp()
+    Private Sub Move2UpButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2UpButton.MouseDown
+        If e.Button = MouseButtons.Right Then
+            Me.SpriteContainer.MoveUp(True)
+        Else
+            Me.SpriteContainer.MoveUp(False)
+        End If
     End Sub
 
-    Private Sub Move2downButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Move2downButton.Click
-        Me.SpriteContainer.MoveDown()
+    Private Sub Move2downButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2downButton.MouseDown
+        If e.Button = MouseButtons.Right Then
+            Me.SpriteContainer.MoveDown(True)
+        Else
+            Me.SpriteContainer.MoveDown(False)
+        End If
     End Sub
 
     Private Sub UpdateButton_Click(sender As System.Object, e As System.EventArgs) Handles UpdateButton.Click

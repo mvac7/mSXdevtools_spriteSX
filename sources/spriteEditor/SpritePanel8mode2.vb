@@ -170,52 +170,77 @@
 
 
 
-    Public Overrides Sub MoveUp()
+    Public Overrides Sub MoveUp(ByVal rotate As Boolean)
+
         Dim tempORdata(_HIGH) As Boolean
         Dim tempColorData(_HIGH) As Byte
 
+        Dim rotateColor As Byte
+        Dim rotateOR As Boolean
+
         AddUndo()
 
+        tempColorData = Me.colorValues.Clone
         tempORdata = Me.ORvalues.Clone
+
+        rotateColor = tempColorData(0)
+        rotateOR = tempORdata(0)
+
+        For i As Integer = 0 To _HIGH - 1
+            Me.colorValues(i) = tempColorData(i + 1)
+        Next
 
         For i As Integer = 0 To _HIGH - 1
             Me.ORvalues(i) = tempORdata(i + 1)
         Next
 
-        Me.ORvalues(_HIGH) = Me._ORselected
+        If rotate = True Then
+            Me.colorValues(_HIGH) = rotateColor
+            Me.ORvalues(_HIGH) = rotateOR
+        Else
+            Me.colorValues(_HIGH) = Me.InkColor
+            Me.ORvalues(_HIGH) = Me._ORselected
+        End If
 
-        tempColorData = Me.colorValues.Clone
-        For i As Integer = 0 To _HIGH - 1
-            Me.colorValues(i) = tempColorData(i + 1)
-        Next
-        Me.colorValues(_HIGH) = Me.InkColor
-
-        MyBase.MoveUp()
+        MyBase.MoveUp(rotate)
 
     End Sub
 
 
 
-    Public Overrides Sub MoveDown()
+    Public Overrides Sub MoveDown(ByVal rotate As Boolean)
+
         Dim tempORdata(_HIGH) As Boolean
         Dim tempColorData(_HIGH) As Byte
 
+        Dim rotateColor As Byte
+        Dim rotateOR As Boolean
+
         AddUndo()
 
+        tempColorData = Me.colorValues.Clone
         tempORdata = Me.ORvalues.Clone
+
+        rotateColor = tempColorData(_HIGH)
+        rotateOR = tempORdata(_HIGH)
+
+        For i As Integer = 1 To _HIGH
+            Me.colorValues(i) = tempColorData(i - 1)
+        Next
 
         For i As Integer = 1 To _HIGH
             Me.ORvalues(i) = tempORdata(i - 1)
         Next
-        Me.ORvalues(0) = Me._ORselected
 
-        tempColorData = Me.colorValues.Clone
-        For i As Integer = 1 To _HIGH
-            Me.colorValues(i) = tempColorData(i - 1)
-        Next
-        Me.colorValues(0) = Me.InkColor
+        If rotate = True Then
+            Me.colorValues(0) = rotateColor
+            Me.ORvalues(0) = rotateOR
+        Else
+            Me.colorValues(0) = Me.InkColor
+            Me.ORvalues(0) = Me._ORselected
+        End If
 
-        MyBase.MoveDown()
+        MyBase.MoveDown(rotate)
 
     End Sub
 

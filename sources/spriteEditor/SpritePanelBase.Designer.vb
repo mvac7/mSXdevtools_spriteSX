@@ -31,15 +31,15 @@ Partial Class SpritePanelBase
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.colorPanel = New System.Windows.Forms.Panel()
         Me.ColorsPanel = New System.Windows.Forms.Panel()
+        Me.infoPictureBox = New System.Windows.Forms.PictureBox()
         Me.VRulerPicture = New System.Windows.Forms.PictureBox()
         Me.HRulerPicture = New System.Windows.Forms.PictureBox()
-        Me.infoPictureBox = New System.Windows.Forms.PictureBox()
         Me.SpriteContainerPanel = New System.Windows.Forms.PictureBox()
         Me.colorPanel.SuspendLayout()
         Me.ColorsPanel.SuspendLayout()
+        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VRulerPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HRulerPicture, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SpriteContainerPanel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -103,7 +103,7 @@ Partial Class SpritePanelBase
         '
         Me.colorPanel.Controls.Add(Me.ColorsPanel)
         Me.colorPanel.Controls.Add(Me.infoPictureBox)
-        Me.colorPanel.Location = New System.Drawing.Point(277, 4)
+        Me.colorPanel.Location = New System.Drawing.Point(275, 6)
         Me.colorPanel.Name = "colorPanel"
         Me.colorPanel.Size = New System.Drawing.Size(74, 41)
         Me.colorPanel.TabIndex = 27
@@ -117,6 +117,16 @@ Partial Class SpritePanelBase
         Me.ColorsPanel.Name = "ColorsPanel"
         Me.ColorsPanel.Size = New System.Drawing.Size(70, 16)
         Me.ColorsPanel.TabIndex = 28
+        '
+        'infoPictureBox
+        '
+        Me.infoPictureBox.BackColor = System.Drawing.Color.Transparent
+        Me.infoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.infoPictureBox.Location = New System.Drawing.Point(8, 0)
+        Me.infoPictureBox.Name = "infoPictureBox"
+        Me.infoPictureBox.Size = New System.Drawing.Size(55, 24)
+        Me.infoPictureBox.TabIndex = 25
+        Me.infoPictureBox.TabStop = False
         '
         'VRulerPicture
         '
@@ -142,16 +152,6 @@ Partial Class SpritePanelBase
         Me.HRulerPicture.TabIndex = 28
         Me.HRulerPicture.TabStop = False
         '
-        'infoPictureBox
-        '
-        Me.infoPictureBox.BackColor = System.Drawing.Color.Transparent
-        Me.infoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.infoPictureBox.Location = New System.Drawing.Point(8, 0)
-        Me.infoPictureBox.Name = "infoPictureBox"
-        Me.infoPictureBox.Size = New System.Drawing.Size(55, 24)
-        Me.infoPictureBox.TabIndex = 25
-        Me.infoPictureBox.TabStop = False
-        '
         'SpriteContainerPanel
         '
         Me.SpriteContainerPanel.BackColor = System.Drawing.Color.DimGray
@@ -176,9 +176,9 @@ Partial Class SpritePanelBase
         Me.Size = New System.Drawing.Size(350, 320)
         Me.colorPanel.ResumeLayout(False)
         Me.ColorsPanel.ResumeLayout(False)
+        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VRulerPicture, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HRulerPicture, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SpriteContainerPanel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

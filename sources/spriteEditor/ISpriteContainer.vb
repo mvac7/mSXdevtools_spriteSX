@@ -38,10 +38,11 @@ Public Interface ISpriteContainer
     Sub FlipVertical()
     Sub RotateRight()
     Sub RotateLeft()
-    Sub MoveLeft()
-    Sub MoveRight()
-    Sub MoveUp()
-    Sub MoveDown()
+
+    Sub MoveLeft(ByVal rotate As Boolean)
+    Sub MoveRight(ByVal rotate As Boolean)
+    Sub MoveUp(ByVal rotate As Boolean)
+    Sub MoveDown(ByVal rotate As Boolean)
 
     Sub Invert()
 

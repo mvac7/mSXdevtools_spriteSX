@@ -225,77 +225,80 @@
     End Sub
 
 
-    Public Overrides Sub MoveUp()
+
+    Public Overrides Sub MoveUp(ByVal rotate As Boolean)
+
         Dim tempORdata(_HIGH) As Boolean
         Dim tempColorData(_HIGH) As Byte
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tempPixelData As ArrayList = Me.spriteLines.Clone
-        'Dim tsize As Integer = _WIDTH + 1
+
+        Dim rotateColor As Byte
+        Dim rotateOR As Boolean
 
         AddUndo()
 
-        'tempPixelData = pixelData.Clone
+        tempColorData = Me.colorValues.Clone
         tempORdata = Me.ORvalues.Clone
+
+        rotateColor = tempColorData(0)
+        rotateOR = tempORdata(0)
+
+        For i As Integer = 0 To _HIGH - 1
+            Me.colorValues(i) = tempColorData(i + 1)
+        Next
 
         For i As Integer = 0 To _HIGH - 1
             Me.ORvalues(i) = tempORdata(i + 1)
         Next
-        'Me.orPic(_HIGH).TabStop = Me._ORselected
-        Me.ORvalues(_HIGH) = Me._ORselected
 
-        tempColorData = Me.colorValues.Clone
-        For i As Integer = 0 To _HIGH - 1
-            Me.colorValues(i) = tempColorData(i + 1)
-        Next
-        Me.colorValues(_HIGH) = Me.inkColor
+        If rotate = True Then
+            Me.colorValues(_HIGH) = rotateColor
+            Me.ORvalues(_HIGH) = rotateOR
+        Else
+            Me.colorValues(_HIGH) = Me.InkColor
+            Me.ORvalues(_HIGH) = Me._ORselected
+        End If
 
-        'For x As Integer = 0 To _WIDTH
-        '    For y As Integer = 0 To _HIGH - 1
-        '        pixelData(y * tsize + x) = tempPixelData((y + 1) * tsize + x)
-        '    Next
-        '    pixelData(_HIGH * tsize + x) = False
-        'Next
 
-        'ShowSprite()
-
-        MyBase.MoveUp()
+        MyBase.MoveUp(rotate)
 
     End Sub
 
 
 
-    Public Overrides Sub MoveDown()
+    Public Overrides Sub MoveDown(ByVal rotate As Boolean)
+
         Dim tempORdata(_HIGH) As Boolean
         Dim tempColorData(_HIGH) As Byte
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
+
+        Dim rotateColor As Byte
+        Dim rotateOR As Boolean
 
         AddUndo()
 
-        'tempPixelData = pixelData.Clone
+        tempColorData = Me.colorValues.Clone
         tempORdata = Me.ORvalues.Clone
+
+        rotateColor = tempColorData(_HIGH)
+        rotateOR = tempORdata(_HIGH)
+
+        For i As Integer = 1 To _HIGH
+            Me.colorValues(i) = tempColorData(i - 1)
+        Next
 
         For i As Integer = 1 To _HIGH
             Me.ORvalues(i) = tempORdata(i - 1)
         Next
-        Me.ORvalues(0) = Me._ORselected
 
-        tempColorData = Me.colorValues.Clone
-        For i As Integer = 1 To _HIGH
-            Me.colorValues(i) = tempColorData(i - 1)
-        Next
-        Me.colorValues(0) = Me.inkColor
+        If rotate = True Then
+            Me.colorValues(0) = rotateColor
+            Me.ORvalues(0) = rotateOR
+        Else
+            Me.colorValues(0) = Me.InkColor
+            Me.ORvalues(0) = Me._ORselected
+        End If
 
-        'For x As Integer = 0 To _WIDTH
-        '    For y As Integer = 0 To _HIGH - 1
-        '        pixelData((y + 1) * tsize + x) = tempPixelData(y * tsize + x)
-        '    Next
-        '    pixelData(x) = False
-        'Next
 
-        'ShowSprite()
-
-        MyBase.MoveDown()
+        MyBase.MoveDown(rotate)
 
     End Sub
 

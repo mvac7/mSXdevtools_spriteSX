@@ -236,7 +236,7 @@
             Me.VRulerPicture.Size = New System.Drawing.Size(16, 128)
             Me._WIDTH = 7
             Me._HIGH = 7
-            Me.colorPanel.Location = New System.Drawing.Point(151, 4)
+            Me.colorPanel.Location = New System.Drawing.Point(Me.SpriteContainerPanel.Location.X + Me.SpriteContainerPanel.Size.Width + 2, Me.colorPanel.Location.Y)
         Else
             '16x16
             Me.SpriteContainerPanel.Size = New System.Drawing.Size(257, 257)
@@ -328,19 +328,20 @@
 
     Private Sub GenerateColorLine(ByVal numy As Integer)
 
-        Dim y As Integer = numy * 16 + 46
-        Dim x As Integer
+        Dim posY As Integer = numy * 16 + 47
+        Dim posX As Integer
 
         Dim ORBitLine = New System.Windows.Forms.Button()
         Dim colorINKLine = New System.Windows.Forms.Button()
 
 
-        If Me._SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
-            x = 151
-        Else
-            x = 275
-        End If
+        'If Me._SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+        '    x = 151
+        'Else
+        '    x = 275
+        'End If
 
+        posX = Me.SpriteContainerPanel.Location.X + Me.SpriteContainerPanel.Size.Width + 2
 
         '
         'ORPicture Checker
@@ -349,7 +350,7 @@
         ORBitLine.FlatAppearance.BorderSize = 0
         ORBitLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         ORBitLine.Cursor = System.Windows.Forms.Cursors.Hand
-        ORBitLine.Location = New System.Drawing.Point(x, y)
+        ORBitLine.Location = New System.Drawing.Point(posX, posY)
         ORBitLine.Name = "ORPictureCheckBox" + CStr(numy)
         ORBitLine.Size = New System.Drawing.Size(15, 15)
         ORBitLine.TabIndex = numy
@@ -364,7 +365,7 @@
         colorINKLine.FlatAppearance.BorderSize = 0
         colorINKLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         colorINKLine.Cursor = System.Windows.Forms.Cursors.Hand
-        colorINKLine.Location = New System.Drawing.Point(x + 16, y)
+        colorINKLine.Location = New System.Drawing.Point(posX + 16, posY)
         colorINKLine.Name = "colorINKLine" + CStr(numy)
         colorINKLine.Size = New System.Drawing.Size(15, 15)
         colorINKLine.TabIndex = numy
@@ -610,22 +611,7 @@
     ''' <remarks></remarks>
     Overridable Sub ClearSprite() Implements ISpriteContainer.ClearSprite
 
-        'AddUndo()
-
-        '_step = 0
-
-        'For i As Integer = 0 To _matrixdataSize
-        '    pixelData(i) = False
-        'Next
-
         Me.spriteLines.Clear()
-
-        'For y As Integer = 0 To _HIGH
-        '    For x As Integer = 0 To _WIDTH
-        '        Me.spriteLines.Item(y)(x) = False
-        '    Next
-        'Next
-
 
         ShowSprite()
 
@@ -663,17 +649,6 @@
 
 
 
-    'Public Function clonePixelData() As ArrayList
-    '    Dim tempPixelData As New ArrayList
-
-    '    For y As Integer = 0 To _HIGH
-    '        tempPixelData.Add(Me.spriteLines.Item(y).Clone())
-    '    Next
-
-    '    Return tempPixelData
-    'End Function
-
-
     ''' <summary>
     ''' Voltear verticalmente el sprite.
     ''' </summary>
@@ -681,12 +656,6 @@
     Overridable Sub FlipVertical() Implements ISpriteContainer.FlipVertical
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _HIGH + 1
-
-        'AddUndo()
-
-        'tempPixelData = pixelData.Clone
 
         For y As Integer = 0 To _HIGH
             Me.spriteLines.Item(y) = tempPixelData.Item(_HIGH - y)   '.Clone()    ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< OJO no permite hacer un clone. Desconozco si al ser un Array realiza una copia automatica o pasa una referencia ???
@@ -708,12 +677,8 @@
     Overridable Sub RotateRight() Implements ISpriteContainer.RotateRight
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
 
         AddUndo()
-
-        'tempPixelData = pixelData.Clone
 
         For y As Integer = 0 To _HIGH
 
@@ -737,12 +702,8 @@
     Overridable Sub RotateLeft() Implements ISpriteContainer.RotateLeft
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
 
         AddUndo()
-
-        'tempPixelData = pixelData.Clone
 
         For y As Integer = 0 To _HIGH
 
@@ -763,24 +724,25 @@
     ''' Desplaza un punto a la izquierda, el grafico del sprite.
     ''' </summary>
     ''' <remarks></remarks>
-    Overridable Sub MoveLeft() Implements ISpriteContainer.MoveLeft
+    Overridable Sub MoveLeft(ByVal rotate As Boolean) Implements ISpriteContainer.MoveLeft
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
+
+        Dim CarryFlag As Boolean = False
 
         AddUndo()
 
-        'tempPixelData = pixelData.Clone
-
         For y As Integer = 0 To _HIGH
+
+            If rotate = True Then
+                CarryFlag = Me.spriteLines.Item(y)(0)
+            End If
 
             For x As Integer = 0 To _WIDTH - 1
                 'pixelData(y * tsize + x) = tempPixelData(y * tsize + x + 1)
                 Me.spriteLines.Item(y)(x) = tempPixelData.Item(y)(x + 1)
             Next
-            Me.spriteLines.Item(y)(_WIDTH) = False
-            'pixelData(y * tsize + _WIDTH) = False
+            Me.spriteLines.Item(y)(_WIDTH) = CarryFlag
 
         Next
 
@@ -794,24 +756,24 @@
     ''' Desplaza un punto a la derecha, el grafico del sprite.
     ''' </summary>
     ''' <remarks></remarks>
-    Overridable Sub MoveRight() Implements ISpriteContainer.MoveRight
+    Overridable Sub MoveRight(ByVal rotate As Boolean) Implements ISpriteContainer.MoveRight
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
+
+        Dim CarryFlag As Boolean = False
 
         AddUndo()
 
-        'tempPixelData = pixelData.Clone
-
         For y As Integer = 0 To _HIGH
 
+            If rotate = True Then
+                CarryFlag = Me.spriteLines.Item(y)(_WIDTH)
+            End If
+
             For x As Integer = 0 To _WIDTH - 1
-                'pixelData(y * tsize + x + 1) = tempPixelData(y * tsize + x)
                 Me.spriteLines.Item(y)(x + 1) = tempPixelData.Item(y)(x)
             Next
-            'pixelData(y * tsize) = False
-            Me.spriteLines.Item(y)(0) = False
+            Me.spriteLines.Item(y)(0) = CarryFlag
 
         Next
 
@@ -825,30 +787,24 @@
     ''' Desplaza un punto hacia arriba el sprite.
     ''' </summary>
     ''' <remarks></remarks>
-    Overridable Sub MoveUp() Implements ISpriteContainer.MoveUp
+    Overridable Sub MoveUp(ByVal rotate As Boolean) Implements ISpriteContainer.MoveUp
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
 
-        'AddUndo()
-
-        'tempPixelData = pixelData.Clone
-
-        'For x As Integer = 0 To _WIDTH
+        Dim rotateLine As Boolean() = tempPixelData.Item(0)
 
         For y As Integer = 0 To _HIGH - 1
             Me.spriteLines.Item(y) = tempPixelData.Item(y + 1)   '.Clone()
-            '    pixelData(y * tsize + x) = tempPixelData((y + 1) * tsize + x)
         Next
-        'pixelData(_HIGH * tsize + x) = False
-        'Next
 
-        ' clear the last line
-        For x As Integer = 0 To _WIDTH
-            Me.spriteLines.Item(_HIGH)(x) = False
-        Next
-        ' Me.spriteLines.Item(_HIGH) = tempPixelData.Item(0)
+        If rotate = True Then
+            Me.spriteLines.Item(_HIGH) = rotateLine
+        Else
+            ' clear the last line
+            For x As Integer = 0 To _WIDTH
+                Me.spriteLines.Item(_HIGH)(x) = False
+            Next
+        End If
 
         ShowSprite()
 
@@ -860,31 +816,24 @@
     ''' Desplaza un punto hacia abajo el sprite.
     ''' </summary>
     ''' <remarks></remarks>
-    Overridable Sub MoveDown() Implements ISpriteContainer.MoveDown
+    Overridable Sub MoveDown(ByVal rotate As Boolean) Implements ISpriteContainer.MoveDown
 
         Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _WIDTH + 1
 
-        'AddUndo()
-
-        'tempPixelData = pixelData.Clone
-        'For x As Integer = 0 To _WIDTH
-        '    For y As Integer = 0 To _HIGH - 1
-        '        pixelData((y + 1) * tsize + x) = tempPixelData(y * tsize + x)
-        '    Next
-        '    pixelData(x) = False
-        'Next
+        Dim rotateLine As Boolean() = tempPixelData.Item(_HIGH)
 
         For y As Integer = 0 To _HIGH - 1
             Me.spriteLines.Item(y + 1) = tempPixelData.Item(y)   '.Clone()
         Next
 
-        ' clear first line
-        For x As Integer = 0 To _WIDTH
-            Me.spriteLines.Item(0)(x) = False
-        Next
-        ' Me.spriteLines.Item(0) = tempPixelDatas.Item(_HIGH)
+        If rotate = True Then
+            Me.spriteLines.Item(0) = rotateLine
+        Else
+            ' clear first line
+            For x As Integer = 0 To _WIDTH
+                Me.spriteLines.Item(0)(x) = False
+            Next
+        End If
 
         ShowSprite()
 
