@@ -3,8 +3,9 @@
 
 
 ''' <summary>
-''' tMSgfX spriteSX devtool
-''' Copyright mvac7 (aka aorante) 2023 
+''' tMSgfX's spriteSX devtool
+''' 
+''' Copyright 2023 mvac7 (aka aorante)
 ''' This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
 ''' as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. 
 ''' This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
@@ -477,9 +478,9 @@ Public Class SpriteEditor
         'Dim result As DialogResult
         'result = MsgBox("This option will delete a current Sprite Set." + Chr(13) + "Are you sure?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Question")
 
-        Dim messageWin As New MessageDialog("Question", "This option will delete a current Sprite Set." + Chr(13) + "Are you sure?", MessageDialog.DIALOG_TYPE.YES_NO)
+        Dim messageWin As New MessageDialog()
 
-        If messageWin.ShowDialog(Me) = DialogResult.Yes Then
+        If messageWin.ShowDialog(Me, "Question", "This option will delete a current Sprite Set." + Chr(13) + "Are you sure?", MessageDialog.DIALOG_TYPE.YES_NO) = DialogResult.Yes Then
             Me.Project.SpriteSets.DeleteByID(Me._spritesetSelected.ID)
 
             ifProjectEmpty()
@@ -857,7 +858,7 @@ Public Class SpriteEditor
 
         If Me.Project.Path = "" Then
             Me.SaveFileDialog1.FileName = Me._spritesetSelected.Name
-            Me.SaveFileDialog1.InitialDirectory = Me.AppConfig.PathItemSprite.Path
+            Me.SaveFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
         Else
             Me.SaveFileDialog1.FileName = Me._spritesetSelected.Name
             Me.SaveFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.Project.Path)
@@ -867,7 +868,7 @@ Public Class SpriteEditor
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             _tmsgfxIO.SaveSpriteset(SaveFileDialog1.FileName, Me._spritesetSelected.ID)
-            Me.AppConfig.PathItemSprite.UpdateLastPath(Path.GetDirectoryName(SaveFileDialog1.FileName))
+            'Me.AppConfig.PathItemSprite.UpdateLastPath(Path.GetDirectoryName(SaveFileDialog1.FileName))
         End If
 
     End Sub
@@ -882,7 +883,7 @@ Public Class SpriteEditor
 
 
     Private Sub SaveSpritesBitmap()
-        Dim aBitmapWin As New SaveBitmapDialog(Me.AppConfig, Me.Project.SpriteSets, Me.Project.Palettes, Me.Project.Info.Name, Me._spritesetSelected.ID) ', Me.Path_SC2, Me.Path_Bitmap
+        Dim aBitmapWin As New SaveBitmapDialog(Me.AppConfig, Me.Project.SpriteSets, Me.Project.Palettes, Me.Project.Info.Name, Me.Project.Path, Me._spritesetSelected.ID) ', Me.Path_SC2, Me.Path_Bitmap
         aBitmapWin.ShowDialog()
     End Sub
 
@@ -965,8 +966,8 @@ Public Class SpriteEditor
         Else
             ' en el caso de que no exista
             'MsgBox("The file does not exist!", MsgBoxStyle.Exclamation + MsgBoxStyle.OkOnly, "Load Project")
-            Dim messageWin As New MessageDialog("Load Project", "The file does not exist!", MessageDialog.DIALOG_TYPE.ALERT)
-            messageWin.ShowDialog(Me)
+            Dim messageWin As New MessageDialog()
+            messageWin.ShowDialog(Me, "Load Project", "The file does not exist!", MessageDialog.DIALOG_TYPE.ALERT)
         End If
 
         Return result
@@ -981,7 +982,7 @@ Public Class SpriteEditor
 
         If Me.Project.Path = "" Then
             Me.OpenFileDialog1.FileName = ""
-            Me.OpenFileDialog1.InitialDirectory = Me.AppConfig.PathItemSprite.Path
+            Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
         Else
             'Me.OpenFileDialog1.FileName = ""
             Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.Project.Path)
@@ -1025,7 +1026,7 @@ Public Class SpriteEditor
 
             If newID > 0 Then
 
-                Me.AppConfig.PathItemSprite.UpdateLastPath(Path.GetDirectoryName(filePath))
+                'Me.AppConfig.PathItemSprite.UpdateLastPath(Path.GetDirectoryName(filePath))
 
                 RefreshSpritesetSelector()
                 SpritesetComboBox.SelectedIndex = Me.Project.SpriteSets.GetIndexFromID(newID)
@@ -1097,8 +1098,8 @@ Public Class SpriteEditor
             ' Si se pasa cuando el resultado de la carga es correcto, puede ser interesante ya que conservaria los datos anteriores.
         Else
             'MsgBox("Disk I/O error.", MsgBoxStyle.Critical, "Error")
-            Dim messageWin As New MessageDialog("Load Project", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
-            messageWin.ShowDialog(Me)
+            Dim messageWin As New MessageDialog()
+            messageWin.ShowDialog(Me, "Load Project", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
         End If
 
         Return result
@@ -1139,8 +1140,8 @@ Public Class SpriteEditor
             Me.Project = _tmsgfxIO.Project   ' << OJO >> En _tmsgfxIO se pierde la referencia al objeto Project... ¿¿????? 
             ' Si se pasa cuando el resultado de la carga es correcto, puede ser interesante ya que conservaria los datos anteriores.
         Else
-            Dim messageWin As New MessageDialog("Load Project", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
-            messageWin.ShowDialog(Me)
+            Dim messageWin As New MessageDialog()
+            messageWin.ShowDialog(Me, "Load Project", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
         End If
 
 

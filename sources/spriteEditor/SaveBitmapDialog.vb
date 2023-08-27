@@ -6,13 +6,12 @@ Public Class SaveBitmapDialog
     Private AppConfig As Config
 
     'Private myBitmapImage As Bitmap
-    Public Path_SC2 As String = ""
+    'Public Path_SC2 As String = ""
 
-    Public _loadPath As String = ""
-
-    Public _projectName As String  '= ""
-    Public _ProjectSize As SpriteMSX.SPRITE_SIZE  ' 0=8x8,  1=16x16 
-    Public _ProjectMode As SpriteMSX.SPRITE_MODE  ' 1=MSX1, 2=MSX2
+    Private ProjectPath As String
+    Private _projectName As String  '= ""
+    Private _projectSize As SpriteMSX.SPRITE_SIZE  ' 0=8x8,  1=16x16 
+    Private _projectMode As SpriteMSX.SPRITE_MODE  ' 1=MSX1, 2=MSX2
 
     'Public Sprites As SpritesetMSX
 
@@ -97,7 +96,7 @@ Public Class SaveBitmapDialog
 
 
 
-    Public Sub New(ByVal _config As Config, ByVal _spritePrj As SpriteProject, ByVal palettePrj As PaletteProject, prjName As String, _spritesetID As Integer) ', ByVal _pathSC2 As String, ByVal _pathBitmap As String
+    Public Sub New(ByVal _config As Config, ByVal _spritePrj As SpriteProject, ByVal palettePrj As PaletteProject, ByVal prjName As String, ByVal prjPath As String, _spritesetID As Integer) ', ByVal _pathSC2 As String, ByVal _pathBitmap As String
 
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
@@ -110,10 +109,10 @@ Public Class SaveBitmapDialog
         Me.Palettes = palettePrj
         Me._spriteProject = _spritePrj
 
-        Me.ProjectName = prjName 'Me._spriteProject.Info.Name
+        Me.ProjectName = prjName
+        Me.ProjectPath = prjPath
 
         Me.spritesetID = _spritesetID
-
 
     End Sub
 
@@ -748,17 +747,17 @@ Public Class SaveBitmapDialog
         Me.SaveFileDialog1.DefaultExt = "png"
         Me.SaveFileDialog1.Filter = "PNG file|*.png"
 
-        If Me.AppConfig.PathItemBitmap.Path = "" Then
+        If Me.ProjectPath = "" Then
             Me.SaveFileDialog1.InitialDirectory = Application.StartupPath
         Else
-            Me.SaveFileDialog1.InitialDirectory = Me.AppConfig.PathItemBitmap.Path
+            Me.SaveFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.ProjectPath)
         End If
 
         Me.SaveFileDialog1.FileName = Me.NameTextBox.Text
 
         If SaveFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Me.TMS9918Aviewer.SaveScreenPNG(SaveFileDialog1.FileName)
-            Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(SaveFileDialog1.FileName))
+            'Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(SaveFileDialog1.FileName))
         End If
 
     End Sub

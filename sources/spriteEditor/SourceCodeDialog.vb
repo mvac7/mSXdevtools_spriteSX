@@ -99,7 +99,7 @@
         Dim endSprite As Integer = CInt(toTextBox.Text)
 
         _dataFormat.BASIC_Line = DataTypeInput.BASIClineNumber
-        _dataFormat.BASIC_increment = DataTypeInput.BASICInterval
+        _dataFormat.BASIC_increment = DataTypeInput.BASIClineInterval
 
         Me.binaryFiles.Clear()
 
@@ -135,7 +135,7 @@
                     lebelsList.Add(_dataFormat.GetAsmFieldFormat(aName) + SUFFIX_TYPE + "_PAT")
                 Next
 
-                outputSource += _assembler.GetLabelsIndex("SPRPATTERN_INDEX", lebelsList, DataTypeInput.AsmWordCommand)
+                outputSource += _assembler.GetLabelsIndex("SPRPATTERN_INDEX", lebelsList, DataTypeInput.AsmDataWordCommand)
                 outputSource += vbNewLine
 
             End If
@@ -155,7 +155,7 @@
                         End If
                     Next
 
-                    outputSource += _assembler.GetLabelsIndex("SPRCOLORS_INDEX", lebelsList, DataTypeInput.AsmWordCommand)
+                    outputSource += _assembler.GetLabelsIndex("SPRCOLORS_INDEX", lebelsList, DataTypeInput.AsmDataWordCommand)
                     outputSource += vbNewLine
 
                 End If
@@ -449,7 +449,7 @@
         fileName = Me.Info.Name
         ' si no usar el nombre del item
 
-        SaveBinaryDialog(fileName, fileExtension, filesFilter, Me.DataTypeInput.LanguageCode, Me.DataTypeInput.ASMaddIndex, Me.DataTypeInput.AsmWordCommand)
+        SaveBinaryDialog(fileName, fileExtension, filesFilter, Me.DataTypeInput.LanguageCode, Me.DataTypeInput.ASMaddIndex, Me.DataTypeInput.AsmDataWordCommand)
 
     End Sub
 

@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 
 ' Revisar los valores de los atributos del ensamblado
 
-<Assembly: AssemblyTitle("SpriteEditor")>
+<Assembly: AssemblyTitle("spriteEditor")>
 <Assembly: AssemblyDescription("TMS9918A and V9938 Sprites Editor Tool")>
 <Assembly: AssemblyCompany("MSX comm·unity")>
 <Assembly: AssemblyProduct("tMSgfX")>

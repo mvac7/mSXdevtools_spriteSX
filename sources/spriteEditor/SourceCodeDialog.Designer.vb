@@ -70,12 +70,12 @@ Partial Class SourceCodeDialog
         Me.DataTypeInput.CompressType = mSXdevtools.DataCompressEncoders.iCompressEncoder.COMPRESS_TYPE.RAW
         Me.DataTypeInput.EnableAssemblerIndex = False
         Me.DataTypeInput.EnableCompress = True
-        Me.DataTypeInput.EnableDataSizeLine = False
+        Me.DataTypeInput.EnableDataLineSize = False
         Me.DataTypeInput.FieldName = "DATA"
         Me.DataTypeInput.Location = New System.Drawing.Point(12, 97)
         Me.DataTypeInput.Name = "DataTypeInput"
         Me.DataTypeInput.Size = New System.Drawing.Size(518, 117)
-        Me.DataTypeInput.SizeLineIndex = 6
+        Me.DataTypeInput.LineSizeIndex = 6
         Me.DataTypeInput.TabIndex = 0
         '
         'RangePanel

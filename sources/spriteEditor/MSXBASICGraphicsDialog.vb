@@ -6,7 +6,7 @@ Public Class MSXBASICGraphicsDialog
     Private AppConfig As Config
     Private Project As tMSgfXProject
 
-    Public Path_SC2 As String = ""
+    'Public Path_SC2 As String = ""
 
     Public Sprites As SpritesetMSX
 
@@ -20,14 +20,17 @@ Public Class MSXBASICGraphicsDialog
 
     Private LoadPath As String
 
+    Private ProjectPath As String
+
 
     Public Mode As IO_MODE
+
+
 
     Public Enum IO_MODE As Short
         LOAD
         SAVE
     End Enum
-
 
 
 
@@ -43,7 +46,7 @@ Public Class MSXBASICGraphicsDialog
 
         Me.spritesetID = _spritesetID
 
-        Me.Path_SC2 = Me.AppConfig.PathItemBinary.Path '_pathSC2
+        'Me.Path_SC2 = AppConfig.PathItemBinary.Path
 
         Me.Mode = IO_MODE.SAVE
 
@@ -63,7 +66,7 @@ Public Class MSXBASICGraphicsDialog
 
         Me.spritesetID = -1
 
-        Me.Path_SC2 = Me.AppConfig.PathItemBinary.Path '_pathSC2
+        'Me.Path_SC2 = AppConfig.PathItemBinary.Path
 
         Me.LoadPath = filePath
 
@@ -169,24 +172,14 @@ Public Class MSXBASICGraphicsDialog
 
 
 
-    Private Sub ActionButton_Click(sender As System.Object, e As System.EventArgs)
-
-
-
-    End Sub
-
-
-
-
-
     Private Sub SaveDialog()
         Me.SaveFileDialog1.DefaultExt = "spr"
         Me.SaveFileDialog1.Filter = "MSX BASIC Graphics|*.spr;*.sc2"
 
-        If Me.Path_SC2 = "" Then
+        If Me.ProjectPath = "" Then
             Me.SaveFileDialog1.InitialDirectory = Application.StartupPath
         Else
-            Me.SaveFileDialog1.InitialDirectory = Me.Path_SC2
+            Me.SaveFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.ProjectPath)
         End If
 
         Me.SaveFileDialog1.FileName = Me.Sprites.Name
@@ -201,14 +194,11 @@ Public Class MSXBASICGraphicsDialog
 
 
 
-
-
     Private Sub SaveSpritePatterns(ByVal filePath As String)
         Dim MSXBasicGFile As New MSXBasicGraphicsFileIO
         'MSXBasicGFile.SpriteSize = Me.Sprites.Size
         MSXBasicGFile.BSAVE(filePath, iVDP.TableBase.GRPPAT, Me.Sprites.GetPatternBinaryBloq(), 0, Me.Sprites.Size, True)
     End Sub
-
 
 
 
@@ -246,8 +236,8 @@ Public Class MSXBASICGraphicsDialog
 
         Else
 
-            Dim messageWin As New MessageDialog("Load MSX BASIC Graphics", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
-            messageWin.ShowDialog(Me)
+            Dim messageWin As New MessageDialog()
+            messageWin.ShowDialog(Me, "Load MSX BASIC Graphics", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
 
         End If
 

@@ -5,12 +5,11 @@ Public Class LoadBitmapDialog
 
     Private AppConfig As Config
 
-    Public Path_SC2 As String = ""
-    Public Path_Bitmap As String = ""
+    'Public Path_SC2 As String = ""
+    'Public Path_Bitmap As String = ""
 
-    Public ProjectName As String  '= ""
-
-    Private BitmapFilePath As String
+    Private FileName As String
+    Private FilePath As String
 
     Private VRAM(&H3FFF) As Byte ' 16k de memoria de video
 
@@ -31,11 +30,10 @@ Public Class LoadBitmapDialog
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.AppConfig = _config
 
-        Me.ProjectName = "newTileset"
+        Me.FileName = "newTileset"
+        Me.FilePath = filePath
 
         Me.Palettes = colorPalettes
-
-        Me.BitmapFilePath = filePath
 
         'Me.Path_SC2 = Me.AppConfig.PathItemBinary.Path '_pathSC2
         'Me.Path_Bitmap = Me.AppConfig.PathItemBitmap.Path '_pathBitmap
@@ -60,8 +58,8 @@ Public Class LoadBitmapDialog
         'Me.InkColorLabel.Enabled = False
         'Me.InkColorButton.Enabled = False
 
-        If System.IO.File.Exists(Me.BitmapFilePath) Then
-            LoadBitmap(Me.BitmapFilePath)
+        If System.IO.File.Exists(Me.FilePath) Then
+            LoadBitmap(Me.FilePath)
         End If
 
         AddHandler ModeComboBox.SelectedIndexChanged, AddressOf ModeComboBox_SelectedIndexChanged
@@ -72,14 +70,14 @@ Public Class LoadBitmapDialog
 
 
 
-    Private Sub LoadBitmap(ByVal filePath As String)
+    Private Sub LoadBitmap(ByVal newPath As String)
 
-        Dim newImage As Image = Image.FromFile(filePath)
+        Dim newImage As Image = Image.FromFile(FilePath)
         Me.myBitmapImage = New Bitmap(newImage, 256, 192)
         newImage.Dispose() 'para que no bloquee el fichero
 
-        Me.BitmapFilePath = filePath
-        Me.ProjectName = Path.GetFileNameWithoutExtension(filePath)
+        Me.FilePath = newPath
+        Me.FileName = Path.GetFileNameWithoutExtension(newPath)
 
         ConvertBitmap()
 
@@ -92,7 +90,7 @@ Public Class LoadBitmapDialog
             Me.BankComboBox.SelectedIndex = 0
         End If
 
-        Me.NameTextBox.Text = Me.ProjectName + "_SSET"
+        Me.NameTextBox.Text = Me.FileName + "_SSET"
 
     End Sub
 
@@ -550,16 +548,15 @@ Public Class LoadBitmapDialog
         OpenFileDialog1.DefaultExt = ".png"
         OpenFileDialog1.Filter = "PNG documents (.PNG)|*.png|GIF documents (.GIF)|*.gif"
 
-        If Me.Path_Bitmap = "" Then
-            Me.OpenFileDialog1.InitialDirectory = Me.AppConfig.PathItemBitmap.Path
+        If Me.FilePath = "" Then
+            Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemBitmap.Path
         Else
-            Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.Path_Bitmap)
+            Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.FilePath)
         End If
 
         If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            Me.Path_Bitmap = OpenFileDialog1.FileName
-            LoadBitmap(Me.Path_Bitmap)
-            Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(Me.Path_Bitmap))
+            LoadBitmap(Me.OpenFileDialog1.FileName)
+            'Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(Me.Path_Bitmap))
         End If
 
     End Sub

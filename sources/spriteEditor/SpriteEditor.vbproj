@@ -42,38 +42,10 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DataCompressEncoders, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\DataCompressEncoders.dll</HintPath>
-    </Reference>
-    <Reference Include="DataStructures, Version=0.9.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\DataStructures.dll</HintPath>
-    </Reference>
-    <Reference Include="FileDataTypes, Version=0.9.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\FileDataTypes.dll</HintPath>
-    </Reference>
-    <Reference Include="GUIcontrols, Version=1.4.23.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\GUIcontrols.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TMS9918A, Version=1.0.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\TMS9918A.dll</HintPath>
-    </Reference>
-    <Reference Include="Tools4devtools, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\Tools4devtools.dll</HintPath>
-    </Reference>
-    <Reference Include="V9938PaletteEditor, Version=0.9.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\V9938PaletteEditor.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -380,6 +352,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ico_draw_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\DataCompressEncoders\DataCompressEncoders.vbproj">
+      <Project>{928052bd-0028-41b3-a271-1f93452cb2e3}</Project>
+      <Name>DataCompressEncoders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\DataStructures\DataStructures.vbproj">
+      <Project>{7aeb116c-db10-4498-aa55-5c5d08c4a3c2}</Project>
+      <Name>DataStructures</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\FileDataTypes\FileDataTypes.vbproj">
+      <Project>{11e865f5-0de8-49dc-ae99-43bd00d04f2a}</Project>
+      <Name>FileDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\GUIcontrols\GUIcontrols.vbproj">
+      <Project>{474aa9b2-6128-4d72-9d16-19c3075f353d}</Project>
+      <Name>GUIcontrols</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\TMS9918A\TMS9918A.vbproj">
+      <Project>{867ee51b-ccf3-47f7-b157-f81838673a50}</Project>
+      <Name>TMS9918A</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\Tools4devtools\Tools4devtools.vbproj">
+      <Project>{df013c4a-3c42-471f-9042-60a8fd917593}</Project>
+      <Name>Tools4devtools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mSXdevtools\sources\V9938PaletteEditor\V9938PaletteEditor.vbproj">
+      <Project>{ab3b9955-824e-4e0c-a2c8-d8612e7e1950}</Project>
+      <Name>V9938PaletteEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

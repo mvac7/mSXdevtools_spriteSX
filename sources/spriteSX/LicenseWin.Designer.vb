@@ -135,7 +135,7 @@ Partial Class LicenseWin
         Me.GPLButton.Cursor = System.Windows.Forms.Cursors.Hand
         Me.GPLButton.FlatAppearance.BorderSize = 0
         Me.GPLButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GPLButton.Image = Global.mSXdevtools.spriteSX.My.Resources.Resources.gplv3_127x51
+        Me.GPLButton.Image = CType(resources.GetObject("GPLButton.Image"), System.Drawing.Image)
         Me.GPLButton.Location = New System.Drawing.Point(12, 355)
         Me.GPLButton.Name = "GPLButton"
         Me.GPLButton.Size = New System.Drawing.Size(133, 54)
