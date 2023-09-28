@@ -18,12 +18,16 @@ Public Interface ISpriteContainer
 
     Property SpriteName() As String
 
-    
-    Property Palette() As iPaletteMSX
+
+    ReadOnly Property ColorPalette() As PaletteMSX
 
     Property InkColor() As Integer
     Property BackgroundColor() As Integer
 
+
+    Sub SetColorPalette(ByRef aPalette As PaletteMSX)
+
+    Sub RefreshSprite()
 
     Sub changeInkColor(ByVal colorID As Integer)
     Sub changeBGColor(ByVal colorID As Integer)

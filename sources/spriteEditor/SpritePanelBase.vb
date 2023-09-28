@@ -7,7 +7,7 @@
     'Public _SpriteName As String
     Public _PatternNumber As Integer
 
-    Public _Palette As iPaletteMSX
+    Private Palette As PaletteMSX
     Public _inkColor As Integer
     Public _bgColor As Integer
 
@@ -133,7 +133,7 @@
             If Not colorINKPictureBox Is Nothing Then
 
                 Me.ToolTip1.SetToolTip(colorINKPictureBox, "Ink color: " + CStr(value))
-                colorINKPictureBox.BackColor = Me._Palette.GetRGBColor(value) 'value.GetRGBColor()
+                colorINKPictureBox.BackColor = Me.Palette.GetRGBColor(value) 'value.GetRGBColor()
             End If
         End Set
     End Property
@@ -147,30 +147,35 @@
             Me._bgColor = value
             If Not colorBGPictureBox Is Nothing Then
                 Me.ToolTip1.SetToolTip(colorBGPictureBox, "Background color: " + CStr(value))
-                colorBGPictureBox.BackColor = Me._Palette.GetRGBColor(value) 'value.GetRGBColor()
+                colorBGPictureBox.BackColor = Me.Palette.GetRGBColor(value) 'value.GetRGBColor()
             End If
         End Set
     End Property
 
 
 
-    Public Property Palette() As iPaletteMSX Implements ISpriteContainer.Palette
+    Public ReadOnly Property ColorPalette() As PaletteMSX Implements ISpriteContainer.ColorPalette
         Get
-            Return Me._Palette
+            Return Me.Palette
         End Get
-        Set(ByVal value As iPaletteMSX)
-            If Not value Is Nothing Then
-                Me._Palette = value
-                Me.InkColor = Me._inkColor
-                Me.BackgroundColor = Me._bgColor
-                If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
-                    ShowColorLines()
-                End If
-                ShowSprite()
-            End If
-        End Set
     End Property
 
+
+    Public Sub SetColorPalette(ByRef aPalette As PaletteMSX) Implements ISpriteContainer.SetColorPalette
+        If Not aPalette Is Nothing Then
+            Me.Palette = aPalette
+        End If
+    End Sub
+
+
+    Public Sub RefreshSprite() Implements ISpriteContainer.RefreshSprite
+        Me.InkColor = Me._inkColor
+        Me.BackgroundColor = Me._bgColor
+        If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
+            ShowColorLines()
+        End If
+        ShowSprite()
+    End Sub
 
 
 
@@ -192,7 +197,7 @@
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Me._Palette = New PaletteTMS9918
+        Me.Palette = New PaletteMSX(iVDP.VDP.TMS9918A)
 
         Me.InkColor = 15
         Me.BackgroundColor = 0
@@ -203,9 +208,9 @@
 
 
 
-    Public Sub New(ByVal aPaletteData As iPaletteMSX)
+    Public Sub New(ByVal aPaletteData As PaletteMSX)
 
-        Me._Palette = aPaletteData
+        Me.Palette = aPaletteData
 
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
@@ -388,7 +393,7 @@
 
 
     Overridable Sub ShowSprite()
-        If Me.ENDinit And Not Me._Palette Is Nothing Then
+        If Me.ENDinit And Not Me.Palette Is Nothing Then
             ShowSpritePreview()
             'Application.DoEvents()
             ShowSpriteZoomPanel()
@@ -559,7 +564,7 @@
         Me._WorkSprite.Mode = Me.SpriteMode
         Me._WorkSprite.InkColor = spriteData.InkColor
         Me._WorkSprite.BackgroundColor = spriteData.BackgroundColor
-        Me._WorkSprite.Palette = Me._Palette
+        Me._WorkSprite.SetColorPalette(Me.Palette)
         'Me._WorkSprite.refresh()
 
         'Me.Refresh()
@@ -1833,7 +1838,7 @@
                 aColor = Me._bgColor
             End If
 
-            Me.panelGraphics.FillRectangle(New SolidBrush(Me._Palette.GetRGBColor(aColor)), cX, cY, 15, 15)
+            Me.panelGraphics.FillRectangle(New SolidBrush(Me.Palette.GetRGBColor(aColor)), cX, cY, 15, 15)
 
         Catch ex As Exception
 
@@ -1868,7 +1873,7 @@
         Xpos *= 2
         Ypos *= 2
 
-        tmpColor = Me._Palette.GetRGBColor(aColorID)
+        tmpColor = Me.Palette.GetRGBColor(aColorID)
         Me.SpriteBitmap.SetPixel(Xpos, Ypos, tmpColor)
         Me.SpriteBitmap.SetPixel(Xpos + 1, Ypos, tmpColor)
         Me.SpriteBitmap.SetPixel(Xpos, Ypos + 1, tmpColor)
@@ -1937,7 +1942,7 @@
 
         For i As Integer = 0 To _HIGH
             colorIndex = Me.colorValues(i)
-            Me.colorPic(i).BackColor = Me._Palette.GetRGBColor(colorIndex)
+            Me.colorPic(i).BackColor = Me.Palette.GetRGBColor(colorIndex)
             Me.ToolTip1.SetToolTip(Me.colorPic(i), CStr(colorIndex))
         Next
     End Sub
@@ -1969,13 +1974,13 @@
         Dim colorItem As Button = CType(sender, Button)
         Dim newPoint As Point = colorItem.Parent.PointToScreen(colorItem.Location)
 
-        If aColorSelector.ShowDialog(Me._Palette, newPoint) = DialogResult.OK Then
-            colorINKPictureBox.BackColor = Me._Palette.GetRGBColor(aColorSelector.ColorSelected)
+        If aColorSelector.ShowDialog(Me.Palette, newPoint) = DialogResult.OK Then
+            colorINKPictureBox.BackColor = Me.Palette.GetRGBColor(aColorSelector.ColorSelected)
             Me.InkColor = aColorSelector.ColorSelected
 
             If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
                 For Each aPic As System.Windows.Forms.Button In Me.colorPic
-                    aPic.BackColor = Me._Palette.GetRGBColor(Me.InkColor)
+                    aPic.BackColor = Me.Palette.GetRGBColor(Me.InkColor)
                     Me.colorValues(aPic.TabIndex) = Me.InkColor
                     Me.ToolTip1.SetToolTip(aPic, CStr(Me.InkColor))
                 Next
@@ -1999,8 +2004,8 @@
         Dim colorItem As Button = CType(sender, Button)
         Dim newPoint As Point = colorItem.Parent.PointToScreen(colorItem.Location)
 
-        If aColorSelector.ShowDialog(Me._Palette, newPoint) = DialogResult.OK Then
-            colorBGPictureBox.BackColor = Me._Palette.GetRGBColor(aColorSelector.ColorSelected)
+        If aColorSelector.ShowDialog(Me.Palette, newPoint) = DialogResult.OK Then
+            colorBGPictureBox.BackColor = Me.Palette.GetRGBColor(aColorSelector.ColorSelected)
             changeBGColor(aColorSelector.ColorSelected)
             'Me.spritePicture.Refresh()
         End If
@@ -2090,8 +2095,8 @@
         Dim colorItem As Button = CType(sender, Button)
         Dim newPoint As Point = colorItem.Parent.PointToScreen(colorItem.Location)
 
-        If aColorSelector.ShowDialog(Me._Palette, newPoint) = DialogResult.OK Then
-            sender.BackColor = Me._Palette.GetRGBColor(aColorSelector.ColorSelected)
+        If aColorSelector.ShowDialog(Me.Palette, newPoint) = DialogResult.OK Then
+            sender.BackColor = Me.Palette.GetRGBColor(aColorSelector.ColorSelected)
             Me.colorValues(sender.TabIndex) = aColorSelector.ColorSelected
             ShowSprite()
         End If

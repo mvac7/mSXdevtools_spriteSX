@@ -131,6 +131,13 @@ Public Class SpriteEditor
     End Property
 
 
+    Public ReadOnly Property HelpText As String Implements IEditorContainer.HelpText
+        Get
+            Return ""
+        End Get
+    End Property
+
+
 
 
 
@@ -227,9 +234,8 @@ Public Class SpriteEditor
         Dim PaletteDialog = New Palette512Dialog(Me.AppConfig, Me.Project, 0)
 
         If PaletteDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            'Me._paletteID = PaletteDialog.SelectedPaletteID
-
-            RefreshEditor()
+            Me.aSpritesetControl.RefreshPalette()
+            Me.SpriteContainer.RefreshSprite()
         End If
 
     End Sub
@@ -334,7 +340,7 @@ Public Class SpriteEditor
             Me.Project.Palettes.SetZeroColor(Me.AppConfig.Color_Zero)
 
             Me.Project.SpriteSets = New SpriteProject()
-            Me.Project.SpriteSets.Palettes = Me.Project.Palettes
+            Me.Project.SpriteSets.SetColorPalettes(Me.Project.Palettes)
 
         Else
             'tMSgfX project
@@ -370,7 +376,7 @@ Public Class SpriteEditor
             Me.aSpritesetControl.SetSpriteset(Me._spritesetSelected)
 
             SetSpriteContainer(Me._spritesetSelected.Size, Me._spritesetSelected.Mode)
-            Me.SpriteContainer.Palette = Me._spritesetSelected.Palette
+            Me.SpriteContainer.SetColorPalette(Me._spritesetSelected.ColorPalette)
 
             EditSpriteByIndex(0)
         End If
@@ -410,10 +416,10 @@ Public Class SpriteEditor
         If configDialog.ShowDialog() = DialogResult.OK Then
 
             If Not Me._spritesetSelected.Size = configDialog.SpriteSize Or Not Me._spritesetSelected.Mode = configDialog.SpriteMode Then
-                Me._spritesetSelected.Palette = Me.Project.Palettes.GetPaletteByID(configDialog.PaletteID)
+                Me._spritesetSelected.SetColorPalette(Me.Project.Palettes.GetPaletteByID(configDialog.PaletteID))
                 Me._spritesetSelected.ConvertSpriteType(configDialog.SpriteSize, configDialog.SpriteMode)
             Else
-                Me._spritesetSelected.SetPalette(Me.Project.Palettes.GetPaletteByID(configDialog.PaletteID))
+                Me._spritesetSelected.SetColorPalette(Me.Project.Palettes.GetPaletteByID(configDialog.PaletteID))
                 Me.aSpritesetControl.RefreshPalette()
             End If
 
@@ -473,14 +479,16 @@ Public Class SpriteEditor
 
 
 
-    Private Sub DeleteSpriteset()
-
-        'Dim result As DialogResult
-        'result = MsgBox("This option will delete a current Sprite Set." + Chr(13) + "Are you sure?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Question")
+    Private Sub DeleteCurrentItem()
 
         Dim messageWin As New MessageDialog()
+        Dim result As DialogResult
 
-        If messageWin.ShowDialog(Me, "Question", "This option will delete a current Sprite Set." + Chr(13) + "Are you sure?", MessageDialog.DIALOG_TYPE.YES_NO) = DialogResult.Yes Then
+        Beep()
+
+        result = messageWin.ShowDialog(Me, "Question", "This option will delete a current Sprite-Set." + Environment.NewLine + "Are you sure?", MessageDialog.DIALOG_TYPE.YES_NO)
+
+        If result = Windows.Forms.DialogResult.Yes Then
             Me.Project.SpriteSets.DeleteByID(Me._spritesetSelected.ID)
 
             ifProjectEmpty()
@@ -543,20 +551,20 @@ Public Class SpriteEditor
                     'one color
                     If projectSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
                         ' 8x8
-                        Me.SpriteControl = New SpritePanel8(Me._spritesetSelected.Palette) 'paletteDialog.Palette
+                        Me.SpriteControl = New SpritePanel8(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
                     Else
                         ' 16x16
-                        Me.SpriteControl = New SpritePanel16(Me._spritesetSelected.Palette) 'SpritePanel16 paletteDialog.Palette
+                        Me.SpriteControl = New SpritePanel16(Me._spritesetSelected.ColorPalette) 'SpritePanel16 paletteDialog.Palette
                     End If
 
                 Else
                     'line color (msx2 or +)
                     If projectSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
                         ' 8x8
-                        Me.SpriteControl = New SpritePanel8mode2(Me._spritesetSelected.Palette) 'paletteDialog.Palette
+                        Me.SpriteControl = New SpritePanel8mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
                     Else
                         ' 16x16
-                        Me.SpriteControl = New SpritePanel16mode2(Me._spritesetSelected.Palette) 'paletteDialog.Palette
+                        Me.SpriteControl = New SpritePanel16mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
                     End If
 
                 End If
@@ -1450,7 +1458,7 @@ Public Class SpriteEditor
     End Sub
 
     Private Sub DeleteTilesetButton_Click(sender As System.Object, e As System.EventArgs) Handles DeleteTilesetButton.Click
-        DeleteSpriteset()
+        DeleteCurrentItem()
     End Sub
 
     'Private Sub EditPaletteButton_Click(sender As System.Object, e As System.EventArgs) Handles EditPaletteButton.Click

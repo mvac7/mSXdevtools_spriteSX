@@ -1,10 +1,9 @@
 ﻿Public Class SpritePanel16
     Inherits SpritePanelBase
-    'Implements ISpriteContainer
 
 
 
-    Public Sub New(ByVal aPaletteData As iPaletteMSX)
+    Public Sub New(ByVal aPaletteData As PaletteMSX)
         MyBase.New(aPaletteData)
 
         'This call is required by the Windows Form Designer.
@@ -156,7 +155,7 @@
         Me._WorkSprite.InkColor = Me._inkColor
         Me._WorkSprite.BackgroundColor = Me._bgColor
 
-        Me._WorkSprite.Palette = Me.Palette
+        Me._WorkSprite.SetColorPalette(Me.ColorPalette)
 
         Me._WorkSprite.refresh()
         'End If

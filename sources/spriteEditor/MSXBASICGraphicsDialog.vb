@@ -110,7 +110,7 @@ Public Class MSXBASICGraphicsDialog
     Private Sub drawSpritePatterns()
 
         Dim aGraphics As Graphics = Graphics.FromImage(Me.spritePatternsBitmap)
-        aGraphics.Clear(Me.Sprites.Palette.GetRGBColor(Me.Sprites.BackgroundColor))  'Color.FromArgb(255, 0, 0, 0))
+        aGraphics.Clear(Me.Sprites.ColorPalette.GetRGBColor(Me.Sprites.BackgroundColor))  'Color.FromArgb(255, 0, 0, 0))
 
         Me.Sprites.Refresh()
 
@@ -236,6 +236,8 @@ Public Class MSXBASICGraphicsDialog
 
         Else
 
+            spriteSet = Nothing
+
             Dim messageWin As New MessageDialog()
             messageWin.ShowDialog(Me, "Load MSX BASIC Graphics", "Disk I/O error!", MessageDialog.DIALOG_TYPE.ALERT)
 
@@ -262,14 +264,14 @@ Public Class MSXBASICGraphicsDialog
         If Me.Mode = IO_MODE.LOAD Then
 
             If Not Me.Sprites.Size = SpritesetDataUC.SpriteSize Or Not Me.Sprites.Mode = SpritesetDataUC.SpriteMode Then
-                Me.Sprites.Palette = Me.Project.Palettes.GetPaletteByID(SpritesetDataUC.PaletteID)
+                Me.Sprites.SetColorPalette(Me.Project.Palettes.GetPaletteByID(SpritesetDataUC.PaletteID))
                 Me.Sprites.ConvertSpriteType(SpritesetDataUC.SpriteSize, SpritesetDataUC.SpriteMode)
             ElseIf Not Me.Sprites.InkColor = SpritesetDataUC.InkColor Or Not Me.Sprites.BackgroundColor = SpritesetDataUC.BackgroundColor Then
                 Me.Sprites.InkColor = SpritesetDataUC.InkColor
                 Me.Sprites.BackgroundColor = SpritesetDataUC.BackgroundColor
                 Me.Sprites.SetDefaultColor()
             Else
-                Me.Sprites.SetPalette(Me.Project.Palettes.GetPaletteByID(SpritesetDataUC.PaletteID))
+                Me.Sprites.SetColorPalette(Me.Project.Palettes.GetPaletteByID(SpritesetDataUC.PaletteID))
             End If
 
             drawSpritePatterns()

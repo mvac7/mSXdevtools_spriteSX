@@ -76,6 +76,7 @@ Public Class LoadBitmapDialog
         Me.myBitmapImage = New Bitmap(newImage, 256, 192)
         newImage.Dispose() 'para que no bloquee el fichero
 
+
         Me.FilePath = newPath
         Me.FileName = Path.GetFileNameWithoutExtension(newPath)
 
@@ -543,47 +544,47 @@ Public Class LoadBitmapDialog
 #Region "Events"
 
 
-    Private Sub LoadBitmapButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadBitmapButton.Click
-        OpenFileDialog1.FileName = ""
-        OpenFileDialog1.DefaultExt = ".png"
-        OpenFileDialog1.Filter = "PNG documents (.PNG)|*.png|GIF documents (.GIF)|*.gif"
+    'Private Sub LoadBitmapButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadBitmapButton.Click
+    '    OpenFileDialog1.FileName = ""
+    '    OpenFileDialog1.DefaultExt = ".png"
+    '    OpenFileDialog1.Filter = "PNG documents (.PNG)|*.png|GIF documents (.GIF)|*.gif"
 
-        If Me.FilePath = "" Then
-            Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemBitmap.Path
-        Else
-            Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.FilePath)
-        End If
+    '    If Me.FilePath = "" Then
+    '        Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemBitmap.Path
+    '    Else
+    '        Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.FilePath)
+    '    End If
 
-        If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            LoadBitmap(Me.OpenFileDialog1.FileName)
-            'Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(Me.Path_Bitmap))
-        End If
+    '    If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
+    '        LoadBitmap(Me.OpenFileDialog1.FileName)
+    '        'Me.AppConfig.PathItemBitmap.UpdateLastPath(Path.GetDirectoryName(Me.Path_Bitmap))
+    '    End If
 
-    End Sub
-
-
-
-    Private Sub mainWindow_DragDrop(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragDrop
-        Dim tmpstr() As String = e.Data.GetData("FileDrop", False)
-        Dim tmpFilePath As String = tmpstr(0)
-        Dim extension As String = Path.GetExtension(tmpFilePath).ToLower
-
-        If extension = ".gif" Or extension = ".png" Then
-            LoadBitmap(tmpFilePath)
-            'ElseIf extension = ".sc2" Then
-            '    loadSC2(tmpFilePath)
-        End If
-    End Sub
+    'End Sub
 
 
 
-    Private Sub mainWindow_DragEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragEnter
-        If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
-            e.Effect = DragDropEffects.Copy
-        Else
-            e.Effect = DragDropEffects.None
-        End If
-    End Sub
+    'Private Sub mainWindow_DragDrop(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragDrop
+    '    Dim tmpstr() As String = e.Data.GetData("FileDrop", False)
+    '    Dim tmpFilePath As String = tmpstr(0)
+    '    Dim extension As String = Path.GetExtension(tmpFilePath).ToLower
+
+    '    If extension = ".gif" Or extension = ".png" Then
+    '        LoadBitmap(tmpFilePath)
+    '        'ElseIf extension = ".sc2" Then
+    '        '    loadSC2(tmpFilePath)
+    '    End If
+    'End Sub
+
+
+
+    'Private Sub mainWindow_DragEnter(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles MyBase.DragEnter
+    '    If (e.Data.GetDataPresent(DataFormats.FileDrop)) Then
+    '        e.Effect = DragDropEffects.Copy
+    '    Else
+    '        e.Effect = DragDropEffects.None
+    '    End If
+    'End Sub
 
 
 

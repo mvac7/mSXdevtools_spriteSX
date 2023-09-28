@@ -1,10 +1,8 @@
 ﻿Public Class SpritePanel16mode2
     Inherits SpritePanelBase
-    'Implements ISpriteContainer
 
 
-
-    Public Sub New(ByVal aPaletteData As iPaletteMSX)
+    Public Sub New(ByVal aPaletteData As PaletteMSX)
         MyBase.New(aPaletteData)
 
         'This call is required by the Windows Form Designer.
@@ -36,13 +34,13 @@
 
     Public Overrides Sub ShowSprite()
         'MyBase.ShowSprite()
-        If Me.ENDinit And Not Me.Palette Is Nothing Then
+        If Me.ENDinit And Not Me.ColorPalette Is Nothing Then
             ShowSpritePreview()
             'Application.DoEvents()
             ShowSpriteZoomPanel()
             'Application.DoEvents()
             showORstates()
-            showColorLines()
+            ShowColorLines()
             'Application.DoEvents()
         End If
 
@@ -67,7 +65,7 @@
 
 
         For Each aPic As System.Windows.Forms.Button In colorPic
-            aPic.BackColor = Me._Palette.GetRGBColor(Me.InkColor)
+            aPic.BackColor = Me.ColorPalette.GetRGBColor(Me.InkColor)
             Me.colorValues(aPic.TabIndex) = Me.InkColor
         Next
 
@@ -94,7 +92,7 @@
         End If
 
         For i As Integer = 0 To 15
-            Me.colorPic(i).BackColor = Me._Palette.GetRGBColor(Me.colorValues(i))
+            Me.colorPic(i).BackColor = Me.ColorPalette.GetRGBColor(Me.colorValues(i))
         Next
         ' end colors
 
@@ -175,7 +173,7 @@
         Me._WorkSprite.InkColor = Me.InkColor
         Me._WorkSprite.BackgroundColor = Me.BackgroundColor
 
-        Me._WorkSprite.Palette = Me.Palette
+        Me._WorkSprite.SetColorPalette(Me.ColorPalette)
 
         Me._WorkSprite.refresh()
         'End If

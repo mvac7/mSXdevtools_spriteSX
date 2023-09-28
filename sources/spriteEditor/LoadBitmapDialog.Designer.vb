@@ -28,7 +28,6 @@ Partial Class LoadBitmapDialog
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.infoBGColorLabel = New System.Windows.Forms.Label()
         Me.BGColorButton = New mSXdevtools.GUI.Controls.ColorButton()
-        Me.DraganddropPictureBox = New System.Windows.Forms.PictureBox()
         Me.BankComboBox = New System.Windows.Forms.ComboBox()
         Me.NameTextBox = New System.Windows.Forms.TextBox()
         Me.BGcolorLabel = New System.Windows.Forms.Label()
@@ -42,9 +41,7 @@ Partial Class LoadBitmapDialog
         Me.Ok_Button = New mSXdevtools.GUI.Controls.piXelST_Button()
         Me.Cancel_Button = New mSXdevtools.GUI.Controls.piXelST_Button()
         Me.Title_Label = New mSXdevtools.GUI.Controls.piXelST_Label()
-        Me.LoadBitmapButton = New mSXdevtools.GUI.Controls.piXelST_Button()
         Me.patternsPictureBox = New System.Windows.Forms.PictureBox()
-        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.BottonsPanel.SuspendLayout()
         CType(Me.patternsPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -61,7 +58,7 @@ Partial Class LoadBitmapDialog
         '
         Me.infoBGColorLabel.Font = New System.Drawing.Font("Courier New", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.infoBGColorLabel.ForeColor = System.Drawing.Color.Blue
-        Me.infoBGColorLabel.Location = New System.Drawing.Point(342, 168)
+        Me.infoBGColorLabel.Location = New System.Drawing.Point(353, 119)
         Me.infoBGColorLabel.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.infoBGColorLabel.Name = "infoBGColorLabel"
         Me.infoBGColorLabel.Size = New System.Drawing.Size(26, 26)
@@ -75,24 +72,13 @@ Partial Class LoadBitmapDialog
         '
         Me.BGColorButton.BackColor = System.Drawing.Color.WhiteSmoke
         Me.BGColorButton.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BGColorButton.Location = New System.Drawing.Point(296, 168)
+        Me.BGColorButton.Location = New System.Drawing.Point(307, 119)
         Me.BGColorButton.Margin = New System.Windows.Forms.Padding(0)
         Me.BGColorButton.MinimumSize = New System.Drawing.Size(32, 22)
         Me.BGColorButton.Name = "BGColorButton"
         Me.BGColorButton.Size = New System.Drawing.Size(40, 26)
         Me.BGColorButton.TabIndex = 256
         Me.ToolTip1.SetToolTip(Me.BGColorButton, "Color priority to use as a background in the conversion.")
-        '
-        'DraganddropPictureBox
-        '
-        Me.DraganddropPictureBox.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.dragdrop_48_06Y
-        Me.DraganddropPictureBox.Location = New System.Drawing.Point(342, 112)
-        Me.DraganddropPictureBox.Margin = New System.Windows.Forms.Padding(0)
-        Me.DraganddropPictureBox.Name = "DraganddropPictureBox"
-        Me.DraganddropPictureBox.Size = New System.Drawing.Size(50, 50)
-        Me.DraganddropPictureBox.TabIndex = 14
-        Me.DraganddropPictureBox.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.DraganddropPictureBox, "Drag & Drop your picture files " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(PNG, GIF or SC2)")
         '
         'BankComboBox
         '
@@ -101,14 +87,14 @@ Partial Class LoadBitmapDialog
         Me.BankComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.BankComboBox.FormattingEnabled = True
         Me.BankComboBox.Items.AddRange(New Object() {"Bank A", "Bank B", "Bank C"})
-        Me.BankComboBox.Location = New System.Drawing.Point(83, 216)
+        Me.BankComboBox.Location = New System.Drawing.Point(94, 167)
         Me.BankComboBox.Name = "BankComboBox"
         Me.BankComboBox.Size = New System.Drawing.Size(124, 22)
         Me.BankComboBox.TabIndex = 16
         '
         'NameTextBox
         '
-        Me.NameTextBox.Location = New System.Drawing.Point(83, 258)
+        Me.NameTextBox.Location = New System.Drawing.Point(94, 209)
         Me.NameTextBox.MaxLength = 128
         Me.NameTextBox.Name = "NameTextBox"
         Me.NameTextBox.Size = New System.Drawing.Size(256, 22)
@@ -117,7 +103,7 @@ Partial Class LoadBitmapDialog
         'BGcolorLabel
         '
         Me.BGcolorLabel.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BGcolorLabel.Location = New System.Drawing.Point(147, 170)
+        Me.BGcolorLabel.Location = New System.Drawing.Point(158, 121)
         Me.BGcolorLabel.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.BGcolorLabel.Name = "BGcolorLabel"
         Me.BGcolorLabel.Size = New System.Drawing.Size(146, 22)
@@ -128,7 +114,7 @@ Partial Class LoadBitmapDialog
         'Label2
         '
         Me.Label2.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(7, 216)
+        Me.Label2.Location = New System.Drawing.Point(18, 167)
         Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(70, 22)
@@ -138,7 +124,7 @@ Partial Class LoadBitmapDialog
         '
         'NameLabel
         '
-        Me.NameLabel.Location = New System.Drawing.Point(7, 257)
+        Me.NameLabel.Location = New System.Drawing.Point(18, 208)
         Me.NameLabel.Name = "NameLabel"
         Me.NameLabel.Size = New System.Drawing.Size(70, 21)
         Me.NameLabel.TabIndex = 268
@@ -147,7 +133,7 @@ Partial Class LoadBitmapDialog
         '
         'Label3
         '
-        Me.Label3.Location = New System.Drawing.Point(7, 313)
+        Me.Label3.Location = New System.Drawing.Point(18, 264)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 21)
         Me.Label3.TabIndex = 276
@@ -156,7 +142,7 @@ Partial Class LoadBitmapDialog
         '
         'SizeLabel
         '
-        Me.SizeLabel.Location = New System.Drawing.Point(7, 286)
+        Me.SizeLabel.Location = New System.Drawing.Point(18, 237)
         Me.SizeLabel.Name = "SizeLabel"
         Me.SizeLabel.Size = New System.Drawing.Size(70, 21)
         Me.SizeLabel.TabIndex = 275
@@ -169,7 +155,7 @@ Partial Class LoadBitmapDialog
         Me.SizeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.SizeComboBox.FormattingEnabled = True
         Me.SizeComboBox.Items.AddRange(New Object() {"8x8", "16x16"})
-        Me.SizeComboBox.Location = New System.Drawing.Point(83, 286)
+        Me.SizeComboBox.Location = New System.Drawing.Point(94, 237)
         Me.SizeComboBox.Name = "SizeComboBox"
         Me.SizeComboBox.Size = New System.Drawing.Size(256, 22)
         Me.SizeComboBox.TabIndex = 273
@@ -180,7 +166,7 @@ Partial Class LoadBitmapDialog
         Me.ModeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ModeComboBox.FormattingEnabled = True
         Me.ModeComboBox.Items.AddRange(New Object() {"Monocolor", "Multicolor"})
-        Me.ModeComboBox.Location = New System.Drawing.Point(83, 314)
+        Me.ModeComboBox.Location = New System.Drawing.Point(94, 265)
         Me.ModeComboBox.Name = "ModeComboBox"
         Me.ModeComboBox.Size = New System.Drawing.Size(256, 22)
         Me.ModeComboBox.TabIndex = 274
@@ -191,7 +177,7 @@ Partial Class LoadBitmapDialog
         Me.BottonsPanel.Controls.Add(Me.Ok_Button)
         Me.BottonsPanel.Controls.Add(Me.Cancel_Button)
         Me.BottonsPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.BottonsPanel.Location = New System.Drawing.Point(0, 370)
+        Me.BottonsPanel.Location = New System.Drawing.Point(0, 320)
         Me.BottonsPanel.Name = "BottonsPanel"
         Me.BottonsPanel.Padding = New System.Windows.Forms.Padding(4)
         Me.BottonsPanel.Size = New System.Drawing.Size(434, 44)
@@ -246,24 +232,10 @@ Partial Class LoadBitmapDialog
         Me.Title_Label.Text = "Load Bitmap"
         Me.Title_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'LoadBitmapButton
-        '
-        Me.LoadBitmapButton.ButtonColor = System.Drawing.Color.Gray
-        Me.LoadBitmapButton.ButtonType = mSXdevtools.GUI.Controls.piXelST_Button.Button_TYPES.Load
-        Me.LoadBitmapButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.LoadBitmapButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.LoadBitmapButton.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.icon_Load
-        Me.LoadBitmapButton.Location = New System.Drawing.Point(83, 57)
-        Me.LoadBitmapButton.Name = "LoadBitmapButton"
-        Me.LoadBitmapButton.Size = New System.Drawing.Size(124, 35)
-        Me.LoadBitmapButton.TabIndex = 279
-        Me.LoadBitmapButton.Text = "Load"
-        Me.LoadBitmapButton.UseVisualStyleBackColor = True
-        '
         'patternsPictureBox
         '
         Me.patternsPictureBox.BackColor = System.Drawing.Color.RoyalBlue
-        Me.patternsPictureBox.Location = New System.Drawing.Point(83, 98)
+        Me.patternsPictureBox.Location = New System.Drawing.Point(94, 49)
         Me.patternsPictureBox.Name = "patternsPictureBox"
         Me.patternsPictureBox.Size = New System.Drawing.Size(256, 64)
         Me.patternsPictureBox.TabIndex = 269
@@ -276,9 +248,8 @@ Partial Class LoadBitmapDialog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.Gainsboro
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(434, 414)
+        Me.ClientSize = New System.Drawing.Size(434, 364)
         Me.ControlBox = False
-        Me.Controls.Add(Me.LoadBitmapButton)
         Me.Controls.Add(Me.BottonsPanel)
         Me.Controls.Add(Me.Title_Label)
         Me.Controls.Add(Me.Label3)
@@ -293,7 +264,6 @@ Partial Class LoadBitmapDialog
         Me.Controls.Add(Me.BGcolorLabel)
         Me.Controls.Add(Me.NameTextBox)
         Me.Controls.Add(Me.BankComboBox)
-        Me.Controls.Add(Me.DraganddropPictureBox)
         Me.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -303,7 +273,6 @@ Partial Class LoadBitmapDialog
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        CType(Me.DraganddropPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.BottonsPanel.ResumeLayout(False)
         CType(Me.patternsPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -313,7 +282,6 @@ Partial Class LoadBitmapDialog
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
-    Friend WithEvents DraganddropPictureBox As System.Windows.Forms.PictureBox
     Friend WithEvents BankComboBox As System.Windows.Forms.ComboBox
     Friend WithEvents NameTextBox As System.Windows.Forms.TextBox
     Friend WithEvents BGColorButton As mSXdevtools.GUI.Controls.ColorButton
@@ -330,5 +298,4 @@ Partial Class LoadBitmapDialog
     Friend WithEvents BottonsPanel As Panel
     Friend WithEvents Ok_Button As piXelST_Button
     Friend WithEvents Cancel_Button As piXelST_Button
-    Friend WithEvents LoadBitmapButton As piXelST_Button
 End Class

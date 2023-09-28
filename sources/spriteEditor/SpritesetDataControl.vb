@@ -97,7 +97,7 @@
             Me.Name = spriteset.Name
             Me.SizeComboBox.SelectedIndex = spriteset.Size - 1
             Me.ModeCombobox.SelectedIndex = spriteset.Mode - 1
-            Me.PaletteComboBox.SelectedIndex = Me.Project.Palettes.GetIndexFromID(spriteset.Palette.ID)
+            Me.PaletteComboBox.SelectedIndex = Me.Project.Palettes.GetIndexFromID(spriteset.ColorPalette.ID)
             Me._inkColor = spriteset.InkColor
             Me._backgroundColor = spriteset.BackgroundColor
         End If
@@ -180,7 +180,7 @@
 
 
     Private Sub RefreshColorSelectors()
-        Dim selectedPalette As iPaletteMSX = Me.Project.Palettes.GetPalette(Me.PaletteComboBox.SelectedIndex)
+        Dim selectedPalette As PaletteMSX = Me.Project.Palettes.GetPalette(Me.PaletteComboBox.SelectedIndex)
 
         FGColorButton.Palette = selectedPalette
         FGColorButton.SetColor(Me._inkColor)
