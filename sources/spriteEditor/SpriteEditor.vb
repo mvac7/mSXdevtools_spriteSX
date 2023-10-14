@@ -378,7 +378,16 @@ Public Class SpriteEditor
             SetSpriteContainer(Me._spritesetSelected.Size, Me._spritesetSelected.Mode)
             Me.SpriteContainer.SetColorPalette(Me._spritesetSelected.ColorPalette)
 
+            SetNameTextLabel.Text = Me._spritesetSelected.Name
+            If Me._spritesetSelected.Mode = SpriteMSX.SPRITE_MODE.MONO Then
+                SetModeTextLabel.Text = "M1 Monocolor TMS9918A"
+            Else
+                SetModeTextLabel.Text = "M2 Multicolor V9938"
+            End If
+
+
             EditSpriteByIndex(0)
+
         End If
 
         Me.spritePreviewPicture.Focus()
