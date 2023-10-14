@@ -702,10 +702,9 @@ Public Class SpriteEditor
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub ShowOutputDataWindow() Implements IEditorContainer.ShowOutputDataWindow
-
-        Dim OutputDataDialog As New SourceCodeDialog(Me.AppConfig, Me.Project.Info, Me.Project.SpriteSets, Me._spritesetSelected.ID, Me.Project.Path)
-        OutputDataDialog.ShowDialog()
-
+        Dim codeWin As New SourceCodeDialog(Me.AppConfig, Me.Project.Info, Me.Project.SpriteSets, Me._spritesetSelected.ID, Me.Project.Path)
+        codeWin.ShowDialog()
+        Me.Project.SpriteSets.CodeFormat = codeWin.GetCodeFormat()
     End Sub
 
 

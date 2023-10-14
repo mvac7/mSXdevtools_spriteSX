@@ -333,7 +333,7 @@
 
     Private Sub GenerateColorLine(ByVal numy As Integer)
 
-        Dim posY As Integer = numy * 16 + 47
+        Dim posY As Integer = (numy * 16) + 47
         Dim posX As Integer
 
         Dim ORBitLine = New System.Windows.Forms.Button()

@@ -35,7 +35,7 @@
 
         Dim counter As Integer = 1
 
-        Me.DataTypeInput.InitControl(Me.AppConfig)
+        Me.DataTypeInput.InitControl(Me.AppConfig, Project.CodeFormat)
 
         ' includes tilesets list names in combolist
         Me.ItemSelectorComboBox.Items.Clear()
@@ -75,6 +75,11 @@
 
 
 
+    Public Function GetCodeFormat() As SourceCodeInfo
+        Return Me.DataTypeInput.GetCodeFormat()
+    End Function
+
+
 
     Private Sub GenData()
 
@@ -104,7 +109,7 @@
         Me.binaryFiles.Clear()
 
         outputSource = _dataFormat.GetProjectInfoComments(Me.Info, Me.DataTypeInput.LanguageCode)
-        outputSource += vbNewLine
+        'outputSource += vbNewLine
 
         'rango de spritesets a generar. Todos o uno concreto.
         'mejora: se podria añadir un control para seleccionar y generar una lista con los spritesets a generar
@@ -123,7 +128,7 @@
 
 
         'indexes for assembler
-        If Me.DataTypeInput.ProgrammingLanguage = CodeInfo.Programming_Language.ASSEMBLER And Me.DataTypeInput.ASMaddIndex Then
+        If Me.DataTypeInput.ProgrammingLanguage = SourceCodeInfo.PROGRAMMING_LANGUAGE.ASSEMBLER And Me.DataTypeInput.ASMaddIndex Then
 
             ' For pattern data
             If Not DatatypeComboBox.SelectedIndex = TYPE_OF_DATA.COLOR Then
@@ -136,7 +141,7 @@
                 Next
 
                 outputSource += _assembler.GetLabelsIndex("SPRPATTERN_INDEX", lebelsList, DataTypeInput.AsmDataWordCommand)
-                outputSource += vbNewLine
+                'outputSource += vbNewLine
 
             End If
 
@@ -156,7 +161,7 @@
                     Next
 
                     outputSource += _assembler.GetLabelsIndex("SPRCOLORS_INDEX", lebelsList, DataTypeInput.AsmDataWordCommand)
-                    outputSource += vbNewLine
+                    'outputSource += vbNewLine
 
                 End If
 
@@ -186,7 +191,7 @@
                 comments.Add("SpriteSet Pattern Data - " + GetSpriteInfo(_spriteset)) 'SpritesetMSX.SizeLabel(_spriteset.Size))
                 comments.Add("Sprite range: " + CStr(startSprite) + " to " + CStr(endSprite))
                 outputSource += GetItemDataSource(dataLabel, data, comments) '+ vbNewLine
-                outputSource += vbNewLine
+                'outputSource += vbNewLine
             Next
 
 
@@ -218,7 +223,7 @@
                         'If _spriteset.Mode = TMS9918A.SCREEN_MODE.G2 Then
                         'End If
                         outputSource += GetItemDataSource(dataLabel, data, comments) '+ vbNewLine
-                        outputSource += vbNewLine
+                        'outputSource += vbNewLine
                     End If
                     'Else
                     '    outputSource += comment_command + _spriteset.Name + " does NOT contain color data" + vbNewLine

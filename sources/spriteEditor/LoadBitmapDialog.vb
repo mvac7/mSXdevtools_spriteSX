@@ -99,9 +99,22 @@ Public Class LoadBitmapDialog
 
     Private Sub ConvertBitmap()
 
+        Dim outputData As Hashtable
+        Dim patternData() As Byte
+        Dim colorData() As Byte
+
         Dim aBitmapConverter As New SimpleBitmapConverter
-        Dim BGcolor As Byte = aBitmapConverter.GetMostUsedColor(Me.myBitmapImage)
-        Me.VRAM = aBitmapConverter.GetScreenFromBitmap(Me.myBitmapImage, BGcolor) ', Me.BGColorButton.SelectedColor)
+
+        'Dim BGcolor As Byte = aBitmapConverter.GetMostUsedColor(Me.myBitmapImage)
+
+        outputData = aBitmapConverter.GetScreenFromBitmap(Me.myBitmapImage, Me.BGColorButton.SelectedColor)
+        patternData = outputData.Item("patterns")
+        colorData = outputData.Item("colors")
+
+        Array.Copy(patternData, 0, Me.VRAM, iVDP.TableBase.GRPCGP, patternData.Length)
+        Array.Copy(colorData, 0, Me.VRAM, iVDP.TableBase.GRPCOL, colorData.Length)
+
+        'Me.VRAM = aBitmapConverter.GetScreenFromBitmap(Me.myBitmapImage, BGcolor) ', Me.BGColorButton.SelectedColor)
 
         'Me.TMS9918Aviewer.Optimize()
 
