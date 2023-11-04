@@ -24,8 +24,8 @@
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.Name = "SpritePanel16"
-        Me.SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE16
-        Me.SpriteMode = SpriteMSX.SPRITE_MODE.MONO
+        Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE16
+        Me.SpriteMode = iVDP.SPRITE_MODE.MONO
 
         Me.ResumeLayout(False)
 
@@ -125,7 +125,7 @@
         For y As Integer = 0 To 15
             tmpvalue = 0
             For x As Integer = 0 To 7
-                If Me.spriteLines.Item(y)(x) Then
+                If Me.PatternLines.Item(y)(x) Then
                     tmpvalue = tmpvalue Or Me.bitMASKi(x)
                 End If
             Next
@@ -136,7 +136,7 @@
         For y As Integer = 0 To 15
             tmpvalue = 0
             For x As Integer = 8 To 15
-                If Me.spriteLines.Item(y)(x) Then
+                If Me.PatternLines.Item(y)(x) Then
                     tmpvalue = tmpvalue Or Me.bitMASKi(x - 8)
                 End If
             Next
@@ -147,8 +147,8 @@
 
         'Me._WorkSprite.name = Me.SpriteName
 
-        Me._WorkSprite.Size = SpriteMSX.SPRITE_SIZE.SIZE16
-        Me._WorkSprite.Mode = SpriteMSX.SPRITE_MODE.MONO
+        Me._WorkSprite.Size = iVDP.SPRITE_SIZE.SIZE16
+        Me._WorkSprite.Mode = iVDP.SPRITE_MODE.MONO
 
         Me._WorkSprite.patternData = tmpData.Clone
 
@@ -163,48 +163,6 @@
         Return Me._WorkSprite
 
     End Function
-
-
-
-    Public Overrides Sub ClearSprite()
-
-        AddUndo()
-
-        _step = 0
-
-        MyBase.ClearSprite()
-
-    End Sub
-
-
-
-    Public Overrides Sub MoveUp(ByVal rotate As Boolean)
-
-        AddUndo()
-
-        MyBase.MoveUp(rotate)
-
-    End Sub
-
-
-
-    Public Overrides Sub MoveDown(ByVal rotate As Boolean)
-
-        AddUndo()
-
-        MyBase.MoveDown(rotate)
-
-    End Sub
-
-
-
-    Public Overrides Sub FlipVertical()
-
-        AddUndo()
-
-        MyBase.FlipVertical()
-
-    End Sub
 
 
 

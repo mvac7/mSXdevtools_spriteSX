@@ -273,7 +273,7 @@ Public Class SpriteEditor
 
     Private Sub ifProjectEmpty()
         If Me.Project.SpriteSets.Count = 0 Then
-            Me.Project.SpriteSets.Add(New SpritesetMSX("spriteset", SpriteMSX.SPRITE_SIZE.SIZE16, SpriteMSX.SPRITE_MODE.MONO, 15, 0, Me.Project.Palettes.GetPalette(0)))
+            Me.Project.SpriteSets.Add(New SpritesetMSX("spriteset", iVDP.SPRITE_SIZE.SIZE16, iVDP.SPRITE_MODE.MONO, 15, 0, Me.Project.Palettes.GetPalette(0)))
         End If
     End Sub
 
@@ -379,10 +379,10 @@ Public Class SpriteEditor
             Me.SpriteContainer.SetColorPalette(Me._spritesetSelected.ColorPalette)
 
             SetNameTextLabel.Text = Me._spritesetSelected.Name
-            If Me._spritesetSelected.Mode = SpriteMSX.SPRITE_MODE.MONO Then
-                SetModeTextLabel.Text = "M1 Monocolor TMS9918A"
+            If Me._spritesetSelected.Mode = iVDP.SPRITE_MODE.MONO Then
+                SetModeTextLabel.Text = "M1 Monocolor"
             Else
-                SetModeTextLabel.Text = "M2 Multicolor V9938"
+                SetModeTextLabel.Text = "M2 Multicolor"
             End If
 
 
@@ -419,7 +419,6 @@ Public Class SpriteEditor
 
     Private Sub ConfigSpriteset()
 
-        'Dim oldName As String = Me._spritesetSelected.Name
         Dim configDialog As New ConfigSpritesetDialog(Me.AppConfig, Me.Project, Me._spritesetSelected.ID) 'oldName, Me._spritesetSelected.Size, Me._spritesetSelected.Mode, Me._spritesetSelected.Palette.ID)
 
         If configDialog.ShowDialog() = DialogResult.OK Then
@@ -542,12 +541,11 @@ Public Class SpriteEditor
     ''' Shows the type of sprite editor according to the selected mode
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub SetSpriteContainer(ByVal projectSize As SpriteMSX.SPRITE_SIZE, ByVal projectMode As SpriteMSX.SPRITE_MODE)
+    Private Sub SetSpriteContainer(ByVal projectSize As iVDP.SPRITE_SIZE, ByVal projectMode As iVDP.SPRITE_MODE)
 
         Try
 
             If Not Me._spriteType = (projectSize * 2) + projectMode Then
-
 
                 Me._spriteType = (projectSize * 2) + projectMode
 
@@ -556,9 +554,9 @@ Public Class SpriteEditor
                 End If
 
 
-                If projectMode = SpriteMSX.SPRITE_MODE.MONO Then
+                If projectMode = iVDP.SPRITE_MODE.MONO Then
                     'one color
-                    If projectSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+                    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
                         ' 8x8
                         Me.SpriteControl = New SpritePanel8(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
                     Else
@@ -568,7 +566,7 @@ Public Class SpriteEditor
 
                 Else
                     'line color (msx2 or +)
-                    If projectSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+                    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
                         ' 8x8
                         Me.SpriteControl = New SpritePanel8mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
                     Else
@@ -582,7 +580,7 @@ Public Class SpriteEditor
 
                 Me.SuspendLayout()
 
-                If projectSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+                If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
                     Me.spritePreviewPicture.Size = New System.Drawing.Size(16, 16)
                 Else
                     Me.spritePreviewPicture.Size = New System.Drawing.Size(32, 32)
@@ -595,7 +593,7 @@ Public Class SpriteEditor
                 'Me.SpriteControl.Dock = DockStyle.Fill
                 Me.SpriteControl.Location = New System.Drawing.Point(0, 0)
                 Me.SpriteControl.Name = "SpriteContainer"
-                Me.SpriteControl.Size = New System.Drawing.Size(360, 314) '(394, 372)
+                Me.SpriteControl.Size = New System.Drawing.Size(370, 310)
                 Me.SpriteControl.TabIndex = 2
 
                 Me.SpriteEDPanel.Controls.Add(Me.SpriteContainer)
@@ -767,6 +765,10 @@ Public Class SpriteEditor
     'End Function
 
 
+
+    ''' <summary>
+    ''' Copy sprite to clipboard and clear editor.
+    ''' </summary>
     Private Sub Cut()
         Me.SpriteContainer.AddUndo()
         CopyToClipboard()
@@ -776,18 +778,9 @@ Public Class SpriteEditor
 
 
 
-    Private Sub Copy()
-        CopyToClipboard()
-    End Sub
-
-
-
-    Private Sub Paste()
-        PasteFromClipboard()
-    End Sub
-
-
-
+    ''' <summary>
+    ''' Copy to the clipboard the current sprite from the editor. 
+    ''' </summary>
     Public Sub CopyToClipboard()
         If Not Me.SpriteContainer.Sprite Is Nothing Then
             Me._clipboard = Me.SpriteContainer.GetSprite().Clone()
@@ -797,6 +790,9 @@ Public Class SpriteEditor
 
 
 
+    ''' <summary>
+    ''' Paste the clipboard sprite into the editor.
+    ''' </summary>
     Public Sub PasteFromClipboard()
 
         If Not Me._clipboard Is Nothing Then
@@ -1280,7 +1276,7 @@ Public Class SpriteEditor
             End If
 
             If e.KeyCode = Keys.I Then
-                Me.SpriteContainer.Invert()
+                Me.SpriteContainer.Invert()  'Invert pattern tool
             End If
 
             If e.KeyCode = Keys.Enter Then
@@ -1305,9 +1301,9 @@ Public Class SpriteEditor
             '    Me.SpriteContainer.NewSprite()
             'End If
 
-            If e.KeyCode = Keys.D Then
-                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.DRAW) 'pencil
-            End If
+            'If e.KeyCode = Keys.D Then
+
+            'End If
 
             If e.KeyCode = Keys.Up Then
                 Me.SpriteContainer.MoveUp(False)
@@ -1328,56 +1324,49 @@ Public Class SpriteEditor
 
 
             If e.KeyCode = Keys.X Then
-                Me.Cut()
+                Cut()
             End If
 
             If e.KeyCode = Keys.C Then
-                Me.Copy()
+                CopyToClipboard()
             End If
 
             If e.KeyCode = Keys.V Then
-                Me.Paste()
+                PasteFromClipboard()
             End If
 
 
         ElseIf e.Alt Then
 
             If e.KeyCode = Keys.D Then
-                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.DRAW) 'pencil
+                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.DRAW) 'Select the Draw tool in the toolbox.
             End If
 
             If e.KeyCode = Keys.L Then
-                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.LINE) 'line
+                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.LINE) 'Select the Lines tool in the toolbox.
             End If
 
             If e.KeyCode = Keys.F Then
-                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.FILL) 'fill
+                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.FILL) 'Select the Fill tool in the toolbox.
             End If
 
-            'If e.KeyCode = Keys.Up Then
-            '    Me.aSpritesetControl.OrderDecreases()
-            'End If
+            If e.KeyCode = Keys.R Then
+                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.RECTANGLE)
+            End If
 
-            'If e.KeyCode = Keys.Down Then
-            '    Me.aSpritesetControl.OrderIncreases()
-            'End If
+            If e.KeyCode = Keys.E Then
+                selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.ELLIPSE)
+            End If
+
 
 
             If e.Shift Then
                 If e.KeyCode = Keys.R Then
-                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.RECTANGLE_FILL) 'rectangle
+                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.RECTANGLE_FILL)
                 End If
 
-                If e.KeyCode = Keys.C Then
-                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.ELLIPSE_FILL) 'circle
-                End If
-            Else
-                If e.KeyCode = Keys.R Then
-                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.RECTANGLE) 'rectangle
-                End If
-
-                If e.KeyCode = Keys.C Then
-                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.ELLIPSE) 'circle
+                If e.KeyCode = Keys.E Then
+                    selectSpriteEditorTool(SpritePanelBase.STATE_TOOL.ELLIPSE_FILL)
                 End If
             End If
 

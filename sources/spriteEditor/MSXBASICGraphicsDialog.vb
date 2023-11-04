@@ -114,7 +114,7 @@ Public Class MSXBASICGraphicsDialog
 
         Me.Sprites.Refresh()
 
-        If Me.Sprites.Size = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+        If Me.Sprites.Size = iVDP.SPRITE_SIZE.SIZE8 Then
             drawSprites8Patterns()
         Else
             drawSprites16Patterns()
@@ -232,7 +232,7 @@ Public Class MSXBASICGraphicsDialog
             '    spriteSetData.cop()
             'End If
 
-            spriteSet = New SpritesetMSX(aName, MSXBasicGFile.SpriteSize, SpriteMSX.SPRITE_MODE.MONO, 15, 0, Me.Project.Palettes.GetPalette(0), spriteSetData, Nothing)
+            spriteSet = New SpritesetMSX(aName, MSXBasicGFile.SpriteSize, iVDP.SPRITE_MODE.MONO, 15, 0, Me.Project.Palettes.GetPalette(0), spriteSetData, Nothing)
 
         Else
 

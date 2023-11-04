@@ -219,7 +219,7 @@ Partial Class SaveBitmapDialog
         Me.TMS9918Aviewer.Name = "TMS9918Aviewer"
         Me.TMS9918Aviewer.ScreenMode = mSXdevtools.DataStructures.iVDP.SCREEN_MODE.G2
         Me.TMS9918Aviewer.Size = New System.Drawing.Size(256, 192)
-        Me.TMS9918Aviewer.SpriteSize = mSXdevtools.DataStructures.SpriteMSX.SPRITE_SIZE.SIZE16
+        Me.TMS9918Aviewer.SpriteSize = mSXdevtools.DataStructures.iVDP.SPRITE_SIZE.SIZE16
         Me.TMS9918Aviewer.SpriteZoom = mSXdevtools.DataStructures.iVDP.SPRITE_ZOOM.X1
         Me.TMS9918Aviewer.TabIndex = 0
         Me.TMS9918Aviewer.ViewMode = mSXdevtools.GUI.TMS9918A.TMS9918A.VIEW_MODE.MAP

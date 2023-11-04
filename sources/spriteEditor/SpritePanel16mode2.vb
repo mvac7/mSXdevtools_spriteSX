@@ -23,8 +23,8 @@
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.Name = "SpritePanel16mode2"
-        Me.SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE16
-        Me.SpriteMode = SpriteMSX.SPRITE_MODE.COLOR
+        Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE16
+        Me.SpriteMode = iVDP.SPRITE_MODE.COLOR
 
         Me.ResumeLayout(False)
 
@@ -39,7 +39,9 @@
             'Application.DoEvents()
             ShowSpriteZoomPanel()
             'Application.DoEvents()
-            showORstates()
+            ShowECstates()
+            ShowCCstates()
+            ShowICstates()
             ShowColorLines()
             'Application.DoEvents()
         End If
@@ -52,47 +54,27 @@
 
 
 
-
-    Public Overrides Sub ClearSprite()
-
-        AddUndo()
-
-        _step = 0
-
-        'For i As Integer = 0 To _matrixdataSize
-        '    pixelData(i) = False
-        'Next
-
-
-        For Each aPic As System.Windows.Forms.Button In colorPic
-            aPic.BackColor = Me.ColorPalette.GetRGBColor(Me.InkColor)
-            Me.colorValues(aPic.TabIndex) = Me.InkColor
-        Next
-
-        SetORstate(False)
-
-        MyBase.ClearSprite()
-
-        'ShowSprite()
-    End Sub
-
-
-
     Public Overrides Sub SetSprite(ByVal spriteData As SpriteMSX)
+
+        Dim nLine As Integer
 
         ' colors
         If spriteData.ColorData Is Nothing Then
-            For i As Integer = 0 To 15
-                Me.colorValues(i) = spriteData.InkColor
-                Me.ORvalues(i) = False
+            For nLine = 0 To 15
+                Me.ColorLines(nLine) = spriteData.InkColor
+                Me.ICLines(nLine) = False
+                Me.CCLines(nLine) = False
+                Me.ECLines(nLine) = False
             Next
         Else
-            Me.colorValues = spriteData.ColorData.Clone
-            Me.ORvalues = spriteData.ORbitData.Clone
+            Me.ColorLines = spriteData.ColorData.Clone
+            Me.ICLines = spriteData.ICbitData.Clone
+            Me.CCLines = spriteData.CCbitData.Clone
+            Me.ECLines = spriteData.ECbitData.Clone
         End If
 
-        For i As Integer = 0 To 15
-            Me.colorPic(i).BackColor = Me.ColorPalette.GetRGBColor(Me.colorValues(i))
+        For nLine = 0 To 15
+            Me.LineInkButtons(nLine).BackColor = Me.ColorPalette.GetRGBColor(Me.ColorLines(nLine))
         Next
         ' end colors
 
@@ -108,30 +90,20 @@
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function GetSprite() As SpriteMSX
+    Overrides Function GetSprite() As SpriteMSX
 
-        Dim tmpData(31) As Byte
-        'ReDim tmpData(31)
-
-        'Dim tmpORData(15) As Boolean
-
-        'Dim aBit As Byte
-        Dim tmpvalue As Byte = 0
-        'Dim Counter As Integer = 0
+        Dim patternValues(31) As Byte
+        Dim tmpvalue As Byte
         Dim byteCounter As Integer = 0
-
-        'Dim aPixel As SpritePixel
 
         For y As Integer = 0 To 15
             tmpvalue = 0
             For x As Integer = 0 To 7
-                'Counter = (y * 16) + x
-
-                If Me.spriteLines.Item(y)(x) Then
+                If Me.PatternLines.Item(y)(x) Then
                     tmpvalue = tmpvalue Or Me.bitMASKi(x)
                 End If
             Next
-            tmpData(byteCounter) = tmpvalue
+            patternValues(byteCounter) = tmpvalue
             byteCounter += 1
         Next
 
@@ -139,166 +111,36 @@
         For y As Integer = 0 To 15
             tmpvalue = 0
             For x As Integer = 8 To 15
-                'Counter = (y * 16) + x
-
-                If Me.spriteLines.Item(y)(x) Then
+                If Me.PatternLines.Item(y)(x) Then
                     tmpvalue = tmpvalue Or Me.bitMASKi(x - 8)
                 End If
             Next
-            tmpData(byteCounter) = tmpvalue
+            patternValues(byteCounter) = tmpvalue
             byteCounter += 1
         Next
 
-        
 
-        'For y As Integer = 0 To 15
-        '    tmpORData(y) = orPic(y).TabStop
-        'Next
+        Me._WorkSprite.Size = iVDP.SPRITE_SIZE.SIZE16
+        Me._WorkSprite.Mode = iVDP.SPRITE_MODE.COLOR
 
-        'If Me._WorkSprite Is Nothing Then
-        '    ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< OJO se esta usando un index fijo a 0
-        '    Me._WorkSprite = New SpriteMSX(0, Me.SpriteName, SpriteBitmap.Clone, SpriteMSX.SPRITE_SIZE.SIZE16, Me.inkColor, Me.bgColor, tmpData.Clone(), colorValues.Clone(), ORvalues.Clone(), Me.Palette)
-        'Else
-        'Me._WorkSprite.name = Me.SpriteName
-
-        Me._WorkSprite.size = SpriteMSX.SPRITE_SIZE.SIZE16
-        Me._WorkSprite.mode = SpriteMSX.SPRITE_MODE.COLOR
-
-        Me._WorkSprite.patternData = tmpData.Clone
-        Me._WorkSprite.colorData = colorValues.Clone
-        Me._WorkSprite.ORbitData = ORvalues.Clone
-
-        'Me._WorkSprite.aBitmap = SpriteBitmap.Clone
+        Me._WorkSprite.patternData = patternValues.Clone
+        Me._WorkSprite.ColorData = Me.ColorLines.Clone
+        Me._WorkSprite.ICbitData = Me.ICLines.Clone
+        Me._WorkSprite.CCbitData = Me.CCLines.Clone
+        Me._WorkSprite.ECbitData = Me.ECLines.Clone
 
         Me._WorkSprite.InkColor = Me.InkColor
         Me._WorkSprite.BackgroundColor = Me.BackgroundColor
 
         Me._WorkSprite.SetColorPalette(Me.ColorPalette)
 
-        Me._WorkSprite.refresh()
-        'End If
+        Me._WorkSprite.Refresh()
+
 
         Return Me._WorkSprite
 
     End Function
 
-
-
-    Public Overrides Sub FlipVertical()
-
-        Dim tempORdata(_HIGH) As Boolean
-        Dim tempColorData(_HIGH) As Byte
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tempPixelData As ArrayList = Me.spriteLines.Clone
-        'Dim tsize As Integer = _HIGH + 1
-
-        AddUndo()
-
-        'tempPixelData = pixelData.Clone
-        tempColorData = Me.colorValues.Clone
-        tempORdata = Me.ORvalues.Clone
-
-        For i As Integer = 0 To _WIDTH
-            Me.colorValues(i) = tempColorData(_WIDTH - i)
-        Next
-
-        For i As Integer = 0 To _HIGH
-            Me.ORvalues(i) = tempORdata(_WIDTH - i)
-        Next
-
-        'For y As Integer = 0 To _HIGH
-        '    For x As Integer = 0 To _WIDTH
-        '        pixelData(y * tsize + x) = tempPixelData((_HIGH - y) * tsize + x)
-        '    Next
-        'Next
-
-        'For y As Integer = 0 To _HIGH
-        '    Me.spriteLines.Item(y) = tempPixelData(_HIGH - y)    ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< OJO no permite hacer un clone. Desconozco si al ser un Array realiza una copia automatica o pasa una referencia ???
-        'Next
-
-        'ShowSprite()
-
-        MyBase.FlipVertical()
-
-    End Sub
-
-
-
-    Public Overrides Sub MoveUp(ByVal rotate As Boolean)
-
-        Dim tempORdata(_HIGH) As Boolean
-        Dim tempColorData(_HIGH) As Byte
-
-        Dim rotateColor As Byte
-        Dim rotateOR As Boolean
-
-        AddUndo()
-
-        tempColorData = Me.colorValues.Clone
-        tempORdata = Me.ORvalues.Clone
-
-        rotateColor = tempColorData(0)
-        rotateOR = tempORdata(0)
-
-        For i As Integer = 0 To _HIGH - 1
-            Me.colorValues(i) = tempColorData(i + 1)
-        Next
-
-        For i As Integer = 0 To _HIGH - 1
-            Me.ORvalues(i) = tempORdata(i + 1)
-        Next
-
-        If rotate = True Then
-            Me.colorValues(_HIGH) = rotateColor
-            Me.ORvalues(_HIGH) = rotateOR
-        Else
-            Me.colorValues(_HIGH) = Me.InkColor
-            Me.ORvalues(_HIGH) = Me._ORselected
-        End If
-
-
-        MyBase.MoveUp(rotate)
-
-    End Sub
-
-
-
-    Public Overrides Sub MoveDown(ByVal rotate As Boolean)
-
-        Dim tempORdata(_HIGH) As Boolean
-        Dim tempColorData(_HIGH) As Byte
-
-        Dim rotateColor As Byte
-        Dim rotateOR As Boolean
-
-        AddUndo()
-
-        tempColorData = Me.colorValues.Clone
-        tempORdata = Me.ORvalues.Clone
-
-        rotateColor = tempColorData(_HIGH)
-        rotateOR = tempORdata(_HIGH)
-
-        For i As Integer = 1 To _HIGH
-            Me.colorValues(i) = tempColorData(i - 1)
-        Next
-
-        For i As Integer = 1 To _HIGH
-            Me.ORvalues(i) = tempORdata(i - 1)
-        Next
-
-        If rotate = True Then
-            Me.colorValues(0) = rotateColor
-            Me.ORvalues(0) = rotateOR
-        Else
-            Me.colorValues(0) = Me.InkColor
-            Me.ORvalues(0) = Me._ORselected
-        End If
-
-
-        MyBase.MoveDown(rotate)
-
-    End Sub
 
 
 End Class

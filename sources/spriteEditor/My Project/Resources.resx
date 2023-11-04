@@ -130,20 +130,14 @@
   <data name="icon_Ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_Ok.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_undo_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_undo_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_flip-horizontal_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_flip-horizontal_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_line_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_line_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_paint_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_paint_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_merge_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_merge_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_info-item_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_info-item_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dragdrop_48_06Y" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dragdrop_48_06Y.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,14 +157,20 @@
   <data name="ico_flip-vertical_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_flip-vertical_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_info_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_info_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_copy_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_copy_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_ellipse_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_ellipse_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="H_ruler" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\H_ruler.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_new_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_new_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_exchange_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_exchange_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_copy-paste_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_copy-paste_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,12 +184,6 @@
   <data name="column_info_mono1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\column_info_mono.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_info-item_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_info-item_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="edit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\edit_16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ico_config-prj_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_config-prj_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -198,6 +192,12 @@
   </data>
   <data name="ico_trash_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_trash_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_selecter_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_selecter_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_draw_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_draw_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="button_paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -211,8 +211,8 @@
   <data name="icon_Back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_Back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_selecter_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_selecter_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_undo_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_undo_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_left_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_left_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -220,23 +220,29 @@
   <data name="tick_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tick_24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_line_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_line_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_flip-horizontal_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_flip-horizontal_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sprite_viewer36" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sprite_viewer36.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="edit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit_16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="icon_Load" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_Load.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_draw_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_draw_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="H_ruler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\H_ruler.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_new_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_new_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_merge_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_merge_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="button_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\button_copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_paint_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_paint_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ico_rotate-right_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_rotate-right_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -268,10 +274,7 @@
   <data name="ico_invert_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_invert_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ico_exchange_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_exchange_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_info_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ico_info_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ico_SelectAll_15px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ico_SelectAll_15px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

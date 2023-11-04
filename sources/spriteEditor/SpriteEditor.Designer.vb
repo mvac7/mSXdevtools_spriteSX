@@ -36,11 +36,6 @@ Partial Class SpriteEditor
         Me.CircleButton = New System.Windows.Forms.ToolStripButton()
         Me.FillButton = New System.Windows.Forms.ToolStripButton()
         Me.UndoButton = New System.Windows.Forms.ToolStripButton()
-        Me.SpriteEditorStatusStrip = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.PosX_Label = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.PosY_Label = New System.Windows.Forms.ToolStripStatusLabel()
         Me.PiXelGroupBox1 = New mSXdevtools.GUI.Controls.piXelST_GroupBox()
         Me.SpriteNumberLabel = New mSXdevtools.GUI.Controls.piXelST_Label()
         Me.UpdateSpriteButton = New mSXdevtools.GUI.Controls.piXelST_Button()
@@ -48,6 +43,11 @@ Partial Class SpriteEditor
         Me.spritePreviewPicture = New System.Windows.Forms.PictureBox()
         Me.SpriteName = New System.Windows.Forms.TextBox()
         Me.SpriteEDPanel = New System.Windows.Forms.Panel()
+        Me.SpriteEditorStatusStrip = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.PosX_Label = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.PosY_Label = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SpriteToolStrip = New System.Windows.Forms.ToolStrip()
         Me.ClearSpriteButton = New System.Windows.Forms.ToolStripButton()
         Me.InvertButton = New System.Windows.Forms.ToolStripButton()
@@ -63,6 +63,11 @@ Partial Class SpriteEditor
         Me.Move2downButton = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.UpdateButton = New System.Windows.Forms.ToolStripButton()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.SetNameLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.SetNameTextLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.SetModeLabel = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.SetModeTextLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SpritesetPanel = New System.Windows.Forms.Panel()
         Me.aSpritesetControl = New mSXdevtools.GUI.Controls.SpritesetControl()
         Me.TilesetToolboxStrip = New System.Windows.Forms.ToolStrip()
@@ -85,24 +90,19 @@ Partial Class SpriteEditor
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.SetNameLabel = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.SetNameTextLabel = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.SetModeLabel = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.SetModeTextLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SpriteEditorPanel.SuspendLayout()
         Me.ClipboardPiXelGroupBox.SuspendLayout()
         CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SpritePaintToolBox.SuspendLayout()
-        Me.SpriteEditorStatusStrip.SuspendLayout()
         Me.PiXelGroupBox1.SuspendLayout()
         CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SpriteEDPanel.SuspendLayout()
+        Me.SpriteEditorStatusStrip.SuspendLayout()
         Me.SpriteToolStrip.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SpritesetPanel.SuspendLayout()
         Me.TilesetToolboxStrip.SuspendLayout()
         Me.TilesetToolStrip.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'SpriteEditorPanel
@@ -129,7 +129,7 @@ Partial Class SpriteEditor
         Me.ClipboardPiXelGroupBox.Controls.Add(Me.ClipboardPictureBox)
         Me.ClipboardPiXelGroupBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
         Me.ClipboardPiXelGroupBox.LineColor = System.Drawing.Color.DimGray
-        Me.ClipboardPiXelGroupBox.Location = New System.Drawing.Point(401, 70)
+        Me.ClipboardPiXelGroupBox.Location = New System.Drawing.Point(416, 70)
         Me.ClipboardPiXelGroupBox.Name = "ClipboardPiXelGroupBox"
         Me.ClipboardPiXelGroupBox.Padding = New System.Windows.Forms.Padding(0)
         Me.ClipboardPiXelGroupBox.Size = New System.Drawing.Size(160, 74)
@@ -271,54 +271,6 @@ Partial Class SpriteEditor
         Me.UndoButton.Text = "ToolStripButton1"
         Me.UndoButton.ToolTipText = "Undo [Ctrl+Z] / Redo [Ctrl+Y]"
         '
-        'SpriteEditorStatusStrip
-        '
-        Me.SpriteEditorStatusStrip.AutoSize = False
-        Me.SpriteEditorStatusStrip.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.SpriteEditorStatusStrip.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SpriteEditorStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel3, Me.PosX_Label, Me.ToolStripStatusLabel2, Me.PosY_Label})
-        Me.SpriteEditorStatusStrip.Location = New System.Drawing.Point(0, 304)
-        Me.SpriteEditorStatusStrip.Name = "SpriteEditorStatusStrip"
-        Me.SpriteEditorStatusStrip.Size = New System.Drawing.Size(350, 20)
-        Me.SpriteEditorStatusStrip.TabIndex = 4
-        Me.SpriteEditorStatusStrip.Text = "StatusStrip1"
-        '
-        'ToolStripStatusLabel3
-        '
-        Me.ToolStripStatusLabel3.AutoSize = False
-        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(30, 17)
-        Me.ToolStripStatusLabel3.Text = "X:"
-        Me.ToolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'PosX_Label
-        '
-        Me.PosX_Label.AutoSize = False
-        Me.PosX_Label.Font = New System.Drawing.Font("Consolas", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PosX_Label.Name = "PosX_Label"
-        Me.PosX_Label.Size = New System.Drawing.Size(26, 17)
-        Me.PosX_Label.Text = "00"
-        Me.PosX_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'ToolStripStatusLabel2
-        '
-        Me.ToolStripStatusLabel2.AutoSize = False
-        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(40, 17)
-        Me.ToolStripStatusLabel2.Text = "Y:"
-        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'PosY_Label
-        '
-        Me.PosY_Label.AutoSize = False
-        Me.PosY_Label.Font = New System.Drawing.Font("Consolas", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PosY_Label.Name = "PosY_Label"
-        Me.PosY_Label.Size = New System.Drawing.Size(26, 17)
-        Me.PosY_Label.Text = "00"
-        Me.PosY_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'PiXelGroupBox1
         '
         Me.PiXelGroupBox1.BackColor = System.Drawing.Color.Transparent
@@ -330,7 +282,7 @@ Partial Class SpriteEditor
         Me.PiXelGroupBox1.Controls.Add(Me.SpriteName)
         Me.PiXelGroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
         Me.PiXelGroupBox1.LineColor = System.Drawing.Color.DimGray
-        Me.PiXelGroupBox1.Location = New System.Drawing.Point(401, 186)
+        Me.PiXelGroupBox1.Location = New System.Drawing.Point(416, 186)
         Me.PiXelGroupBox1.Name = "PiXelGroupBox1"
         Me.PiXelGroupBox1.Padding = New System.Windows.Forms.Padding(0)
         Me.PiXelGroupBox1.Size = New System.Drawing.Size(160, 149)
@@ -403,8 +355,56 @@ Partial Class SpriteEditor
         Me.SpriteEDPanel.Controls.Add(Me.SpriteEditorStatusStrip)
         Me.SpriteEDPanel.Location = New System.Drawing.Point(39, 40)
         Me.SpriteEDPanel.Name = "SpriteEDPanel"
-        Me.SpriteEDPanel.Size = New System.Drawing.Size(350, 324)
+        Me.SpriteEDPanel.Size = New System.Drawing.Size(370, 324)
         Me.SpriteEDPanel.TabIndex = 5
+        '
+        'SpriteEditorStatusStrip
+        '
+        Me.SpriteEditorStatusStrip.AutoSize = False
+        Me.SpriteEditorStatusStrip.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.SpriteEditorStatusStrip.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SpriteEditorStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel3, Me.PosX_Label, Me.ToolStripStatusLabel2, Me.PosY_Label})
+        Me.SpriteEditorStatusStrip.Location = New System.Drawing.Point(0, 304)
+        Me.SpriteEditorStatusStrip.Name = "SpriteEditorStatusStrip"
+        Me.SpriteEditorStatusStrip.Size = New System.Drawing.Size(370, 20)
+        Me.SpriteEditorStatusStrip.TabIndex = 4
+        Me.SpriteEditorStatusStrip.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel3
+        '
+        Me.ToolStripStatusLabel3.AutoSize = False
+        Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(30, 15)
+        Me.ToolStripStatusLabel3.Text = "X:"
+        Me.ToolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'PosX_Label
+        '
+        Me.PosX_Label.AutoSize = False
+        Me.PosX_Label.Font = New System.Drawing.Font("Consolas", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PosX_Label.Name = "PosX_Label"
+        Me.PosX_Label.Size = New System.Drawing.Size(26, 15)
+        Me.PosX_Label.Text = "00"
+        Me.PosX_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ToolStripStatusLabel2
+        '
+        Me.ToolStripStatusLabel2.AutoSize = False
+        Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(40, 15)
+        Me.ToolStripStatusLabel2.Text = "Y:"
+        Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'PosY_Label
+        '
+        Me.PosY_Label.AutoSize = False
+        Me.PosY_Label.Font = New System.Drawing.Font("Consolas", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PosY_Label.Name = "PosY_Label"
+        Me.PosY_Label.Size = New System.Drawing.Size(26, 15)
+        Me.PosY_Label.Text = "00"
+        Me.PosY_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'SpriteToolStrip
         '
@@ -539,6 +539,52 @@ Partial Class SpriteEditor
         Me.UpdateButton.Size = New System.Drawing.Size(36, 36)
         Me.UpdateButton.Text = "ToolStripButton1"
         Me.UpdateButton.ToolTipText = "Update Sprite [Ctrl+ENTER]"
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetNameLabel, Me.SetNameTextLabel, Me.SetModeLabel, Me.SetModeTextLabel})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 378)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(600, 22)
+        Me.StatusStrip1.TabIndex = 10
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'SetNameLabel
+        '
+        Me.SetNameLabel.AutoSize = False
+        Me.SetNameLabel.BackColor = System.Drawing.Color.Transparent
+        Me.SetNameLabel.Name = "SetNameLabel"
+        Me.SetNameLabel.Size = New System.Drawing.Size(86, 17)
+        Me.SetNameLabel.Text = "Name:"
+        Me.SetNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'SetNameTextLabel
+        '
+        Me.SetNameTextLabel.AutoSize = False
+        Me.SetNameTextLabel.BackColor = System.Drawing.Color.Transparent
+        Me.SetNameTextLabel.Name = "SetNameTextLabel"
+        Me.SetNameTextLabel.Size = New System.Drawing.Size(240, 17)
+        Me.SetNameTextLabel.Text = "---"
+        Me.SetNameTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'SetModeLabel
+        '
+        Me.SetModeLabel.AutoSize = False
+        Me.SetModeLabel.BackColor = System.Drawing.Color.Transparent
+        Me.SetModeLabel.Name = "SetModeLabel"
+        Me.SetModeLabel.Size = New System.Drawing.Size(70, 17)
+        Me.SetModeLabel.Text = "Mode:"
+        Me.SetModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'SetModeTextLabel
+        '
+        Me.SetModeTextLabel.AutoSize = False
+        Me.SetModeTextLabel.BackColor = System.Drawing.Color.Transparent
+        Me.SetModeTextLabel.Name = "SetModeTextLabel"
+        Me.SetModeTextLabel.Size = New System.Drawing.Size(170, 17)
+        Me.SetModeTextLabel.Text = "---"
+        Me.SetModeTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'SpritesetPanel
         '
@@ -745,52 +791,6 @@ Partial Class SpriteEditor
         Me.ToolTip1.ForeColor = System.Drawing.Color.DarkBlue
         Me.ToolTip1.IsBalloon = True
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetNameLabel, Me.SetNameTextLabel, Me.SetModeLabel, Me.SetModeTextLabel})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 378)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(600, 22)
-        Me.StatusStrip1.TabIndex = 10
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'SetNameLabel
-        '
-        Me.SetNameLabel.AutoSize = False
-        Me.SetNameLabel.BackColor = System.Drawing.Color.Transparent
-        Me.SetNameLabel.Name = "SetNameLabel"
-        Me.SetNameLabel.Size = New System.Drawing.Size(86, 17)
-        Me.SetNameLabel.Text = "Name:"
-        Me.SetNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'SetNameTextLabel
-        '
-        Me.SetNameTextLabel.AutoSize = False
-        Me.SetNameTextLabel.BackColor = System.Drawing.Color.Transparent
-        Me.SetNameTextLabel.Name = "SetNameTextLabel"
-        Me.SetNameTextLabel.Size = New System.Drawing.Size(240, 17)
-        Me.SetNameTextLabel.Text = "---"
-        Me.SetNameTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'SetModeLabel
-        '
-        Me.SetModeLabel.AutoSize = False
-        Me.SetModeLabel.BackColor = System.Drawing.Color.Transparent
-        Me.SetModeLabel.Name = "SetModeLabel"
-        Me.SetModeLabel.Size = New System.Drawing.Size(70, 17)
-        Me.SetModeLabel.Text = "Mode:"
-        Me.SetModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'SetModeTextLabel
-        '
-        Me.SetModeTextLabel.AutoSize = False
-        Me.SetModeTextLabel.BackColor = System.Drawing.Color.Transparent
-        Me.SetModeTextLabel.Name = "SetModeTextLabel"
-        Me.SetModeTextLabel.Size = New System.Drawing.Size(170, 17)
-        Me.SetModeTextLabel.Text = "---"
-        Me.SetModeTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'SpriteEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -805,22 +805,22 @@ Partial Class SpriteEditor
         CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SpritePaintToolBox.ResumeLayout(False)
         Me.SpritePaintToolBox.PerformLayout()
-        Me.SpriteEditorStatusStrip.ResumeLayout(False)
-        Me.SpriteEditorStatusStrip.PerformLayout()
         Me.PiXelGroupBox1.ResumeLayout(False)
         Me.PiXelGroupBox1.PerformLayout()
         CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SpriteEDPanel.ResumeLayout(False)
+        Me.SpriteEditorStatusStrip.ResumeLayout(False)
+        Me.SpriteEditorStatusStrip.PerformLayout()
         Me.SpriteToolStrip.ResumeLayout(False)
         Me.SpriteToolStrip.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.SpritesetPanel.ResumeLayout(False)
         Me.SpritesetPanel.PerformLayout()
         Me.TilesetToolboxStrip.ResumeLayout(False)
         Me.TilesetToolboxStrip.PerformLayout()
         Me.TilesetToolStrip.ResumeLayout(False)
         Me.TilesetToolStrip.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

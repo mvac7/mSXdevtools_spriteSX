@@ -155,7 +155,7 @@
                     lebelsList = New ArrayList
                     For itemIndex = itemFirst To itemLast
                         _spriteset = Me.Project.GetSpriteset(itemIndex)
-                        If _spriteset.Mode = SpriteMSX.SPRITE_MODE.COLOR Then
+                        If _spriteset.Mode = iVDP.SPRITE_MODE.COLOR Then
                             lebelsList.Add(_dataFormat.GetAsmFieldFormat(_spriteset.Name) + SUFFIX_TYPE + "_COL")
                         End If
                     Next
@@ -205,7 +205,7 @@
             ' Generate a Sprites Color Data
             For spritesetIndex = itemFirst To itemLast
                 _spriteset = Me.Project.GetSpriteset(spritesetIndex)
-                If _spriteset.Mode = SpriteMSX.SPRITE_MODE.COLOR Then
+                If _spriteset.Mode = iVDP.SPRITE_MODE.COLOR Then
 
                     If itemLast = itemFirst Then
                         ' only one item
@@ -317,13 +317,13 @@
 
             If Not _spriteset Is Nothing Then
 
-                If _spriteset.Size = SpriteMSX.SPRITE_SIZE.SIZE16 Then
+                If _spriteset.Size = iVDP.SPRITE_SIZE.SIZE16 Then
                     InfoSpriteSizeLabel.Text = "16x16"
                 Else
                     InfoSpriteSizeLabel.Text = "8x8"
                 End If
 
-                If _spriteset.Mode = SpriteMSX.SPRITE_MODE.COLOR Then
+                If _spriteset.Mode = iVDP.SPRITE_MODE.COLOR Then
                     InfoSpriteModeLabel.Text = "M2"
                     Me.ToolTip1.SetToolTip(Me.InfoSpriteModeLabel, "Multicolor V9938")
                 Else
@@ -352,18 +352,18 @@
 
             result = "Size="
 
-            If _spriteset.Size = SpriteMSX.SPRITE_SIZE.SIZE16 Then
+            If _spriteset.Size = iVDP.SPRITE_SIZE.SIZE16 Then
                 result += "16x16"
             Else
                 result += "8x8"
             End If
 
-            result += " - Mode "
+            result += " - Mode="
 
-            If _spriteset.Mode = SpriteMSX.SPRITE_MODE.COLOR Then
-                result += "2 Multicolor V9938"
+            If _spriteset.Mode = iVDP.SPRITE_MODE.COLOR Then
+                result += "Mode2 Multicolor"
             Else
-                result += "1 Monocolor"
+                result += "Mode1 Monocolor"
             End If
 
         End If

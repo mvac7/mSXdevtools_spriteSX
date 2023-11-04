@@ -25,21 +25,23 @@ Partial Class SpritePanelBase
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SpritePanelBase))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ORselectedButton = New System.Windows.Forms.Button()
+        Me.CC_All_Button = New System.Windows.Forms.Button()
         Me.colorINKPictureBox = New System.Windows.Forms.Button()
         Me.colorBGPictureBox = New System.Windows.Forms.Button()
+        Me.IC_All_Button = New System.Windows.Forms.Button()
         Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.colorPanel = New System.Windows.Forms.Panel()
         Me.ColorsPanel = New System.Windows.Forms.Panel()
-        Me.infoPictureBox = New System.Windows.Forms.PictureBox()
         Me.VRulerPicture = New System.Windows.Forms.PictureBox()
         Me.HRulerPicture = New System.Windows.Forms.PictureBox()
+        Me.EC_All_Button = New System.Windows.Forms.Button()
+        Me.infoPictureBox = New System.Windows.Forms.PictureBox()
         Me.SpriteContainerPanel = New System.Windows.Forms.PictureBox()
         Me.colorPanel.SuspendLayout()
         Me.ColorsPanel.SuspendLayout()
-        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VRulerPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HRulerPicture, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SpriteContainerPanel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,19 +50,20 @@ Partial Class SpritePanelBase
         Me.ToolTip1.BackColor = System.Drawing.Color.Gainsboro
         Me.ToolTip1.ForeColor = System.Drawing.Color.DarkBlue
         '
-        'ORselectedButton
+        'CC_All_Button
         '
-        Me.ORselectedButton.BackColor = System.Drawing.Color.Gainsboro
-        Me.ORselectedButton.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke
-        Me.ORselectedButton.FlatAppearance.BorderSize = 0
-        Me.ORselectedButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ORselectedButton.Location = New System.Drawing.Point(0, 0)
-        Me.ORselectedButton.Name = "ORselectedButton"
-        Me.ORselectedButton.Padding = New System.Windows.Forms.Padding(1)
-        Me.ORselectedButton.Size = New System.Drawing.Size(15, 15)
-        Me.ORselectedButton.TabIndex = 26
-        Me.ToolTip1.SetToolTip(Me.ORselectedButton, "Select/Unselect All")
-        Me.ORselectedButton.UseVisualStyleBackColor = False
+        Me.CC_All_Button.BackColor = System.Drawing.Color.LightGreen
+        Me.CC_All_Button.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke
+        Me.CC_All_Button.FlatAppearance.BorderSize = 0
+        Me.CC_All_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CC_All_Button.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.ico_SelectAll_15px
+        Me.CC_All_Button.Location = New System.Drawing.Point(16, 0)
+        Me.CC_All_Button.Name = "CC_All_Button"
+        Me.CC_All_Button.Padding = New System.Windows.Forms.Padding(1)
+        Me.CC_All_Button.Size = New System.Drawing.Size(15, 15)
+        Me.CC_All_Button.TabIndex = 26
+        Me.ToolTip1.SetToolTip(Me.CC_All_Button, "Select/Unselect OR color (CC - Bit 6) on all lines")
+        Me.CC_All_Button.UseVisualStyleBackColor = False
         '
         'colorINKPictureBox
         '
@@ -69,12 +72,12 @@ Partial Class SpritePanelBase
         Me.colorINKPictureBox.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke
         Me.colorINKPictureBox.FlatAppearance.BorderSize = 0
         Me.colorINKPictureBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.colorINKPictureBox.Location = New System.Drawing.Point(16, 0)
+        Me.colorINKPictureBox.Location = New System.Drawing.Point(48, 0)
+        Me.colorINKPictureBox.Margin = New System.Windows.Forms.Padding(0)
         Me.colorINKPictureBox.Name = "colorINKPictureBox"
         Me.colorINKPictureBox.Size = New System.Drawing.Size(15, 15)
         Me.colorINKPictureBox.TabIndex = 14
         Me.colorINKPictureBox.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.colorINKPictureBox, "Ink color")
         Me.colorINKPictureBox.UseVisualStyleBackColor = False
         '
         'colorBGPictureBox
@@ -83,7 +86,8 @@ Partial Class SpritePanelBase
         Me.colorBGPictureBox.Cursor = System.Windows.Forms.Cursors.Hand
         Me.colorBGPictureBox.FlatAppearance.BorderSize = 0
         Me.colorBGPictureBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.colorBGPictureBox.Location = New System.Drawing.Point(32, 0)
+        Me.colorBGPictureBox.Location = New System.Drawing.Point(64, 0)
+        Me.colorBGPictureBox.Margin = New System.Windows.Forms.Padding(0)
         Me.colorBGPictureBox.Name = "colorBGPictureBox"
         Me.colorBGPictureBox.Padding = New System.Windows.Forms.Padding(1)
         Me.colorBGPictureBox.Size = New System.Drawing.Size(15, 15)
@@ -92,12 +96,27 @@ Partial Class SpritePanelBase
         Me.ToolTip1.SetToolTip(Me.colorBGPictureBox, "Background color")
         Me.colorBGPictureBox.UseVisualStyleBackColor = False
         '
+        'IC_All_Button
+        '
+        Me.IC_All_Button.BackColor = System.Drawing.Color.LightGreen
+        Me.IC_All_Button.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke
+        Me.IC_All_Button.FlatAppearance.BorderSize = 0
+        Me.IC_All_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.IC_All_Button.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.ico_SelectAll_15px
+        Me.IC_All_Button.Location = New System.Drawing.Point(32, 0)
+        Me.IC_All_Button.Name = "IC_All_Button"
+        Me.IC_All_Button.Padding = New System.Windows.Forms.Padding(1)
+        Me.IC_All_Button.Size = New System.Drawing.Size(15, 15)
+        Me.IC_All_Button.TabIndex = 28
+        Me.ToolTip1.SetToolTip(Me.IC_All_Button, "Select/Unselect Ignore Collisions (IC - Bit 5) on all lines")
+        Me.IC_All_Button.UseVisualStyleBackColor = False
+        '
         'ImageList1
         '
         Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
         Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        Me.ImageList1.Images.SetKeyName(0, "column_info_mono.png")
-        Me.ImageList1.Images.SetKeyName(1, "column_info.png")
+        Me.ImageList1.Images.SetKeyName(0, "spriteED_colinfo_TMS.png")
+        Me.ImageList1.Images.SetKeyName(1, "spriteED_colinfo_V9938.png")
         '
         'colorPanel
         '
@@ -105,28 +124,20 @@ Partial Class SpritePanelBase
         Me.colorPanel.Controls.Add(Me.infoPictureBox)
         Me.colorPanel.Location = New System.Drawing.Point(275, 6)
         Me.colorPanel.Name = "colorPanel"
-        Me.colorPanel.Size = New System.Drawing.Size(74, 41)
+        Me.colorPanel.Size = New System.Drawing.Size(94, 41)
         Me.colorPanel.TabIndex = 27
         '
         'ColorsPanel
         '
+        Me.ColorsPanel.Controls.Add(Me.IC_All_Button)
+        Me.ColorsPanel.Controls.Add(Me.EC_All_Button)
         Me.ColorsPanel.Controls.Add(Me.colorBGPictureBox)
         Me.ColorsPanel.Controls.Add(Me.colorINKPictureBox)
-        Me.ColorsPanel.Controls.Add(Me.ORselectedButton)
+        Me.ColorsPanel.Controls.Add(Me.CC_All_Button)
         Me.ColorsPanel.Location = New System.Drawing.Point(0, 25)
         Me.ColorsPanel.Name = "ColorsPanel"
-        Me.ColorsPanel.Size = New System.Drawing.Size(70, 16)
+        Me.ColorsPanel.Size = New System.Drawing.Size(82, 15)
         Me.ColorsPanel.TabIndex = 28
-        '
-        'infoPictureBox
-        '
-        Me.infoPictureBox.BackColor = System.Drawing.Color.Transparent
-        Me.infoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.infoPictureBox.Location = New System.Drawing.Point(8, 0)
-        Me.infoPictureBox.Name = "infoPictureBox"
-        Me.infoPictureBox.Size = New System.Drawing.Size(55, 24)
-        Me.infoPictureBox.TabIndex = 25
-        Me.infoPictureBox.TabStop = False
         '
         'VRulerPicture
         '
@@ -136,7 +147,7 @@ Partial Class SpritePanelBase
         Me.VRulerPicture.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.V_ruler_16px
         Me.VRulerPicture.Location = New System.Drawing.Point(0, 47)
         Me.VRulerPicture.Name = "VRulerPicture"
-        Me.VRulerPicture.Size = New System.Drawing.Size(16, 256)
+        Me.VRulerPicture.Size = New System.Drawing.Size(16, 246)
         Me.VRulerPicture.TabIndex = 29
         Me.VRulerPicture.TabStop = False
         '
@@ -148,9 +159,37 @@ Partial Class SpritePanelBase
         Me.HRulerPicture.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.H_ruler_16px
         Me.HRulerPicture.Location = New System.Drawing.Point(17, 30)
         Me.HRulerPicture.Name = "HRulerPicture"
-        Me.HRulerPicture.Size = New System.Drawing.Size(256, 16)
+        Me.HRulerPicture.Size = New System.Drawing.Size(257, 16)
         Me.HRulerPicture.TabIndex = 28
         Me.HRulerPicture.TabStop = False
+        '
+        'EC_All_Button
+        '
+        Me.EC_All_Button.BackColor = System.Drawing.Color.LightGreen
+        Me.EC_All_Button.FlatAppearance.BorderColor = System.Drawing.Color.WhiteSmoke
+        Me.EC_All_Button.FlatAppearance.BorderSize = 0
+        Me.EC_All_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.EC_All_Button.Font = New System.Drawing.Font("Consolas", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EC_All_Button.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.ico_SelectAll_15px
+        Me.EC_All_Button.Location = New System.Drawing.Point(0, 0)
+        Me.EC_All_Button.Margin = New System.Windows.Forms.Padding(0)
+        Me.EC_All_Button.Name = "EC_All_Button"
+        Me.EC_All_Button.Padding = New System.Windows.Forms.Padding(1)
+        Me.EC_All_Button.Size = New System.Drawing.Size(15, 15)
+        Me.EC_All_Button.TabIndex = 27
+        Me.EC_All_Button.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.EC_All_Button, "Select/Unselect Early Clock (EC - Bit 7) on all lines")
+        Me.EC_All_Button.UseVisualStyleBackColor = False
+        '
+        'infoPictureBox
+        '
+        Me.infoPictureBox.BackColor = System.Drawing.Color.Transparent
+        Me.infoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.infoPictureBox.Location = New System.Drawing.Point(0, 2)
+        Me.infoPictureBox.Name = "infoPictureBox"
+        Me.infoPictureBox.Size = New System.Drawing.Size(94, 22)
+        Me.infoPictureBox.TabIndex = 25
+        Me.infoPictureBox.TabStop = False
         '
         'SpriteContainerPanel
         '
@@ -164,8 +203,7 @@ Partial Class SpritePanelBase
         '
         'SpritePanelBase
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Controls.Add(Me.VRulerPicture)
         Me.Controls.Add(Me.HRulerPicture)
@@ -173,12 +211,12 @@ Partial Class SpritePanelBase
         Me.Controls.Add(Me.SpriteContainerPanel)
         Me.DoubleBuffered = True
         Me.Name = "SpritePanelBase"
-        Me.Size = New System.Drawing.Size(350, 320)
+        Me.Size = New System.Drawing.Size(370, 310)
         Me.colorPanel.ResumeLayout(False)
         Me.ColorsPanel.ResumeLayout(False)
-        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.VRulerPicture, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.HRulerPicture, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.infoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SpriteContainerPanel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -188,10 +226,12 @@ Partial Class SpritePanelBase
     Friend WithEvents colorBGPictureBox As System.Windows.Forms.Button
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Private WithEvents infoPictureBox As System.Windows.Forms.PictureBox
-    Friend WithEvents ORselectedButton As System.Windows.Forms.Button
+    Friend WithEvents CC_All_Button As System.Windows.Forms.Button
     Friend WithEvents ImageList1 As System.Windows.Forms.ImageList
     Friend WithEvents colorPanel As System.Windows.Forms.Panel
     Friend WithEvents ColorsPanel As System.Windows.Forms.Panel
     Friend WithEvents HRulerPicture As PictureBox
     Friend WithEvents VRulerPicture As PictureBox
+    Friend WithEvents IC_All_Button As Button
+    Friend WithEvents EC_All_Button As Button
 End Class

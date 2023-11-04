@@ -165,7 +165,7 @@ Public Class LoadBitmapDialog
         '    tilesetName = "TSET_B" + CStr(nBank)
         'End If
 
-        spriteSET = New SpritesetMSX(tilesetName, SpriteMSX.SPRITE_SIZE.SIZE8, Me.ModeComboBox.SelectedIndex + 1, 15, 0, Me.Palettes.GetPalette(0))
+        spriteSET = New SpritesetMSX(tilesetName, iVDP.SPRITE_SIZE.SIZE8, Me.ModeComboBox.SelectedIndex + 1, 15, 0, Me.Palettes.GetPalette(0))
 
         patternVRAMaddr = iVDP.TableBase.GRPCGP + (&H800 * nBank)
 
@@ -206,7 +206,7 @@ Public Class LoadBitmapDialog
                 Next
 
 
-                sprite = New SpriteMSX(npattern, "sprite_" + CStr(npattern), SpriteMSX.SPRITE_SIZE.SIZE8, Me.ModeComboBox.SelectedIndex + 1, colorInk, BGcolorUsedInPicture, patternData, colorData, Me.Palettes.GetPalette(0))
+                sprite = New SpriteMSX(npattern, "sprite_" + CStr(npattern), iVDP.SPRITE_SIZE.SIZE8, Me.ModeComboBox.SelectedIndex + 1, colorInk, BGcolorUsedInPicture, patternData, colorData, Me.Palettes.GetPalette(0))
 
                 spriteSET.SetSprite(sprite)
 
@@ -253,7 +253,7 @@ Public Class LoadBitmapDialog
         '    tilesetName = "new_TSET"
         'End If
 
-        spriteSET = New SpritesetMSX(tilesetName, SpriteMSX.SPRITE_SIZE.SIZE16, Me.ModeComboBox.SelectedIndex + 1, 15, 0, Me.Palettes.GetPalette(0))
+        spriteSET = New SpritesetMSX(tilesetName, iVDP.SPRITE_SIZE.SIZE16, Me.ModeComboBox.SelectedIndex + 1, 15, 0, Me.Palettes.GetPalette(0))
 
         patternVRAMaddr = iVDP.TableBase.GRPCGP + (&H800 * nBank)
 
@@ -328,7 +328,7 @@ Public Class LoadBitmapDialog
                 'End If
 
 
-                sprite = New SpriteMSX(npattern, "", SpriteMSX.SPRITE_SIZE.SIZE16, Me.ModeComboBox.SelectedIndex + 1, colorSprite, BGcolorUsedInPicture, patternData, colorData, Me.Palettes.GetPalette(0))
+                sprite = New SpriteMSX(npattern, "", iVDP.SPRITE_SIZE.SIZE16, Me.ModeComboBox.SelectedIndex + 1, colorSprite, BGcolorUsedInPicture, patternData, colorData, Me.Palettes.GetPalette(0))
                 spriteSET.SetSprite(sprite)
 
                 patternVRAMaddr += 16

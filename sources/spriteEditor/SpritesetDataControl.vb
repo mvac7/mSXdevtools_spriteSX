@@ -26,14 +26,14 @@
 
 
 
-    Public ReadOnly Property SpriteSize() As SpriteMSX.SPRITE_SIZE
+    Public ReadOnly Property SpriteSize() As iVDP.SPRITE_SIZE
         Get
             Return Me.SizeComboBox.SelectedIndex + 1
         End Get
     End Property
 
 
-    Public ReadOnly Property SpriteMode() As SpriteMSX.SPRITE_MODE
+    Public ReadOnly Property SpriteMode() As iVDP.SPRITE_MODE
         Get
             Return Me.ModeCombobox.SelectedIndex + 1
         End Get

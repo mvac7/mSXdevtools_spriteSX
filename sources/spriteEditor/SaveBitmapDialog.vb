@@ -10,8 +10,8 @@ Public Class SaveBitmapDialog
 
     Private ProjectPath As String
     Private _projectName As String  '= ""
-    Private _projectSize As SpriteMSX.SPRITE_SIZE  ' 0=8x8,  1=16x16 
-    Private _projectMode As SpriteMSX.SPRITE_MODE  ' 1=MSX1, 2=MSX2
+    Private _projectSize As iVDP.SPRITE_SIZE  ' 0=8x8,  1=16x16 
+    Private _projectMode As iVDP.SPRITE_MODE  ' 1=MSX1, 2=MSX2
 
     'Public Sprites As SpritesetMSX
 
@@ -286,7 +286,7 @@ Public Class SaveBitmapDialog
             vaddr = iVDP.TableBase.GRPCGP + (nbank * &H800)
             vaddrCOL = iVDP.TableBase.GRPCOL + (nbank * &H800)
 
-            If sprites.Size = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+            If sprites.Size = iVDP.SPRITE_SIZE.SIZE8 Then
                 dataLength = 7
                 'Me.screen2.OrderMap()
                 setSprites8Map(nbank)
@@ -300,7 +300,7 @@ Public Class SaveBitmapDialog
                 For i = 0 To dataLength
                     TMS9918Aviewer.VPOKE(vaddr, aSprite.patternData(i))
 
-                    If sprites.Mode = SpriteMSX.SPRITE_MODE.MONO Then
+                    If sprites.Mode = iVDP.SPRITE_MODE.MONO Then
                         tmpColor = aSprite.InkColor
                     Else
                         If i < 16 Then

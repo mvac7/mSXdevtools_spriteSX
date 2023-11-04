@@ -1,8 +1,8 @@
 ﻿Public Class SpritePanelBase
     Implements ISpriteContainer
 
-    Private _SpriteSize As SpriteMSX.SPRITE_SIZE  'SPRITESIZES = SPRITESIZES.SPRITE8x8
-    Private _SpriteMode As SpriteMSX.SPRITE_MODE
+    Private _SpriteSize As iVDP.SPRITE_SIZE  'SPRITESIZES = SPRITESIZES.SPRITE8x8
+    Private _SpriteMode As iVDP.SPRITE_MODE
 
     'Public _SpriteName As String
     Public _PatternNumber As Integer
@@ -11,6 +11,7 @@
     Public _inkColor As Integer
     Public _bgColor As Integer
 
+    Public bitMASKi = New Byte() {128, 64, 32, 16, 8, 4, 2, 1}
 
     Public _WorkSprite As SpriteMSX
 
@@ -18,17 +19,20 @@
 
     Public aColorSelector As New ColorSelector()
 
-    'Private bitMASK = New Byte() {1, 2, 4, 8, 16, 32, 64, 128}
-    Public bitMASKi = New Byte() {128, 64, 32, 16, 8, 4, 2, 1}
+    Public LineInkButtons() As System.Windows.Forms.Button
 
+    Public ICbuttons() As System.Windows.Forms.Button
+    Public CCbuttons() As System.Windows.Forms.Button
+    Public ECbuttons() As System.Windows.Forms.Button
 
-    Public spriteLines As MatrixData  'ArrayList
+    Public PatternLines As MatrixData  'ArrayList
+    Public ColorLines(15) As Byte
+    Public ICLines(15) As Boolean
+    Public CCLines(15) As Boolean
+    Public ECLines(15) As Boolean
 
-    Public colorPic() As System.Windows.Forms.Button
-    Public orPic() As System.Windows.Forms.Button
-
-    Public ORvalues(15) As Boolean
-    Public colorValues(15) As Byte
+    'Public CCLines(15) As Boolean
+    'Public ECLines(15) As Boolean
 
     Public _ORselected As Boolean = False
 
@@ -77,21 +81,21 @@
     'Public Event SpriteInfoChanged(ByVal name As String, ByVal patternNumber As Integer) Implements ISpriteContainer.SpriteInfoChanged
 
 
-    Public Property SpriteSize() As SpriteMSX.SPRITE_SIZE   ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< OJO puede confundirse con el size del sprite, (en este caso devuelve el size de datos)
+    Public Property SpriteSize() As iVDP.SPRITE_SIZE
         Get
             Return Me._SpriteSize
         End Get
-        Set(ByVal value As SpriteMSX.SPRITE_SIZE)
+        Set(ByVal value As iVDP.SPRITE_SIZE)
             Me._SpriteSize = value
         End Set
     End Property
 
 
-    Public Property SpriteMode() As SpriteMSX.SPRITE_MODE
+    Public Property SpriteMode() As iVDP.SPRITE_MODE
         Get
             Return Me._SpriteMode
         End Get
-        Set(ByVal value As SpriteMSX.SPRITE_MODE)
+        Set(ByVal value As iVDP.SPRITE_MODE)
             Me._SpriteMode = value
         End Set
     End Property
@@ -132,8 +136,11 @@
             Me._inkColor = value
             If Not colorINKPictureBox Is Nothing Then
 
-                Me.ToolTip1.SetToolTip(colorINKPictureBox, "Ink color: " + CStr(value))
-                colorINKPictureBox.BackColor = Me.Palette.GetRGBColor(value) 'value.GetRGBColor()
+                If Me._SpriteMode = iVDP.SPRITE_MODE.MONO Then
+                    Me.ToolTip1.SetToolTip(Me.colorINKPictureBox, "Ink color: " + CStr(value))
+                End If
+
+                colorINKPictureBox.BackColor = Me.Palette.GetRGBColor(value)
             End If
         End Set
     End Property
@@ -146,7 +153,7 @@
         Set(ByVal value As Integer)
             Me._bgColor = value
             If Not colorBGPictureBox Is Nothing Then
-                Me.ToolTip1.SetToolTip(colorBGPictureBox, "Background color: " + CStr(value))
+                Me.ToolTip1.SetToolTip(Me.colorBGPictureBox, "Background color: " + CStr(value))
                 colorBGPictureBox.BackColor = Me.Palette.GetRGBColor(value) 'value.GetRGBColor()
             End If
         End Set
@@ -171,7 +178,7 @@
     Public Sub RefreshSprite() Implements ISpriteContainer.RefreshSprite
         Me.InkColor = Me._inkColor
         Me.BackgroundColor = Me._bgColor
-        If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
+        If SpriteMode = iVDP.SPRITE_MODE.COLOR Then
             ShowColorLines()
         End If
         ShowSprite()
@@ -197,7 +204,7 @@
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Me.Palette = New PaletteMSX(iVDP.VDP.TMS9918A)
+        Me.Palette = New PaletteMSX()
 
         Me.InkColor = 15
         Me.BackgroundColor = 0
@@ -234,7 +241,7 @@
 
         _step = 0
 
-        If Me._SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+        If Me._SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Then
             '8x8
             Me.SpriteContainerPanel.Size = New System.Drawing.Size(129, 129)
             Me.HRulerPicture.Size = New System.Drawing.Size(128, 16)
@@ -259,25 +266,29 @@
 
 
         ' init sprite matrix data
-        Me.spriteLines = New MatrixData(_HIGH)
+        Me.PatternLines = New MatrixData(_HIGH)
 
-        ReDim colorPic(_HIGH)
-        ReDim orPic(_HIGH)
+        ReDim LineInkButtons(_HIGH)
+        ReDim ICbuttons(_HIGH)
+        ReDim CCbuttons(_HIGH)
+        ReDim ECbuttons(_HIGH)
 
-        If Me._SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
+        If Me._SpriteMode = iVDP.SPRITE_MODE.COLOR Then
             'multicolor (V9938 or +)
-            ORselectedButton.Visible = True
+
+            Me.colorINKPictureBox.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.ico_SelectAll_15px
             Me.infoPictureBox.Image = Me.ImageList1.Images.Item(1)
 
-            Me.colorINKPictureBox.Location = New System.Drawing.Point(16, 0)
-            Me.colorBGPictureBox.Location = New System.Drawing.Point(32, 0)
+            Me.ToolTip1.SetToolTip(Me.colorINKPictureBox, "Select the ink color on all lines")
 
             For i = 0 To _HIGH
                 GenerateColorLine(i)
             Next
 
         Else
-            ORselectedButton.Visible = False
+            Me.EC_All_Button.Visible = False
+            Me.CC_All_Button.Visible = False
+            Me.IC_All_Button.Visible = False
             Me.infoPictureBox.Image = Me.ImageList1.Images.Item(0)
 
             Me.colorINKPictureBox.Location = New System.Drawing.Point(0, 0)
@@ -333,63 +344,55 @@
 
     Private Sub GenerateColorLine(ByVal numy As Integer)
 
-        Dim posY As Integer = (numy * 16) + 47
-        Dim posX As Integer
+        Dim tmpButton As System.Windows.Forms.Button
 
-        Dim ORBitLine = New System.Windows.Forms.Button()
-        Dim colorINKLine = New System.Windows.Forms.Button()
+        tmpButton = GetaButton(numy, "EC_CheckBox", 0)
+        AddHandler tmpButton.Click, AddressOf Me.ECbitLine_Click
+        Me.Controls.Add(tmpButton)
+        Me.ECbuttons(numy) = tmpButton
 
+        tmpButton = GetaButton(numy, "CC_CheckBox", 1)
+        AddHandler tmpButton.Click, AddressOf Me.CCbitLine_Click
+        Me.Controls.Add(tmpButton)
+        Me.CCbuttons(numy) = tmpButton
 
-        'If Me._SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE8 Then
-        '    x = 151
-        'Else
-        '    x = 275
-        'End If
+        tmpButton = GetaButton(numy, "IC_CheckBox", 2)
+        AddHandler tmpButton.Click, AddressOf Me.ICbitLine_Click
+        Me.Controls.Add(tmpButton)
+        Me.ICbuttons(numy) = tmpButton
 
-        posX = Me.SpriteContainerPanel.Location.X + Me.SpriteContainerPanel.Size.Width + 2
-
-        '
-        'ORPicture Checker
-        '
-        ORBitLine.BackColor = System.Drawing.Color.DarkGray
-        ORBitLine.FlatAppearance.BorderSize = 0
-        ORBitLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        ORBitLine.Cursor = System.Windows.Forms.Cursors.Hand
-        ORBitLine.Location = New System.Drawing.Point(posX, posY)
-        ORBitLine.Name = "ORPictureCheckBox" + CStr(numy)
-        ORBitLine.Size = New System.Drawing.Size(15, 15)
-        ORBitLine.TabIndex = numy
-        ORBitLine.TabStop = False
-        'Me.ToolTip1.SetToolTip(ORBitLine, "Off")
-
-
-        '
-        'colorINK
-        '
-        colorINKLine.BackColor = System.Drawing.Color.White
-        colorINKLine.FlatAppearance.BorderSize = 0
-        colorINKLine.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        colorINKLine.Cursor = System.Windows.Forms.Cursors.Hand
-        colorINKLine.Location = New System.Drawing.Point(posX + 16, posY)
-        colorINKLine.Name = "colorINKLine" + CStr(numy)
-        colorINKLine.Size = New System.Drawing.Size(15, 15)
-        colorINKLine.TabIndex = numy
-        colorINKLine.TabStop = False
-        Me.ToolTip1.SetToolTip(colorINKLine, "0")
-
-        Me.Controls.Add(ORBitLine)
-        Me.Controls.Add(colorINKLine)
-
-        AddHandler ORBitLine.Click, AddressOf Me.ORBitLine_Click
-        AddHandler colorINKLine.Click, AddressOf Me.colorINKLine_Click
-
-        'Me.ResumeLayout(False)
-
-        Me.orPic(numy) = ORBitLine
-        Me.colorPic(numy) = colorINKLine
+        tmpButton = GetaButton(numy, "Ink_Color_Line", 3)
+        AddHandler tmpButton.Click, AddressOf Me.colorINKLine_Click
+        Me.Controls.Add(tmpButton)
+        Me.LineInkButtons(numy) = tmpButton
 
     End Sub
 
+
+
+    Private Function GetaButton(ByVal index As Integer, ByVal name As String, ByVal column As Integer) As System.Windows.Forms.Button
+
+        Dim posY As Integer
+        Dim posX As Integer
+
+        Dim tmpButton = New System.Windows.Forms.Button()
+
+        posX = (Me.SpriteContainerPanel.Location.X + Me.SpriteContainerPanel.Size.Width + 2) + (column * 16)
+        posY = (index * 16) + 47
+
+        tmpButton.BackColor = System.Drawing.Color.Gainsboro
+        tmpButton.FlatAppearance.BorderSize = 0
+        tmpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        tmpButton.Cursor = System.Windows.Forms.Cursors.Hand
+        tmpButton.Size = New System.Drawing.Size(15, 15)
+        tmpButton.Name = name + CStr(index)
+        tmpButton.Location = New System.Drawing.Point(posX, posY)
+        tmpButton.TabIndex = index
+        tmpButton.TabStop = False
+
+        Return tmpButton
+
+    End Function
 
 
     Overridable Sub ShowSprite()
@@ -400,7 +403,7 @@
             'Application.DoEvents()
         End If
 
-        If Me._SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE16 Then
+        If Me._SpriteSize = iVDP.SPRITE_SIZE.SIZE16 Then
             Me.panelGraphics.DrawLine(Pens.Orange, 128, 0, 128, 256)
             Me.panelGraphics.DrawLine(Pens.Orange, 0, 128, 256, 128)
         End If
@@ -418,7 +421,7 @@
 
         For y As Integer = 0 To _HIGH
             For x As Integer = 0 To _WIDTH
-                putPixelZoom(x, y, Me.spriteLines.Item(y)(x))
+                putPixelZoom(x, y, Me.PatternLines.Item(y)(x))
             Next
         Next
 
@@ -438,7 +441,7 @@
 
         For y As Integer = 0 To _HIGH
             For x As Integer = 0 To _WIDTH
-                putPixelPreview(x, y, Me.spriteLines.Item(y)(x))
+                putPixelPreview(x, y, Me.PatternLines.Item(y)(x))
                 'putPixelPreview(x, y, pixelData(contador))
                 'contador += 1
             Next
@@ -505,11 +508,11 @@
         ClearUndo()
 
 
-        Me.spriteLines.Clear()
+        Me.PatternLines.Clear()
 
 
         ' adapta el sprite de la entrada al modo que esta trabajando el editor
-        If Me.SpriteSize = SpriteMSX.SPRITE_SIZE.SIZE8 Or spriteData.Size = SpriteMSX.SPRITE_SIZE.SIZE8 Then
+        If Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Or spriteData.Size = iVDP.SPRITE_SIZE.SIZE8 Then
 
             For y As Integer = 0 To 7
                 TempValue = spriteData.patternData(y)
@@ -517,9 +520,9 @@
                     'TempValue = spriteData.patternData(y) And Me.bitMASKi(x)
 
                     If ((TempValue >> x) And 1) = 1 Then 'TempValue = Me.bitMASKi(x) Then
-                        Me.spriteLines.Item(y)(7 - x) = True
+                        Me.PatternLines.Item(y)(7 - x) = True
                     Else
-                        Me.spriteLines.Item(y)(7 - x) = False
+                        Me.PatternLines.Item(y)(7 - x) = False
                     End If
                 Next
             Next
@@ -532,9 +535,9 @@
                     'TempValue = spriteData.patternData(y) And Me.bitMASKi(x)
 
                     If ((TempValue >> x) And 1) = 1 Then 'Me.bitMASKi(x) Then
-                        Me.spriteLines.Item(y)(7 - x) = True
+                        Me.PatternLines.Item(y)(7 - x) = True
                     Else
-                        Me.spriteLines.Item(y)(7 - x) = False
+                        Me.PatternLines.Item(y)(7 - x) = False
                     End If
                 Next
 
@@ -543,9 +546,9 @@
                     'TempValue = spriteData.patternData(y + 16) And Me.bitMASKi(x - 8)
 
                     If ((TempValue >> x) And 1) = 1 Then 'TempValue = Me.bitMASKi(x - 8) Then
-                        spriteLines.Item(y)(15 - x) = True
+                        PatternLines.Item(y)(15 - x) = True
                     Else
-                        spriteLines.Item(y)(15 - x) = False
+                        PatternLines.Item(y)(15 - x) = False
                     End If
                 Next
             Next
@@ -616,7 +619,23 @@
     ''' <remarks></remarks>
     Overridable Sub ClearSprite() Implements ISpriteContainer.ClearSprite
 
-        Me.spriteLines.Clear()
+        AddUndo()
+
+        _step = 0
+
+        Me.PatternLines.Clear()
+
+        For nLine As Integer = 0 To 15
+            Me.ColorLines(nLine) = Me.InkColor
+        Next
+
+        SetICstate(False)
+        SetCCstate(False)
+        SetECstate(False)
+
+        If SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+            ShowColorLines()
+        End If
 
         ShowSprite()
 
@@ -630,20 +649,14 @@
     ''' <remarks></remarks>
     Overridable Sub FlipHorizontal() Implements ISpriteContainer.FlipHorizontal
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
-
-        'Dim tempPixelData(_matrixdataSize) As Boolean
-        'Dim tsize As Integer = _HIGH + 1
+        Dim tempPixelData As MatrixData = Me.PatternLines.Clone()
 
         AddUndo()
-
-        'tempPixelData = pixelData.Clone
 
         For y As Integer = 0 To _HIGH
 
             For x As Integer = 0 To _WIDTH
-                'pixelData(y * tsize + x) = tempPixelData(y * tsize + (_WIDTH - x))
-                Me.spriteLines.Item(y)(x) = tempPixelData.Item(y)(_WIDTH - x)
+                Me.PatternLines.Item(y)(x) = tempPixelData.Item(y)(_WIDTH - x)
             Next
 
         Next
@@ -660,14 +673,37 @@
     ''' <remarks></remarks>
     Overridable Sub FlipVertical() Implements ISpriteContainer.FlipVertical
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim tmpPattern() As Boolean
+        Dim tmpColor As Byte
+        Dim tmpBoolean As Boolean
 
-        For y As Integer = 0 To _HIGH
-            Me.spriteLines.Item(y) = tempPixelData.Item(_HIGH - y)   '.Clone()    ' <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< OJO no permite hacer un clone. Desconozco si al ser un Array realiza una copia automatica o pasa una referencia ???
-            'For x As Integer = 0 To _WIDTH
-            '    pixelData(y * tsize + x) = tempPixelData((_HIGH - y) * tsize + x)
-            'Next
+        Dim nLine As Integer
+
+        AddUndo()
+
+
+        For nLine = 0 To Fix(_HIGH / 2)
+            tmpPattern = Me.PatternLines.Item(nLine)
+            Me.PatternLines.Item(nLine) = Me.PatternLines.Item(_HIGH - nLine)
+            Me.PatternLines.Item(_HIGH - nLine) = tmpPattern
+
+            tmpColor = Me.ColorLines(nLine)
+            Me.ColorLines(nLine) = ColorLines(_HIGH - nLine)
+            Me.ColorLines(_HIGH - nLine) = tmpColor
+
+            tmpBoolean = Me.ICLines(nLine)
+            Me.ICLines(nLine) = ICLines(_HIGH - nLine)
+            ICLines(_HIGH - nLine) = tmpBoolean
+
+            tmpBoolean = Me.CCLines(nLine)
+            Me.CCLines(nLine) = CCLines(_HIGH - nLine)
+            CCLines(_HIGH - nLine) = tmpBoolean
+
+            tmpBoolean = Me.ECLines(nLine)
+            Me.ECLines(nLine) = ECLines(_HIGH - nLine)
+            ECLines(_HIGH - nLine) = tmpBoolean
         Next
+
 
         ShowSprite()
 
@@ -676,20 +712,19 @@
 
 
     ''' <summary>
-    ''' Rotacion a la derecha del grafico del sprite.
+    ''' Rotate the sprite pattern 90º to the right
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub RotateRight() Implements ISpriteContainer.RotateRight
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim tempPixelData As MatrixData = Me.PatternLines.Clone()
 
         AddUndo()
 
         For y As Integer = 0 To _HIGH
 
             For x As Integer = 0 To _WIDTH
-                'pixelData(x * tsize + y) = tempPixelData((_HIGH - y) * tsize + x)
-                Me.spriteLines.Item(y)(x) = tempPixelData.Item(_WIDTH - x)(y)
+                Me.PatternLines.Item(y)(x) = tempPixelData.Item(_WIDTH - x)(y)
             Next
 
         Next
@@ -701,20 +736,19 @@
 
 
     ''' <summary>
-    ''' Rotacion a la izquierda del grafico del sprite.
+    ''' Rotate the sprite pattern 90º to the left
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub RotateLeft() Implements ISpriteContainer.RotateLeft
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim tempPixelData As MatrixData = Me.PatternLines.Clone()
 
         AddUndo()
 
         For y As Integer = 0 To _HIGH
 
             For x As Integer = 0 To _WIDTH
-                'pixelData(x * tsize + y) = tempPixelData(y * tsize + (_WIDTH - x))
-                Me.spriteLines.Item(y)(x) = tempPixelData.Item(x)(_HIGH - y)
+                Me.PatternLines.Item(y)(x) = tempPixelData.Item(x)(_HIGH - y)
             Next
 
         Next
@@ -726,12 +760,12 @@
 
 
     ''' <summary>
-    ''' Desplaza un punto a la izquierda, el grafico del sprite.
+    ''' Moves the sprite pattern to the left one point
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub MoveLeft(ByVal rotate As Boolean) Implements ISpriteContainer.MoveLeft
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim tempPixelData As MatrixData = Me.PatternLines.Clone()
 
         Dim CarryFlag As Boolean = False
 
@@ -740,14 +774,13 @@
         For y As Integer = 0 To _HIGH
 
             If rotate = True Then
-                CarryFlag = Me.spriteLines.Item(y)(0)
+                CarryFlag = Me.PatternLines.Item(y)(0)
             End If
 
             For x As Integer = 0 To _WIDTH - 1
-                'pixelData(y * tsize + x) = tempPixelData(y * tsize + x + 1)
-                Me.spriteLines.Item(y)(x) = tempPixelData.Item(y)(x + 1)
+                Me.PatternLines.Item(y)(x) = tempPixelData.Item(y)(x + 1)
             Next
-            Me.spriteLines.Item(y)(_WIDTH) = CarryFlag
+            Me.PatternLines.Item(y)(_WIDTH) = CarryFlag
 
         Next
 
@@ -758,12 +791,12 @@
 
 
     ''' <summary>
-    ''' Desplaza un punto a la derecha, el grafico del sprite.
+    ''' Moves the sprite pattern to the right one point
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub MoveRight(ByVal rotate As Boolean) Implements ISpriteContainer.MoveRight
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim tempPixelData As MatrixData = Me.PatternLines.Clone()
 
         Dim CarryFlag As Boolean = False
 
@@ -772,13 +805,13 @@
         For y As Integer = 0 To _HIGH
 
             If rotate = True Then
-                CarryFlag = Me.spriteLines.Item(y)(_WIDTH)
+                CarryFlag = Me.PatternLines.Item(y)(_WIDTH)
             End If
 
             For x As Integer = 0 To _WIDTH - 1
-                Me.spriteLines.Item(y)(x + 1) = tempPixelData.Item(y)(x)
+                Me.PatternLines.Item(y)(x + 1) = tempPixelData.Item(y)(x)
             Next
-            Me.spriteLines.Item(y)(0) = CarryFlag
+            Me.PatternLines.Item(y)(0) = CarryFlag
 
         Next
 
@@ -789,27 +822,47 @@
 
 
     ''' <summary>
-    ''' Desplaza un punto hacia arriba el sprite.
+    ''' Moves the sprite pattern up one point
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub MoveUp(ByVal rotate As Boolean) Implements ISpriteContainer.MoveUp
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim nLine As Integer
 
-        Dim rotateLine As Boolean() = tempPixelData.Item(0)
+        Dim rotatePattern As Boolean() = Me.PatternLines.Item(0)
+        Dim rotateColor As Byte = Me.ColorLines(0)
+        Dim rotateIC As Boolean = Me.ICLines(0)
+        Dim rotateCC As Boolean = Me.CCLines(0)
+        Dim rotateEC As Boolean = Me.ECLines(0)
 
-        For y As Integer = 0 To _HIGH - 1
-            Me.spriteLines.Item(y) = tempPixelData.Item(y + 1)   '.Clone()
+
+        AddUndo()
+
+
+        For nLine = 0 To _HIGH - 1
+            Me.PatternLines.Item(nLine) = Me.PatternLines.Item(nLine + 1)
+            Me.ColorLines(nLine) = Me.ColorLines(nLine + 1)
+            Me.ICLines(nLine) = Me.ICLines(nLine + 1)
+            Me.CCLines(nLine) = Me.CCLines(nLine + 1)
+            Me.ECLines(nLine) = Me.ECLines(nLine + 1)
         Next
 
         If rotate = True Then
-            Me.spriteLines.Item(_HIGH) = rotateLine
+            Me.PatternLines.Item(_HIGH) = rotatePattern
+            Me.ColorLines(_HIGH) = rotateColor
+            Me.ICLines(_HIGH) = rotateIC
+            Me.CCLines(_HIGH) = rotateCC
+            Me.ECLines(_HIGH) = rotateEC
         Else
-            ' clear the last line
             For x As Integer = 0 To _WIDTH
-                Me.spriteLines.Item(_HIGH)(x) = False
+                Me.PatternLines.Item(_HIGH)(x) = False
             Next
+            Me.ColorLines(_HIGH) = Me.InkColor
+            Me.ICLines(_HIGH) = False
+            Me.CCLines(_HIGH) = Me._ORselected
+            Me.ECLines(_HIGH) = False
         End If
+
 
         ShowSprite()
 
@@ -818,27 +871,46 @@
 
 
     ''' <summary>
-    ''' Desplaza un punto hacia abajo el sprite.
+    ''' Moves the sprite pattern down one point
     ''' </summary>
     ''' <remarks></remarks>
     Overridable Sub MoveDown(ByVal rotate As Boolean) Implements ISpriteContainer.MoveDown
 
-        Dim tempPixelData As MatrixData = Me.spriteLines.Clone()
+        Dim nLine As Integer
 
-        Dim rotateLine As Boolean() = tempPixelData.Item(_HIGH)
+        Dim rotatePattern As Boolean() = PatternLines.Item(_HIGH)
+        Dim rotateColor As Byte = Me.ColorLines(_HIGH)
+        Dim rotateIC As Boolean = Me.ICLines(_HIGH)
+        Dim rotateCC As Boolean = Me.CCLines(_HIGH)
+        Dim rotateEC As Boolean = Me.ECLines(_HIGH)
 
-        For y As Integer = 0 To _HIGH - 1
-            Me.spriteLines.Item(y + 1) = tempPixelData.Item(y)   '.Clone()
+        AddUndo()
+
+
+        For nLine = _HIGH To 1 Step -1
+            Me.PatternLines.Item(nLine) = PatternLines.Item(nLine - 1)
+            Me.ColorLines(nLine) = ColorLines(nLine - 1)
+            Me.ICLines(nLine) = ICLines(nLine - 1)
+            Me.CCLines(nLine) = CCLines(nLine - 1)
+            Me.ECLines(nLine) = ECLines(nLine - 1)
         Next
 
         If rotate = True Then
-            Me.spriteLines.Item(0) = rotateLine
+            Me.PatternLines.Item(0) = rotatePattern
+            Me.ColorLines(0) = rotateColor
+            Me.ICLines(0) = rotateIC
+            Me.CCLines(0) = rotateCC
+            Me.ECLines(0) = rotateEC
         Else
-            ' clear first line
             For x As Integer = 0 To _WIDTH
-                Me.spriteLines.Item(0)(x) = False
+                Me.PatternLines.Item(0)(x) = False
             Next
+            Me.ColorLines(0) = Me.InkColor
+            Me.ICLines(0) = False
+            Me.CCLines(0) = Me._ORselected
+            Me.ECLines(0) = False
         End If
+
 
         ShowSprite()
 
@@ -1729,7 +1801,7 @@
 
         For y As Integer = 0 To _HIGH
             For x As Integer = 0 To _WIDTH
-                Me.spriteLines.Item(y)(x) = Not Me.spriteLines.Item(y)(x)
+                Me.PatternLines.Item(y)(x) = Not Me.PatternLines.Item(y)(x)
             Next
         Next
 
@@ -1782,7 +1854,7 @@
 
         If write = True Then
             'Me.pixelData(cY * tsize + cX) = state
-            Me.spriteLines.Item(y)(x) = state
+            Me.PatternLines.Item(y)(x) = state
             Me.ShowPixel(x, y, state)
         Else
             Me.putPixelZoom(x, y, state)
@@ -1796,7 +1868,7 @@
 
     Public Function GetPixel(ByVal x As Integer, ByVal y As Integer) As Boolean
         'Dim tsize As Integer = _WIDTH + 1
-        Return Me.spriteLines.Item(y)(x)
+        Return Me.PatternLines.Item(y)(x)
         'Return Me.pixelData(cY * tsize + cX)
     End Function
 
@@ -1828,9 +1900,9 @@
             Dim cY As Integer = Ypos * 16 + 1
 
             If value Then
-                If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
-                    aColor = Me.colorValues(Ypos)
-                    'aColor = Me.PaletteData.GetColor(Me.colorValues(Ypos))
+                If SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+                    aColor = Me.ColorLines(Ypos)
+                    'aColor = Me.PaletteData.GetColor(Me.ColorLines(Ypos))
                 Else
                     aColor = Me._inkColor
                 End If
@@ -1861,8 +1933,8 @@
         Dim tmpColor As Color
 
         If state Then
-            If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
-                aColorID = Me.colorValues(Ypos)
+            If SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+                aColorID = Me.ColorLines(Ypos)
             Else
                 aColorID = Me._inkColor
             End If
@@ -1882,53 +1954,112 @@
     End Sub
 
 
-
     ''' <summary>
-    ''' Cambia el estado del bit de OR de todas las lineas.
+    ''' Change the state of the IC bit (Bit 5) to all lines
     ''' </summary>
     ''' <param name="state"></param>
     ''' <remarks></remarks>
-    Public Sub SetORstate(ByVal state As Boolean)
-
-        Me._ORselected = state
-
-        'If state Then
-        '    ORselectedButton.BackColor = System.Drawing.Color.PaleGreen
-        'Else
-        '    ORselectedButton.BackColor = System.Drawing.Color.Gainsboro
-        'End If
+    Public Sub SetICstate(ByVal state As Boolean)
 
         For i As Integer = 0 To Me._HIGH
-            ORvalues(i) = state
+            Me.ICLines(i) = state
         Next
-
-        showORstates()
 
     End Sub
 
 
 
     ''' <summary>
-    ''' Muestra el estado del bit de OR de cada linea, en cada indicador/boton.
+    ''' Change the state of the CC bit (Bit 6 · OR colors) to all lines
+    ''' </summary>
+    ''' <param name="state"></param>
+    ''' <remarks></remarks>
+    Public Sub SetCCstate(ByVal state As Boolean)
+
+        For i As Integer = 0 To Me._HIGH
+            Me.CCLines(i) = state
+        Next
+
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Change the state of the EC bit (Bit 7) to all lines
+    ''' </summary>
+    ''' <param name="state"></param>
+    ''' <remarks></remarks>
+    Public Sub SetECstate(ByVal state As Boolean)
+
+        For i As Integer = 0 To Me._HIGH
+            Me.ECLines(i) = state
+        Next
+
+    End Sub
+
+
+
+
+    Public Function GetMostConcurrentState(ByVal states() As Boolean) As Boolean
+
+        Dim positiveCounter As Integer = 0
+
+        For i As Integer = 0 To Me._HIGH
+            If states(i) Then positiveCounter += 1
+        Next
+
+        If positiveCounter > (Me._HIGH / 2) Then
+            Return True
+        End If
+
+        Return False
+
+    End Function
+
+
+
+    ''' <summary>
+    ''' Shows the status of the CC bit (Bit 6 · OR colors) of each line.
     ''' </summary>
     ''' <remarks></remarks>
-    Public Sub showORstates()
-        'Dim aPic As PictureBox
+    Public Sub ShowCCstates()
         For i As Integer = 0 To Me._HIGH
-            'aPic = Me.orPic(i)
-            If ORvalues(i) Then
-                Me.orPic(i).BackColor = System.Drawing.Color.PaleGreen
+            If Me.CCLines(i) Then
+                Me.CCbuttons(i).BackColor = System.Drawing.Color.PaleGreen
             Else
-                Me.orPic(i).BackColor = System.Drawing.Color.DarkGray
+                Me.CCbuttons(i).BackColor = System.Drawing.Color.Gainsboro
             End If
         Next
-        'For Each aPic As PictureBox In Me.orPic
-        '    If aPic.TabStop Then
-        '        aPic.BackColor = System.Drawing.Color.PaleGreen
-        '    Else
-        '        aPic.BackColor = System.Drawing.Color.DimGray
-        '    End If
-        'Next
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Shows the status of the EC bit (Bit 7 · Early Clock) of each line.
+    ''' </summary>
+    Public Sub ShowECstates()
+        For i As Integer = 0 To Me._HIGH
+            If Me.ECLines(i) Then
+                Me.ECbuttons(i).BackColor = System.Drawing.Color.PaleGreen
+            Else
+                Me.ECbuttons(i).BackColor = System.Drawing.Color.Gainsboro
+            End If
+        Next
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Shows the status of the IC bit (Bit 5 · Ignore Collisions) of each line.
+    ''' </summary>
+    Public Sub ShowICstates()
+        For i As Integer = 0 To Me._HIGH
+            If Me.ICLines(i) Then
+                Me.ICbuttons(i).BackColor = System.Drawing.Color.PaleGreen
+            Else
+                Me.ICbuttons(i).BackColor = System.Drawing.Color.Gainsboro
+            End If
+        Next
     End Sub
 
 
@@ -1941,24 +2072,33 @@
         Dim colorIndex As Integer
 
         For i As Integer = 0 To _HIGH
-            colorIndex = Me.colorValues(i)
-            Me.colorPic(i).BackColor = Me.Palette.GetRGBColor(colorIndex)
-            Me.ToolTip1.SetToolTip(Me.colorPic(i), CStr(colorIndex))
+            colorIndex = Me.ColorLines(i)
+            Me.LineInkButtons(i).BackColor = Me.Palette.GetRGBColor(colorIndex)
+            Me.ToolTip1.SetToolTip(Me.LineInkButtons(i), CStr(colorIndex))
         Next
     End Sub
 
 
 
-    ''' <summary>
-    ''' Activa/desactiva el bit de OR en todas las lineas.
-    ''' </summary>
-    ''' <param name="sender"></param>
-    ''' <param name="e"></param>
-    ''' <remarks></remarks>
-    Private Sub ORselectedButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ORselectedButton.Click
 
-        SetORstate(Not Me._ORselected)
+    Private Sub CC_All_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CC_All_Button.Click
+        Dim tmpState As Boolean = GetMostConcurrentState(Me.CCLines)
+        SetCCstate(Not tmpState)
+        ShowCCstates()
+    End Sub
 
+
+    Private Sub EC_All_Button_Click(sender As Object, e As EventArgs) Handles EC_All_Button.Click
+        Dim tmpState As Boolean = GetMostConcurrentState(Me.ECLines)
+        SetECstate(Not tmpState)
+        ShowECstates()
+    End Sub
+
+
+    Private Sub IC_All_Button_Click(sender As Object, e As EventArgs) Handles IC_All_Button.Click
+        Dim tmpState As Boolean = GetMostConcurrentState(Me.ICLines)
+        SetICstate(Not tmpState)
+        ShowICstates()
     End Sub
 
 
@@ -1978,10 +2118,10 @@
             colorINKPictureBox.BackColor = Me.Palette.GetRGBColor(aColorSelector.ColorSelected)
             Me.InkColor = aColorSelector.ColorSelected
 
-            If SpriteMode = SpriteMSX.SPRITE_MODE.COLOR Then
-                For Each aPic As System.Windows.Forms.Button In Me.colorPic
+            If Me.SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+                For Each aPic As System.Windows.Forms.Button In Me.LineInkButtons
                     aPic.BackColor = Me.Palette.GetRGBColor(Me.InkColor)
-                    Me.colorValues(aPic.TabIndex) = Me.InkColor
+                    Me.ColorLines(aPic.TabIndex) = Me.InkColor
                     Me.ToolTip1.SetToolTip(aPic, CStr(Me.InkColor))
                 Next
             End If
@@ -2063,24 +2203,70 @@
 
 
     ''' <summary>
-    ''' Modifica el estado del bit de OR, en una linea.
+    ''' Swap the state of the IC (Ignore Collisions) bit, in one line.
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     ''' <remarks></remarks>
-    Private Sub ORBitLine_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub ICbitLine_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-        Dim anORitem As System.Windows.Forms.Button = CType(sender, System.Windows.Forms.Button)
+        Dim aButton As System.Windows.Forms.Button = CType(sender, System.Windows.Forms.Button)
 
-        If Me.ORvalues(anORitem.TabIndex) Then
-            anORitem.BackColor = System.Drawing.Color.DarkGray
+        Me.ICLines(aButton.TabIndex) = Not Me.ICLines(aButton.TabIndex)
+
+        If Me.ICLines(aButton.TabIndex) Then
+            aButton.BackColor = System.Drawing.Color.PaleGreen
         Else
-            anORitem.BackColor = System.Drawing.Color.PaleGreen
+            aButton.BackColor = System.Drawing.Color.Gainsboro
         End If
 
-        Me.ORvalues(anORitem.TabIndex) = Not Me.ORvalues(anORitem.TabIndex)
+    End Sub
+
+
+
+    ''' <summary>
+    ''' Swap the state of the CC (OR) bit, in one line.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub CCbitLine_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        Dim aButton As System.Windows.Forms.Button = CType(sender, System.Windows.Forms.Button)
+
+        Me.CCLines(aButton.TabIndex) = Not Me.CCLines(aButton.TabIndex)
+
+        If Me.CCLines(aButton.TabIndex) Then
+            aButton.BackColor = System.Drawing.Color.PaleGreen
+        Else
+            aButton.BackColor = System.Drawing.Color.Gainsboro
+        End If
 
     End Sub
+
+
+
+    ''' <summary>
+    ''' Swap the state of the EC (Early Clock) bit, in one line.
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub ECbitLine_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        Dim aButton As System.Windows.Forms.Button = CType(sender, System.Windows.Forms.Button)
+
+        Me.ECLines(aButton.TabIndex) = Not Me.ECLines(aButton.TabIndex)
+
+        If Me.ECLines(aButton.TabIndex) Then
+            aButton.BackColor = System.Drawing.Color.PaleGreen
+        Else
+            aButton.BackColor = System.Drawing.Color.Gainsboro
+        End If
+
+    End Sub
+
+
 
 
 
@@ -2097,7 +2283,7 @@
 
         If aColorSelector.ShowDialog(Me.Palette, newPoint) = DialogResult.OK Then
             sender.BackColor = Me.Palette.GetRGBColor(aColorSelector.ColorSelected)
-            Me.colorValues(sender.TabIndex) = aColorSelector.ColorSelected
+            Me.ColorLines(sender.TabIndex) = aColorSelector.ColorSelected
             ShowSprite()
         End If
 
@@ -2113,13 +2299,13 @@
 
 
     Public Sub AddUndo() Implements ISpriteContainer.AddUndo
-        undo.Push(New UndoItem(Me.spriteLines, Me.colorValues, Me.ORvalues))
+        undo.Push(New UndoItem(Me.PatternLines, Me.ColorLines, Me.ICLines, Me.CCLines, Me.ECLines))
     End Sub
 
 
 
     Public Sub AddRedo()
-        redo.Push(New UndoItem(Me.spriteLines, Me.colorValues, Me.ORvalues))
+        redo.Push(New UndoItem(Me.PatternLines, Me.ColorLines, Me.ICLines, Me.CCLines, Me.ECLines))
     End Sub
 
 
@@ -2129,9 +2315,12 @@
         If undo.Count > 0 Then
             AddRedo()
             tmpUndoItem = undo.Pop
-            Me.spriteLines = tmpUndoItem.spriteLines
-            Me.colorValues = tmpUndoItem.colorValues
-            Me.ORvalues = tmpUndoItem.ORvalues
+
+            Me.PatternLines = tmpUndoItem.PatternLines
+            Me.ColorLines = tmpUndoItem.ColorLines
+            Me.ICLines = tmpUndoItem.ICLines
+            Me.CCLines = tmpUndoItem.CCLines
+            Me.ECLines = tmpUndoItem.ECLines
 
             ShowSprite()
         End If
@@ -2142,9 +2331,13 @@
         If redo.Count > 0 Then
             AddUndo()
             tmpUndoItem = redo.Pop
-            Me.spriteLines = tmpUndoItem.spriteLines
-            Me.colorValues = tmpUndoItem.colorValues
-            Me.ORvalues = tmpUndoItem.ORvalues
+
+            Me.PatternLines = tmpUndoItem.PatternLines
+            Me.ColorLines = tmpUndoItem.ColorLines
+            Me.ICLines = tmpUndoItem.ICLines
+            Me.CCLines = tmpUndoItem.CCLines
+            Me.ECLines = tmpUndoItem.ECLines
+
             ShowSprite()
         End If
     End Sub

@@ -48,14 +48,14 @@
 
 
 
-    Public ReadOnly Property SpriteSize() As SpriteMSX.SPRITE_SIZE
+    Public ReadOnly Property SpriteSize() As iVDP.SPRITE_SIZE
         Get
             Return Me.SpritesetDataUC.SpriteSize
         End Get
     End Property
 
 
-    Public ReadOnly Property SpriteMode() As SpriteMSX.SPRITE_MODE
+    Public ReadOnly Property SpriteMode() As iVDP.SPRITE_MODE
         Get
             Return Me.SpritesetDataUC.SpriteMode
         End Get
