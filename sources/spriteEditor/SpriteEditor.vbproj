@@ -116,18 +116,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SpritePanel16.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SpritePanel16mode2.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SpritePanel8.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SpritePanel8mode2.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="SpritePanelBase.Designer.vb">
       <DependentUpon>SpritePanelBase.vb</DependentUpon>
     </Compile>
@@ -166,18 +154,6 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SpritePanel16.resx">
-      <DependentUpon>SpritePanel16.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SpritePanel16mode2.resx">
-      <DependentUpon>SpritePanel16mode2.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SpritePanel8.resx">
-      <DependentUpon>SpritePanel8.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SpritePanel8mode2.resx">
-      <DependentUpon>SpritePanel8mode2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SpritePanelBase.resx">
       <DependentUpon>SpritePanelBase.vb</DependentUpon>

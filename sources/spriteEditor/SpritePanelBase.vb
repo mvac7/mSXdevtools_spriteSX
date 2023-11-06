@@ -1,8 +1,8 @@
 ﻿Public Class SpritePanelBase
     Implements ISpriteContainer
 
-    Private _SpriteSize As iVDP.SPRITE_SIZE  'SPRITESIZES = SPRITESIZES.SPRITE8x8
-    Private _SpriteMode As iVDP.SPRITE_MODE
+    'Private _SpriteSize As iVDP.SPRITE_SIZE  'SPRITESIZES = SPRITESIZES.SPRITE8x8
+    'Private _SpriteMode As iVDP.SPRITE_MODE
 
     'Public _SpriteName As String
     Public _PatternNumber As Integer
@@ -82,23 +82,23 @@
 
 
     Public Property SpriteSize() As iVDP.SPRITE_SIZE
-        Get
-            Return Me._SpriteSize
-        End Get
-        Set(ByVal value As iVDP.SPRITE_SIZE)
-            Me._SpriteSize = value
-        End Set
-    End Property
+    '    Get
+    '        Return Me._SpriteSize
+    '    End Get
+    '    Set(ByVal value As iVDP.SPRITE_SIZE)
+    '        Me._SpriteSize = value
+    '    End Set
+    'End Property
 
 
     Public Property SpriteMode() As iVDP.SPRITE_MODE
-        Get
-            Return Me._SpriteMode
-        End Get
-        Set(ByVal value As iVDP.SPRITE_MODE)
-            Me._SpriteMode = value
-        End Set
-    End Property
+    '    Get
+    '        Return Me._SpriteMode
+    '    End Get
+    '    Set(ByVal value As iVDP.SPRITE_MODE)
+    '        Me._SpriteMode = value
+    '    End Set
+    'End Property
 
 
 
@@ -136,7 +136,7 @@
             Me._inkColor = value
             If Not colorINKPictureBox Is Nothing Then
 
-                If Me._SpriteMode = iVDP.SPRITE_MODE.MONO Then
+                If Me.SpriteMode = iVDP.SPRITE_MODE.MONO Then
                     Me.ToolTip1.SetToolTip(Me.colorINKPictureBox, "Ink color: " + CStr(value))
                 End If
 
@@ -144,6 +144,7 @@
             End If
         End Set
     End Property
+
 
 
     Public Property BackgroundColor() As Integer Implements ISpriteContainer.BackgroundColor
@@ -198,7 +199,7 @@
 
 
 
-    Public Sub New()
+    Public Sub New(ByVal size As iVDP.SPRITE_SIZE, ByVal mode As iVDP.SPRITE_MODE)
 
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
@@ -206,6 +207,9 @@
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         Me.Palette = New PaletteMSX()
 
+        Me.SpriteSize = size
+        Me.SpriteMode = mode
+
         Me.InkColor = 15
         Me.BackgroundColor = 0
 
@@ -215,20 +219,20 @@
 
 
 
-    Public Sub New(ByVal aPaletteData As PaletteMSX)
+    'Public Sub New(ByVal aPaletteData As PaletteMSX)
 
-        Me.Palette = aPaletteData
+    '    Me.Palette = aPaletteData
 
-        ' Llamada necesaria para el Diseñador de Windows Forms.
-        InitializeComponent()
+    '    ' Llamada necesaria para el Diseñador de Windows Forms.
+    '    InitializeComponent()
 
-        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
-        Me.InkColor = 15
-        Me.BackgroundColor = 0
+    '    ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+    '    Me.InkColor = 15
+    '    Me.BackgroundColor = 0
 
-        Me.panelGraphics = Me.SpriteContainerPanel.CreateGraphics
+    '    Me.panelGraphics = Me.SpriteContainerPanel.CreateGraphics
 
-    End Sub
+    'End Sub
 
 
 
@@ -239,9 +243,11 @@
 
         Me.SuspendLayout()
 
+        'Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+
         _step = 0
 
-        If Me._SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Then
+        If Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Then
             '8x8
             Me.SpriteContainerPanel.Size = New System.Drawing.Size(129, 129)
             Me.HRulerPicture.Size = New System.Drawing.Size(128, 16)
@@ -273,7 +279,7 @@
         ReDim CCbuttons(_HIGH)
         ReDim ECbuttons(_HIGH)
 
-        If Me._SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+        If Me.SpriteMode = iVDP.SPRITE_MODE.COLOR Then
             'multicolor (V9938 or +)
 
             Me.colorINKPictureBox.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.ico_SelectAll_15px
@@ -333,7 +339,7 @@
 
         ShowSprite()
 
-        'If Me._SpriteSize = SPRITESIZES.SPRITE16x16 Then
+        'If Me.SpriteSize = SPRITESIZES.SPRITE16x16 Then
         '    Me.panelGraphics.DrawLine(Pens.Orange, 128, 0, 128, 256)
         '    Me.panelGraphics.DrawLine(Pens.Orange, 0, 128, 256, 128)
         'End If
@@ -395,18 +401,30 @@
     End Function
 
 
+
     Overridable Sub ShowSprite()
+
         If Me.ENDinit And Not Me.Palette Is Nothing Then
+
             ShowSpritePreview()
-            'Application.DoEvents()
             ShowSpriteZoomPanel()
-            'Application.DoEvents()
+
+            If Me.SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+                ShowECstates()
+                ShowCCstates()
+                ShowICstates()
+                ShowColorLines()
+            End If
+
         End If
 
-        If Me._SpriteSize = iVDP.SPRITE_SIZE.SIZE16 Then
+        If Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE16 Then
             Me.panelGraphics.DrawLine(Pens.Orange, 128, 0, 128, 256)
             Me.panelGraphics.DrawLine(Pens.Orange, 0, 128, 256, 128)
         End If
+
+        'Application.DoEvents()
+
     End Sub
 
 
@@ -500,7 +518,8 @@
     ''' <remarks></remarks>
     Overridable Sub SetSprite(ByVal spriteData As SpriteMSX) Implements ISpriteContainer.SetSprite
 
-        Dim TempValue As Byte = 0
+        Dim tmpValue As Byte
+        Dim nLine As Integer
 
         Me._WorkSprite = New SpriteMSX
 
@@ -514,41 +533,37 @@
         ' adapta el sprite de la entrada al modo que esta trabajando el editor
         If Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Or spriteData.Size = iVDP.SPRITE_SIZE.SIZE8 Then
 
-            For y As Integer = 0 To 7
-                TempValue = spriteData.patternData(y)
+            For nLine = 0 To 7
+                tmpValue = spriteData.patternData(nLine)
                 For x As Integer = 0 To 7
-                    'TempValue = spriteData.patternData(y) And Me.bitMASKi(x)
 
-                    If ((TempValue >> x) And 1) = 1 Then 'TempValue = Me.bitMASKi(x) Then
-                        Me.PatternLines.Item(y)(7 - x) = True
+                    If ((tmpValue >> x) And 1) = 1 Then
+                        Me.PatternLines.Item(nLine)(7 - x) = True
                     Else
-                        Me.PatternLines.Item(y)(7 - x) = False
+                        Me.PatternLines.Item(nLine)(7 - x) = False
                     End If
                 Next
             Next
 
         Else
 
-            For y As Integer = 0 To 15
-                TempValue = spriteData.patternData(y)
+            For nLine = 0 To 15
+                tmpValue = spriteData.patternData(nLine)
                 For x As Integer = 0 To 7
-                    'TempValue = spriteData.patternData(y) And Me.bitMASKi(x)
-
-                    If ((TempValue >> x) And 1) = 1 Then 'Me.bitMASKi(x) Then
-                        Me.PatternLines.Item(y)(7 - x) = True
+                    If ((tmpValue >> x) And 1) = 1 Then
+                        Me.PatternLines.Item(nLine)(7 - x) = True
                     Else
-                        Me.PatternLines.Item(y)(7 - x) = False
+                        Me.PatternLines.Item(nLine)(7 - x) = False
                     End If
                 Next
 
-                TempValue = spriteData.patternData(y + 16)
+                tmpValue = spriteData.patternData(nLine + 16)
                 For x As Integer = 0 To 7 '8 To 15
-                    'TempValue = spriteData.patternData(y + 16) And Me.bitMASKi(x - 8)
 
-                    If ((TempValue >> x) And 1) = 1 Then 'TempValue = Me.bitMASKi(x - 8) Then
-                        PatternLines.Item(y)(15 - x) = True
+                    If ((tmpValue >> x) And 1) = 1 Then
+                        PatternLines.Item(nLine)(15 - x) = True
                     Else
-                        PatternLines.Item(y)(15 - x) = False
+                        PatternLines.Item(nLine)(15 - x) = False
                     End If
                 Next
             Next
@@ -570,8 +585,31 @@
         Me._WorkSprite.SetColorPalette(Me.Palette)
         'Me._WorkSprite.refresh()
 
-        'Me.Refresh()
+
+        ' colors
+        If spriteData.ColorData Is Nothing Then
+            For nLine = 0 To 15
+                Me.ColorLines(nLine) = spriteData.InkColor
+                Me.ICLines(nLine) = False
+                Me.CCLines(nLine) = False
+                Me.ECLines(nLine) = False
+            Next
+        Else
+            Me.ColorLines = spriteData.ColorData.Clone
+            Me.ICLines = spriteData.ICbitData.Clone
+            Me.CCLines = spriteData.CCbitData.Clone
+            Me.ECLines = spriteData.ECbitData.Clone
+        End If
+
+        'If Me.SpriteMode = iVDP.SPRITE_MODE.COLOR Then
+        '    For nLine = 0 To 15
+        '        Me.LineInkButtons(nLine).BackColor = Me.ColorPalette.GetRGBColor(Me.ColorLines(nLine))
+        '    Next
+        'End If
+        ' end colors
+
         Me.ShowSprite()
+
         'Application.DoEvents()
 
     End Sub
@@ -584,8 +622,79 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     Overridable Function GetSprite() As SpriteMSX Implements ISpriteContainer.GetSprite
-        Dim tmpSprite = New SpriteMSX
-        Return tmpSprite
+
+        Dim patternValues() As Byte
+        Dim tmpValue As Byte
+        Dim nLine As Integer
+        Dim byteCounter As Integer = 0
+
+
+        If Me.SpriteSize = iVDP.SPRITE_SIZE.SIZE8 Then
+
+            ReDim patternValues(7)
+
+            For nLine = 0 To 7
+                tmpValue = 0
+                For x As Integer = 0 To 7
+                    If Me.PatternLines.Item(nLine)(x) Then
+                        tmpValue = tmpValue Or Me.bitMASKi(x)
+                    End If
+                Next
+                patternValues(byteCounter) = tmpValue
+                byteCounter += 1
+            Next
+
+        Else
+            ' Sprite size 16x16px
+
+            ReDim patternValues(31)
+
+            For nLine = 0 To 15
+                tmpValue = 0
+                For x As Integer = 0 To 7
+                    If Me.PatternLines.Item(nLine)(x) Then
+                        tmpValue = tmpValue Or Me.bitMASKi(x)
+                    End If
+                Next
+                patternValues(byteCounter) = tmpValue
+                byteCounter += 1
+            Next
+
+
+            For nLine = 0 To 15
+                tmpValue = 0
+                For x As Integer = 8 To 15
+                    If Me.PatternLines.Item(nLine)(x) Then
+                        tmpValue = tmpValue Or Me.bitMASKi(x - 8)
+                    End If
+                Next
+                patternValues(byteCounter) = tmpValue
+                byteCounter += 1
+            Next
+
+        End If
+
+
+        Me._WorkSprite.Name = Me.SpriteName
+        Me._WorkSprite.Size = Me.SpriteSize
+        Me._WorkSprite.Mode = Me.SpriteMode
+
+        Me._WorkSprite.patternData = patternValues.Clone
+        Me._WorkSprite.ColorData = Me.ColorLines.Clone
+        Me._WorkSprite.ICbitData = Me.ICLines.Clone
+        Me._WorkSprite.CCbitData = Me.CCLines.Clone
+        Me._WorkSprite.ECbitData = Me.ECLines.Clone
+
+        Me._WorkSprite.InkColor = Me.InkColor
+        Me._WorkSprite.BackgroundColor = Me.BackgroundColor
+
+        Me._WorkSprite.SetColorPalette(Me.ColorPalette)
+
+        Me._WorkSprite.Refresh()
+
+
+        Return Me._WorkSprite
+
     End Function
 
 

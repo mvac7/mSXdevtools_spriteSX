@@ -57,59 +57,60 @@ Copyright (C) 2023 mvac7 (aka AOrante)
 ---
 ## Features
 
-* Assistant to initialize a new project.
-* Projects with different types of sprites. (8x8, 16x16, mono and multicolor)
-* Load, Merge and Save projects, including the color palette.
-* New project format with back compatibility.
-* Delete, move, rotate and flip sprite.
-* Edit line color and the OR bit in multicolor mode (V9938).
-* Control the project sprites list (order, copy and delete).
-* Up to 255 sprites of 8x8 size and 64 sprites of 16x16 size, per project.
-* Edit the color palette (V9938). Allows reading or save the palette independently.
-* Code Generation Window. Provides assembly code, formatted SDCC assembler, C and Basic.
-* Load or Save Bitmap Window. Load/Save a bitmap PNG or a MSX Basic binary SC2.
-* Project info window. Editing project information: name, version, author, group and description.
-* Paint functions: Draw, Lines, Rectangles, Fill rectangles, Circles, Fill circles and Fill. Positive or negative (right mouse button).
-* Undo and redo. 16 steps.
-* Shortcuts keys. 
+- Projects with different types of sprites. (8x8, 16x16, mono or multicolor)
+- Load or Save projects, including the color palette.
+- Load or Save Bitmap format (PNG)
+- Load or Save MSX BASIC binary (SCn).
+- Edit line color and the OR bit in multicolor mode (V9938).
+- Copy or Swap sprites in spriteSet UI control.
+- Tools Cut, Copy and Paste the current sprite from the editor.
+- Up to 255 sprites of 8x8 size and 64 sprites of 16x16 size, per project (spriteSet).
+- Edit the color palette (V9938). Allows reading or save the palette independently.
+- Code Generation Window. Provides assembly code, formatted Assembler, C and BASIC.
+- Project info window. Editing project information: name, version, author, group and description.
+- Paint functions: Draw, Lines, Rectangles, Fill rectangles, Circles, Fill circles and Fill. Positive or negative (right mouse button).
+- Tools for Clear, inverse, move, rotate and flip sprite.
+- Undo and redo. 16 steps.
+- Shortcuts keys. 
 
 
 
 ---
 ## History
 
-### v0.9.4b (August 2014)
-* Paint functions: Draw, Lines, Rectangles, Fill rectangles, Circles, Fill circles and Fill. Positive or negative (right mouse button).
-* Undo and redo. 16 steps.
-* Shortcuts keys.
-* (GUIcontrols.ProjectPropertiesWin) Show project file name.   
-* Bug corrected. (MSXLibrary.palette512Dialog) Palette edit window. Tools to copy and exchange colors don't work.
-* Bug corrected. (MSXLibrary.ColorSelector). Don't show in taskbar.
-* Add Assembler examples.
-* Update SP16C_OR.BAS with improvement in bounce function.    
+### v1.0b
+- New project file format with back compatibility.
+- New GUI. Tileset selector. piXelST style. New cursor icon in the editor.
+- Shows the name and mode of the selected spriteset in the status bar.
+- pixel-wrap - Copy the pixel that disappears in the scroll tools.
+- Copy/Paste current sprite from editor. From UI buttons or keyboard shortcuts.
+- Cut current sprite form editor. Keyboard shortcut Ctrl+X
 
+
+### v0.9.4b (August 2014)
+- Paint functions: Draw, Lines, Rectangles, Fill rectangles, Circles, Fill circles and Fill. Positive or negative (right mouse button).
+- Undo and redo. 16 steps.
+- Shortcuts keys.
+- (GUIcontrols.ProjectPropertiesWin) Show project file name.   
+- Bug corrected. (MSXLibrary.palette512Dialog) Palette edit window. Tools to copy and exchange colors don't work.
+- Bug corrected. (MSXLibrary.ColorSelector). Don't show in taskbar.
+- Add Assembler examples.
+- Update SP16C_OR.BAS with improvement in bounce function.    
   
   
 ### v0.9.3b (july 2014)
-* Load or Save Bitmap window.
-* Progress window.
-* Fixed Bug in redrawing the lines 8x8 in the editor matrix. 
-* Removed License.dll Functionality included in the executable.
-* Project info window.
-* Improvements in the graphic design of some components.
-* Add Basic examples for SC2 binary files test.    
+- Load or Save Bitmap window.
+- Progress window.
+- Fixed Bug in redrawing the lines 8x8 in the editor matrix. 
+- Removed License.dll Functionality included in the executable.
+- Project info window.
+- Improvements in the graphic design of some components.
+- Add Basic examples for SC2 binary files test.    
 
 
 
 ### v0.9b (march 2014)
 *  First version.
   
-           
 
----
-## Acknowledgements
-   
-* JamQue for the idea
-* JamQue, MsxKun, @Pentacour, kabish & zilogZ80a for testing.
-* @Fubukimaru for the algorithm to the fill tool.
 

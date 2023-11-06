@@ -28,8 +28,8 @@ Public Class SpriteEditor
 
     Private _ProgressController As ProgressController
 
-    Private SpriteContainer As ISpriteContainer
-    Private SpriteControl As Control
+    'Private SpriteContainer As ISpriteContainer
+    Private EditorControl As SpritePanelBase
 
     Private Project As tMSgfXProject
 
@@ -41,6 +41,8 @@ Public Class SpriteEditor
 
     Private oldtoolControl As ToolStripButton
     Private oldtoolSpriteset As ToolStripButton
+
+    Private TilesetPath As String
 
 
 
@@ -235,7 +237,7 @@ Public Class SpriteEditor
 
         If PaletteDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             Me.aSpritesetControl.RefreshPalette()
-            Me.SpriteContainer.RefreshSprite()
+            Me.EditorControl.RefreshSprite()
         End If
 
     End Sub
@@ -376,7 +378,7 @@ Public Class SpriteEditor
             Me.aSpritesetControl.SetSpriteset(Me._spritesetSelected)
 
             SetSpriteContainer(Me._spritesetSelected.Size, Me._spritesetSelected.Mode)
-            Me.SpriteContainer.SetColorPalette(Me._spritesetSelected.ColorPalette)
+            Me.EditorControl.SetColorPalette(Me._spritesetSelected.ColorPalette)
 
             SetNameTextLabel.Text = Me._spritesetSelected.Name
             If Me._spritesetSelected.Mode = iVDP.SPRITE_MODE.MONO Then
@@ -549,34 +551,37 @@ Public Class SpriteEditor
 
                 Me._spriteType = (projectSize * 2) + projectMode
 
-                If Not Me.SpriteControl Is Nothing Then
-                    Me.SpriteControl.Dispose()
+                If Not Me.EditorControl Is Nothing Then
+                    Me.EditorControl.Dispose()
                 End If
 
 
-                If projectMode = iVDP.SPRITE_MODE.MONO Then
-                    'one color
-                    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
-                        ' 8x8
-                        Me.SpriteControl = New SpritePanel8(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
-                    Else
-                        ' 16x16
-                        Me.SpriteControl = New SpritePanel16(Me._spritesetSelected.ColorPalette) 'SpritePanel16 paletteDialog.Palette
-                    End If
+                EditorControl = New SpritePanelBase(projectSize, projectMode)
 
-                Else
-                    'line color (msx2 or +)
-                    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
-                        ' 8x8
-                        Me.SpriteControl = New SpritePanel8mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
-                    Else
-                        ' 16x16
-                        Me.SpriteControl = New SpritePanel16mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
-                    End If
 
-                End If
+                'If projectMode = iVDP.SPRITE_MODE.MONO Then
+                '    'one color
+                '    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
+                '        ' 8x8
+                '        Me.SpriteControl = New SpritePanel8(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
+                '    Else
+                '        ' 16x16
+                '        Me.SpriteControl = New SpritePanel16(Me._spritesetSelected.ColorPalette) 'SpritePanel16 paletteDialog.Palette
+                '    End If
 
-                Me.SpriteContainer = Me.SpriteControl
+                'Else
+                '    'line color (msx2 or +)
+                '    If projectSize = iVDP.SPRITE_SIZE.SIZE8 Then
+                '        ' 8x8
+                '        Me.SpriteControl = New SpritePanel8mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
+                '    Else
+                '        ' 16x16
+                '        Me.SpriteControl = New SpritePanel16mode2(Me._spritesetSelected.ColorPalette) 'paletteDialog.Palette
+                '    End If
+
+                'End If
+
+                'Me.SpriteContainer = Me.SpriteControl
 
                 Me.SuspendLayout()
 
@@ -589,28 +594,28 @@ Public Class SpriteEditor
 
                 '
                 'SpriteControl.BackColor = System.Drawing.Color.WhiteSmoke
-                Me.SpriteControl.Visible = False
+                Me.EditorControl.Visible = False
                 'Me.SpriteControl.Dock = DockStyle.Fill
-                Me.SpriteControl.Location = New System.Drawing.Point(0, 0)
-                Me.SpriteControl.Name = "SpriteContainer"
-                Me.SpriteControl.Size = New System.Drawing.Size(370, 310)
-                Me.SpriteControl.TabIndex = 2
+                Me.EditorControl.Location = New System.Drawing.Point(0, 0)
+                Me.EditorControl.Name = "SpriteContainer"
+                Me.EditorControl.Size = New System.Drawing.Size(370, 310)
+                Me.EditorControl.TabIndex = 2
 
-                Me.SpriteEDPanel.Controls.Add(Me.SpriteContainer)
+                Me.SpriteEDPanel.Controls.Add(Me.EditorControl)
 
                 'Me.SpriteControl.BringToFront()
 
-                Me.SpriteContainer.SpriteName = ""
+                Me.EditorControl.SpriteName = ""
 
-                AddHandler SpriteContainer.updateSprite, AddressOf Me.UpdateSprite
-                AddHandler SpriteContainer.MatrixCoordinates, AddressOf Me.setMatrixCoordinates
-                AddHandler SpriteContainer.SpriteBitmapChanged, AddressOf Me.SpriteBitmapChanged
-                'AddHandler SpriteContainer.SpriteInfoChanged, AddressOf Me.setSpriteInfoChanged
+                AddHandler EditorControl.updateSprite, AddressOf Me.UpdateSprite
+                AddHandler EditorControl.MatrixCoordinates, AddressOf Me.setMatrixCoordinates
+                AddHandler EditorControl.SpriteBitmapChanged, AddressOf Me.SpriteBitmapChanged
+                'AddHandler EditorControl.SpriteInfoChanged, AddressOf Me.setSpriteInfoChanged
 
                 Me.ResumeLayout(False)
                 Me.PerformLayout()
 
-                Me.SpriteControl.Visible = True
+                Me.EditorControl.Visible = True
 
                 Me.Refresh()
                 'Application.DoEvents()
@@ -638,7 +643,7 @@ Public Class SpriteEditor
 
 
     Private Sub EditSprite(ByVal sprite As SpriteMSX)
-        Me.SpriteContainer.SetSprite(sprite)
+        Me.EditorControl.SetSprite(sprite)
         Me.SpriteNumberLabel.Text = CStr(sprite.Index)
         Me.SpriteName.Text = sprite.Name
     End Sub
@@ -680,7 +685,7 @@ Public Class SpriteEditor
         itemButton.BackColor = Color.PaleGreen
         oldtoolControl = itemButton
 
-        Me.SpriteContainer.SetState(numtool)
+        Me.EditorControl.SetState(numtool)
 
         'End If
     End Sub
@@ -694,7 +699,7 @@ Public Class SpriteEditor
     Private Sub UpdateSprite()
         Dim aSprite As SpriteMSX
 
-        aSprite = Me.SpriteContainer.GetSprite().Clone()  ' recoge el sprite del contenedor
+        aSprite = Me.EditorControl.GetSprite().Clone()  ' recoge el sprite del contenedor
         aSprite.Name = Me.SpriteName.Text   'fix Bug 891  
         'aSprite.Index = CInt(Me.SpriteNumberTextBox.Text)  'Allows you to change the target pattern
 
@@ -770,9 +775,9 @@ Public Class SpriteEditor
     ''' Copy sprite to clipboard and clear editor.
     ''' </summary>
     Private Sub Cut()
-        Me.SpriteContainer.AddUndo()
+        Me.EditorControl.AddUndo()
         CopyToClipboard()
-        Me.SpriteContainer.ClearSprite()
+        Me.EditorControl.ClearSprite()
         UpdateSprite()
     End Sub
 
@@ -782,8 +787,8 @@ Public Class SpriteEditor
     ''' Copy to the clipboard the current sprite from the editor. 
     ''' </summary>
     Public Sub CopyToClipboard()
-        If Not Me.SpriteContainer.Sprite Is Nothing Then
-            Me._clipboard = Me.SpriteContainer.GetSprite().Clone()
+        If Not Me.EditorControl.Sprite Is Nothing Then
+            Me._clipboard = Me.EditorControl.GetSprite().Clone()
             ClipboardPictureBox.Image = Me._clipboard.GetBitmapX2()
         End If
     End Sub
@@ -796,9 +801,9 @@ Public Class SpriteEditor
     Public Sub PasteFromClipboard()
 
         If Not Me._clipboard Is Nothing Then
-            Me.SpriteContainer.AddUndo()
-            Me._clipboard.Index = Me.SpriteContainer.Sprite.Index
-            Me.SpriteContainer.SetSprite(Me._clipboard)
+            Me.EditorControl.AddUndo()
+            Me._clipboard.Index = Me.EditorControl.Sprite.Index
+            Me.EditorControl.SetSprite(Me._clipboard)
         End If
 
     End Sub
@@ -868,19 +873,22 @@ Public Class SpriteEditor
 
         Dim _tmsgfxIO As New MSXOpenDocumentIO(Me.AppConfig, Me.Project)
 
-        If Me.Project.Path = "" Then
-            Me.SaveFileDialog1.FileName = Me._spritesetSelected.Name
-            Me.SaveFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
-        Else
-            Me.SaveFileDialog1.FileName = Me._spritesetSelected.Name
+        If Not Me.TilesetPath = "" Then
+            Me.SaveFileDialog1.InitialDirectory = Me.TilesetPath
+
+        ElseIf Not Me.Project.Path = "" Then
             Me.SaveFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.Project.Path)
+
+        Else
+            Me.SaveFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
         End If
 
+        Me.SaveFileDialog1.FileName = Me._spritesetSelected.Name
         Me.SaveFileDialog1.Filter = "MSX Open Document Sprite Project|*." + MSXOpenDocumentIO.Extension_SpriteDocument
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             _tmsgfxIO.SaveSpriteset(SaveFileDialog1.FileName, Me._spritesetSelected.ID)
-            'Me.AppConfig.PathItemSprite.UpdateLastPath(Path.GetDirectoryName(SaveFileDialog1.FileName))
+            Me.TilesetPath = Path.GetDirectoryName(SaveFileDialog1.FileName)
         End If
 
     End Sub
@@ -929,8 +937,8 @@ Public Class SpriteEditor
         If System.IO.File.Exists(filePath) Then
 
             ' inhabilita el control del editor de sprites, para evitar algunas excepciones por eventos
-            If Not Me.SpriteControl Is Nothing Then
-                Me.SpriteControl.Enabled = False
+            If Not Me.EditorControl Is Nothing Then
+                Me.EditorControl.Enabled = False
             End If
 
 
@@ -970,9 +978,9 @@ Public Class SpriteEditor
 
 
             ' habilita el editor de sprites
-            If Not Me.SpriteControl Is Nothing Then
-                Me.SpriteControl.Enabled = True
-                Me.SpriteControl.Refresh()
+            If Not Me.EditorControl Is Nothing Then
+                Me.EditorControl.Enabled = True
+                Me.EditorControl.Refresh()
             End If
 
         Else
@@ -992,16 +1000,21 @@ Public Class SpriteEditor
 
         Me.OpenFileDialog1.Filter = "All files|*." + MSXOpenDocumentIO.Extension_SpriteDocument + ";*." + MSXOpenDocumentIO.Extension_SpriteOLDformat + ";*." + MSXOpenDocumentIO.Extension_ProjectDocument + ";*.SPR;*.SC*;*.png|MSX Open Document Sprite Project|*." + MSXOpenDocumentIO.Extension_SpriteDocument + "|MSX BASIC Graphic|*.SC*;*.SPR|Bitmap file|*.png"
 
-        If Me.Project.Path = "" Then
-            Me.OpenFileDialog1.FileName = ""
-            Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
-        Else
-            'Me.OpenFileDialog1.FileName = ""
+        Me.OpenFileDialog1.FileName = ""
+
+        If Not Me.TilesetPath = "" Then
+            Me.OpenFileDialog1.InitialDirectory = Me.TilesetPath
+
+        ElseIf Not Me.Project.Path = "" Then
             Me.OpenFileDialog1.InitialDirectory = Path.GetDirectoryName(Me.Project.Path)
+
+        Else
+            Me.OpenFileDialog1.InitialDirectory = Application.StartupPath 'Me.AppConfig.PathItemSprite.Path
         End If
 
         If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
             LoadSpriteSet(OpenFileDialog1.FileName)
+            Me.TilesetPath = Path.GetDirectoryName(OpenFileDialog1.FileName)
         End If
 
     End Sub
@@ -1018,8 +1031,8 @@ Public Class SpriteEditor
         If System.IO.File.Exists(filePath) Then
 
             ' inhabilita el control del editor de sprites, para evitar algunas excepciones por eventos
-            If Not Me.SpriteControl Is Nothing Then
-                Me.SpriteControl.Enabled = False
+            If Not Me.EditorControl Is Nothing Then
+                Me.EditorControl.Enabled = False
             End If
 
             extension = Path.GetExtension(filePath).ToUpper
@@ -1050,9 +1063,9 @@ Public Class SpriteEditor
             End If
 
             ' habilita el editor de sprites
-            If Not Me.SpriteControl Is Nothing Then
-                Me.SpriteControl.Enabled = True
-                Me.SpriteControl.Refresh()
+            If Not Me.EditorControl Is Nothing Then
+                Me.EditorControl.Enabled = True
+                Me.EditorControl.Refresh()
             End If
 
         Else
@@ -1269,14 +1282,14 @@ Public Class SpriteEditor
         If e.Control Then
 
             If e.KeyCode = Keys.Z Then
-                Me.SpriteContainer.SetUndo()
+                Me.EditorControl.SetUndo()
             End If
             If e.KeyCode = Keys.Y Then
-                Me.SpriteContainer.SetRedo()
+                Me.EditorControl.SetRedo()
             End If
 
             If e.KeyCode = Keys.I Then
-                Me.SpriteContainer.Invert()  'Invert pattern tool
+                Me.EditorControl.Invert()  'Invert pattern tool
             End If
 
             If e.KeyCode = Keys.Enter Then
@@ -1298,7 +1311,7 @@ Public Class SpriteEditor
             'End If
 
             'If e.KeyCode = Keys.N Then
-            '    Me.SpriteContainer.NewSprite()
+            '    Me.EditorControl.NewSprite()
             'End If
 
             'If e.KeyCode = Keys.D Then
@@ -1306,19 +1319,19 @@ Public Class SpriteEditor
             'End If
 
             If e.KeyCode = Keys.Up Then
-                Me.SpriteContainer.MoveUp(False)
+                Me.EditorControl.MoveUp(False)
             End If
 
             If e.KeyCode = Keys.Down Then
-                Me.SpriteContainer.MoveDown(False)
+                Me.EditorControl.MoveDown(False)
             End If
 
             If e.KeyCode = Keys.Right Then
-                Me.SpriteContainer.MoveRight(False)
+                Me.EditorControl.MoveRight(False)
             End If
 
             If e.KeyCode = Keys.Left Then
-                Me.SpriteContainer.MoveLeft(False)
+                Me.EditorControl.MoveLeft(False)
             End If
 
 
@@ -1477,59 +1490,59 @@ Public Class SpriteEditor
 
     ' eventos de las herramientas de edicion #############################################################
     Private Sub ClearSpriteButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearSpriteButton.Click
-        Me.SpriteContainer.ClearSprite()
+        Me.EditorControl.ClearSprite()
     End Sub
 
     Private Sub InvertButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InvertButton.Click
-        Me.SpriteContainer.Invert()
+        Me.EditorControl.Invert()
     End Sub
 
 
     Private Sub FlipHorizontalButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FlipHorizontalButton.Click
-        Me.SpriteContainer.FlipHorizontal()
+        Me.EditorControl.FlipHorizontal()
     End Sub
 
     Private Sub FlipVerticalButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FlipVerticalButton.Click
-        Me.SpriteContainer.FlipVertical()
+        Me.EditorControl.FlipVertical()
     End Sub
 
     Private Sub RotateLeftButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RotateLeftButton.Click
-        Me.SpriteContainer.RotateLeft()
+        Me.EditorControl.RotateLeft()
     End Sub
 
     Private Sub RotateRightButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles RotateRightButton.Click
-        Me.SpriteContainer.RotateRight()
+        Me.EditorControl.RotateRight()
     End Sub
 
     Private Sub Move2LeftButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2LeftButton.MouseDown
         If e.Button = MouseButtons.Right Then
-            Me.SpriteContainer.MoveLeft(True)
+            Me.EditorControl.MoveLeft(True)
         Else
-            Me.SpriteContainer.MoveLeft(False)
+            Me.EditorControl.MoveLeft(False)
         End If
     End Sub
 
     Private Sub Move2RightButton_MouseDownk(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2RightButton.MouseDown
         If e.Button = MouseButtons.Right Then
-            Me.SpriteContainer.MoveRight(True)
+            Me.EditorControl.MoveRight(True)
         Else
-            Me.SpriteContainer.MoveRight(False)
+            Me.EditorControl.MoveRight(False)
         End If
     End Sub
 
     Private Sub Move2UpButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2UpButton.MouseDown
         If e.Button = MouseButtons.Right Then
-            Me.SpriteContainer.MoveUp(True)
+            Me.EditorControl.MoveUp(True)
         Else
-            Me.SpriteContainer.MoveUp(False)
+            Me.EditorControl.MoveUp(False)
         End If
     End Sub
 
     Private Sub Move2downButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles Move2downButton.MouseDown
         If e.Button = MouseButtons.Right Then
-            Me.SpriteContainer.MoveDown(True)
+            Me.EditorControl.MoveDown(True)
         Else
-            Me.SpriteContainer.MoveDown(False)
+            Me.EditorControl.MoveDown(False)
         End If
     End Sub
 
@@ -1551,9 +1564,9 @@ Public Class SpriteEditor
 
     Private Sub UndoButton_MouseDown(ByVal sender As System.Object, ByVal e As MouseEventArgs) Handles UndoButton.MouseDown
         If e.Button = MouseButtons.Right Then
-            Me.SpriteContainer.SetRedo()
+            Me.EditorControl.SetRedo()
         Else
-            Me.SpriteContainer.SetUndo()
+            Me.EditorControl.SetUndo()
         End If
     End Sub
 
@@ -1585,7 +1598,7 @@ Public Class SpriteEditor
 
         If e.Button = 0 Then Exit Sub
 
-        aSprite = Me.SpriteContainer.GetSprite().Clone()  ' recoge el sprite del contenedor
+        aSprite = Me.EditorControl.GetSprite().Clone()  ' recoge el sprite del contenedor
         aSprite.Name = Me.SpriteName.Text
 
         Dim data As New DataObject
@@ -1645,7 +1658,7 @@ Public Class SpriteEditor
 
 
     Private Sub SpriteName_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles SpriteName.Validating
-        Me.SpriteContainer.SpriteName = SpriteName.Text
+        Me.EditorControl.SpriteName = SpriteName.Text
     End Sub
 
 

@@ -25,10 +25,6 @@ Partial Class SpriteEditor
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SpriteEditor))
         Me.SpriteEditorPanel = New System.Windows.Forms.Panel()
-        Me.ClipboardPiXelGroupBox = New mSXdevtools.GUI.Controls.piXelST_GroupBox()
-        Me.PasteSpriteButton = New System.Windows.Forms.Button()
-        Me.CopySpriteButton = New System.Windows.Forms.Button()
-        Me.ClipboardPictureBox = New System.Windows.Forms.PictureBox()
         Me.SpritePaintToolBox = New System.Windows.Forms.ToolStrip()
         Me.PencilButton = New System.Windows.Forms.ToolStripButton()
         Me.LineButton = New System.Windows.Forms.ToolStripButton()
@@ -36,12 +32,6 @@ Partial Class SpriteEditor
         Me.CircleButton = New System.Windows.Forms.ToolStripButton()
         Me.FillButton = New System.Windows.Forms.ToolStripButton()
         Me.UndoButton = New System.Windows.Forms.ToolStripButton()
-        Me.PiXelGroupBox1 = New mSXdevtools.GUI.Controls.piXelST_GroupBox()
-        Me.SpriteNumberLabel = New mSXdevtools.GUI.Controls.piXelST_Label()
-        Me.UpdateSpriteButton = New mSXdevtools.GUI.Controls.piXelST_Button()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.spritePreviewPicture = New System.Windows.Forms.PictureBox()
-        Me.SpriteName = New System.Windows.Forms.TextBox()
         Me.SpriteEDPanel = New System.Windows.Forms.Panel()
         Me.SpriteEditorStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -69,7 +59,6 @@ Partial Class SpriteEditor
         Me.SetModeLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SetModeTextLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.SpritesetPanel = New System.Windows.Forms.Panel()
-        Me.aSpritesetControl = New mSXdevtools.GUI.Controls.SpritesetControl()
         Me.TilesetToolboxStrip = New System.Windows.Forms.ToolStrip()
         Me.SelectTileButton = New System.Windows.Forms.ToolStripButton()
         Me.ExchangeTilesButton = New System.Windows.Forms.ToolStripButton()
@@ -90,12 +79,19 @@ Partial Class SpriteEditor
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ClipboardPiXelGroupBox = New mSXdevtools.GUI.Controls.piXelST_GroupBox()
+        Me.PasteSpriteButton = New System.Windows.Forms.Button()
+        Me.CopySpriteButton = New System.Windows.Forms.Button()
+        Me.ClipboardPictureBox = New System.Windows.Forms.PictureBox()
+        Me.PiXelGroupBox1 = New mSXdevtools.GUI.Controls.piXelST_GroupBox()
+        Me.SpriteNumberLabel = New mSXdevtools.GUI.Controls.piXelST_Label()
+        Me.UpdateSpriteButton = New mSXdevtools.GUI.Controls.piXelST_Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.spritePreviewPicture = New System.Windows.Forms.PictureBox()
+        Me.SpriteName = New System.Windows.Forms.TextBox()
+        Me.aSpritesetControl = New mSXdevtools.GUI.Controls.SpritesetControl()
         Me.SpriteEditorPanel.SuspendLayout()
-        Me.ClipboardPiXelGroupBox.SuspendLayout()
-        CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SpritePaintToolBox.SuspendLayout()
-        Me.PiXelGroupBox1.SuspendLayout()
-        CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SpriteEDPanel.SuspendLayout()
         Me.SpriteEditorStatusStrip.SuspendLayout()
         Me.SpriteToolStrip.SuspendLayout()
@@ -103,6 +99,10 @@ Partial Class SpriteEditor
         Me.SpritesetPanel.SuspendLayout()
         Me.TilesetToolboxStrip.SuspendLayout()
         Me.TilesetToolStrip.SuspendLayout()
+        Me.ClipboardPiXelGroupBox.SuspendLayout()
+        CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PiXelGroupBox1.SuspendLayout()
+        CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SpriteEditorPanel
@@ -119,65 +119,6 @@ Partial Class SpriteEditor
         Me.SpriteEditorPanel.Name = "SpriteEditorPanel"
         Me.SpriteEditorPanel.Size = New System.Drawing.Size(600, 400)
         Me.SpriteEditorPanel.TabIndex = 12
-        '
-        'ClipboardPiXelGroupBox
-        '
-        Me.ClipboardPiXelGroupBox.BackColor = System.Drawing.Color.Transparent
-        Me.ClipboardPiXelGroupBox.BGColor = System.Drawing.Color.LightSkyBlue
-        Me.ClipboardPiXelGroupBox.Controls.Add(Me.PasteSpriteButton)
-        Me.ClipboardPiXelGroupBox.Controls.Add(Me.CopySpriteButton)
-        Me.ClipboardPiXelGroupBox.Controls.Add(Me.ClipboardPictureBox)
-        Me.ClipboardPiXelGroupBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.ClipboardPiXelGroupBox.LineColor = System.Drawing.Color.DimGray
-        Me.ClipboardPiXelGroupBox.Location = New System.Drawing.Point(416, 70)
-        Me.ClipboardPiXelGroupBox.Name = "ClipboardPiXelGroupBox"
-        Me.ClipboardPiXelGroupBox.Padding = New System.Windows.Forms.Padding(0)
-        Me.ClipboardPiXelGroupBox.Size = New System.Drawing.Size(160, 74)
-        Me.ClipboardPiXelGroupBox.TabIndex = 9
-        Me.ClipboardPiXelGroupBox.TabStop = False
-        Me.ClipboardPiXelGroupBox.Text = "Clipboard"
-        '
-        'PasteSpriteButton
-        '
-        Me.PasteSpriteButton.BackColor = System.Drawing.Color.Transparent
-        Me.PasteSpriteButton.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.button_paste
-        Me.PasteSpriteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.PasteSpriteButton.FlatAppearance.BorderSize = 0
-        Me.PasteSpriteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.PasteSpriteButton.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PasteSpriteButton.Location = New System.Drawing.Point(62, 26)
-        Me.PasteSpriteButton.Name = "PasteSpriteButton"
-        Me.PasteSpriteButton.Size = New System.Drawing.Size(44, 32)
-        Me.PasteSpriteButton.TabIndex = 263
-        Me.PasteSpriteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ToolTip1.SetToolTip(Me.PasteSpriteButton, "Paste Sprite from clipboard [Ctrl+V]")
-        Me.PasteSpriteButton.UseVisualStyleBackColor = False
-        '
-        'CopySpriteButton
-        '
-        Me.CopySpriteButton.BackColor = System.Drawing.Color.Transparent
-        Me.CopySpriteButton.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.button_copy
-        Me.CopySpriteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.CopySpriteButton.FlatAppearance.BorderSize = 0
-        Me.CopySpriteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.CopySpriteButton.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CopySpriteButton.Location = New System.Drawing.Point(12, 26)
-        Me.CopySpriteButton.Name = "CopySpriteButton"
-        Me.CopySpriteButton.Size = New System.Drawing.Size(44, 32)
-        Me.CopySpriteButton.TabIndex = 262
-        Me.CopySpriteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ToolTip1.SetToolTip(Me.CopySpriteButton, "Copy current Sprite to clipboard [Ctrl+C]")
-        Me.CopySpriteButton.UseVisualStyleBackColor = False
-        '
-        'ClipboardPictureBox
-        '
-        Me.ClipboardPictureBox.BackColor = System.Drawing.Color.Black
-        Me.ClipboardPictureBox.Cursor = System.Windows.Forms.Cursors.Default
-        Me.ClipboardPictureBox.Location = New System.Drawing.Point(115, 26)
-        Me.ClipboardPictureBox.Name = "ClipboardPictureBox"
-        Me.ClipboardPictureBox.Size = New System.Drawing.Size(32, 32)
-        Me.ClipboardPictureBox.TabIndex = 42
-        Me.ClipboardPictureBox.TabStop = False
         '
         'SpritePaintToolBox
         '
@@ -270,84 +211,6 @@ Partial Class SpriteEditor
         Me.UndoButton.Size = New System.Drawing.Size(36, 36)
         Me.UndoButton.Text = "ToolStripButton1"
         Me.UndoButton.ToolTipText = "Undo [Ctrl+Z] / Redo [Ctrl+Y]"
-        '
-        'PiXelGroupBox1
-        '
-        Me.PiXelGroupBox1.BackColor = System.Drawing.Color.Transparent
-        Me.PiXelGroupBox1.BGColor = System.Drawing.Color.LightSkyBlue
-        Me.PiXelGroupBox1.Controls.Add(Me.SpriteNumberLabel)
-        Me.PiXelGroupBox1.Controls.Add(Me.UpdateSpriteButton)
-        Me.PiXelGroupBox1.Controls.Add(Me.Label4)
-        Me.PiXelGroupBox1.Controls.Add(Me.spritePreviewPicture)
-        Me.PiXelGroupBox1.Controls.Add(Me.SpriteName)
-        Me.PiXelGroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.PiXelGroupBox1.LineColor = System.Drawing.Color.DimGray
-        Me.PiXelGroupBox1.Location = New System.Drawing.Point(416, 186)
-        Me.PiXelGroupBox1.Name = "PiXelGroupBox1"
-        Me.PiXelGroupBox1.Padding = New System.Windows.Forms.Padding(0)
-        Me.PiXelGroupBox1.Size = New System.Drawing.Size(160, 149)
-        Me.PiXelGroupBox1.TabIndex = 8
-        Me.PiXelGroupBox1.TabStop = False
-        Me.PiXelGroupBox1.Text = "Sprite"
-        '
-        'SpriteNumberLabel
-        '
-        Me.SpriteNumberLabel.BackColor = System.Drawing.Color.Gainsboro
-        Me.SpriteNumberLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.SpriteNumberLabel.Location = New System.Drawing.Point(17, 67)
-        Me.SpriteNumberLabel.Name = "SpriteNumberLabel"
-        Me.SpriteNumberLabel.Size = New System.Drawing.Size(64, 32)
-        Me.SpriteNumberLabel.TabIndex = 44
-        Me.SpriteNumberLabel.Text = "000"
-        Me.SpriteNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'UpdateSpriteButton
-        '
-        Me.UpdateSpriteButton.BackColor = System.Drawing.Color.LightSkyBlue
-        Me.UpdateSpriteButton.ButtonColor = System.Drawing.Color.Gray
-        Me.UpdateSpriteButton.ButtonType = mSXdevtools.GUI.Controls.piXelST_Button.Button_TYPES.Confirmation
-        Me.UpdateSpriteButton.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.UpdateSpriteButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
-        Me.UpdateSpriteButton.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.icon_Ok
-        Me.UpdateSpriteButton.Location = New System.Drawing.Point(10, 109)
-        Me.UpdateSpriteButton.Name = "UpdateSpriteButton"
-        Me.UpdateSpriteButton.Padding = New System.Windows.Forms.Padding(4)
-        Me.UpdateSpriteButton.Size = New System.Drawing.Size(140, 32)
-        Me.UpdateSpriteButton.TabIndex = 43
-        Me.UpdateSpriteButton.Text = "Update"
-        Me.ToolTip1.SetToolTip(Me.UpdateSpriteButton, "Update Sprite [Ctrl+ENTER]")
-        Me.UpdateSpriteButton.UseVisualStyleBackColor = False
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(14, 19)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(34, 14)
-        Me.Label4.TabIndex = 40
-        Me.Label4.Text = "Name"
-        '
-        'spritePreviewPicture
-        '
-        Me.spritePreviewPicture.BackColor = System.Drawing.Color.Black
-        Me.spritePreviewPicture.Cursor = System.Windows.Forms.Cursors.Default
-        Me.spritePreviewPicture.Location = New System.Drawing.Point(115, 67)
-        Me.spritePreviewPicture.Name = "spritePreviewPicture"
-        Me.spritePreviewPicture.Size = New System.Drawing.Size(32, 32)
-        Me.spritePreviewPicture.TabIndex = 42
-        Me.spritePreviewPicture.TabStop = False
-        '
-        'SpriteName
-        '
-        Me.SpriteName.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.SpriteName.Location = New System.Drawing.Point(15, 35)
-        Me.SpriteName.MaxLength = 24
-        Me.SpriteName.Name = "SpriteName"
-        Me.SpriteName.Size = New System.Drawing.Size(132, 22)
-        Me.SpriteName.TabIndex = 33
         '
         'SpriteEDPanel
         '
@@ -514,7 +377,7 @@ Partial Class SpriteEditor
         Me.Move2UpButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Move2UpButton.Name = "Move2UpButton"
         Me.Move2UpButton.Size = New System.Drawing.Size(36, 36)
-        Me.Move2UpButton.ToolTipText = "Move up"
+        Me.Move2UpButton.ToolTipText = "Move up ([Right but] Rotate up)"
         '
         'Move2downButton
         '
@@ -523,7 +386,7 @@ Partial Class SpriteEditor
         Me.Move2downButton.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.Move2downButton.Name = "Move2downButton"
         Me.Move2downButton.Size = New System.Drawing.Size(36, 36)
-        Me.Move2downButton.ToolTipText = "Move down"
+        Me.Move2downButton.ToolTipText = "Move down ([Right but] Rotate down)"
         '
         'ToolStripSeparator2
         '
@@ -597,16 +460,6 @@ Partial Class SpriteEditor
         Me.SpritesetPanel.Name = "SpritesetPanel"
         Me.SpritesetPanel.Size = New System.Drawing.Size(600, 200)
         Me.SpritesetPanel.TabIndex = 13
-        '
-        'aSpritesetControl
-        '
-        Me.aSpritesetControl.BackColor = System.Drawing.Color.Gray
-        Me.aSpritesetControl.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.aSpritesetControl.Location = New System.Drawing.Point(40, 39)
-        Me.aSpritesetControl.Name = "aSpritesetControl"
-        Me.aSpritesetControl.Size = New System.Drawing.Size(545, 137)
-        Me.aSpritesetControl.TabIndex = 23
-        Me.aSpritesetControl.WorkMode = mSXdevtools.GUI.Controls.SpritesetControl.CONTROL_MODE.SELECTER
         '
         'TilesetToolboxStrip
         '
@@ -791,6 +644,153 @@ Partial Class SpriteEditor
         Me.ToolTip1.ForeColor = System.Drawing.Color.DarkBlue
         Me.ToolTip1.IsBalloon = True
         '
+        'ClipboardPiXelGroupBox
+        '
+        Me.ClipboardPiXelGroupBox.BackColor = System.Drawing.Color.Transparent
+        Me.ClipboardPiXelGroupBox.BGColor = System.Drawing.Color.LightSkyBlue
+        Me.ClipboardPiXelGroupBox.Controls.Add(Me.PasteSpriteButton)
+        Me.ClipboardPiXelGroupBox.Controls.Add(Me.CopySpriteButton)
+        Me.ClipboardPiXelGroupBox.Controls.Add(Me.ClipboardPictureBox)
+        Me.ClipboardPiXelGroupBox.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.ClipboardPiXelGroupBox.LineColor = System.Drawing.Color.DimGray
+        Me.ClipboardPiXelGroupBox.Location = New System.Drawing.Point(416, 70)
+        Me.ClipboardPiXelGroupBox.Name = "ClipboardPiXelGroupBox"
+        Me.ClipboardPiXelGroupBox.Padding = New System.Windows.Forms.Padding(0)
+        Me.ClipboardPiXelGroupBox.Size = New System.Drawing.Size(160, 74)
+        Me.ClipboardPiXelGroupBox.TabIndex = 9
+        Me.ClipboardPiXelGroupBox.TabStop = False
+        Me.ClipboardPiXelGroupBox.Text = "Clipboard"
+        '
+        'PasteSpriteButton
+        '
+        Me.PasteSpriteButton.BackColor = System.Drawing.Color.Transparent
+        Me.PasteSpriteButton.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.button_paste
+        Me.PasteSpriteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PasteSpriteButton.FlatAppearance.BorderSize = 0
+        Me.PasteSpriteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.PasteSpriteButton.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PasteSpriteButton.Location = New System.Drawing.Point(62, 26)
+        Me.PasteSpriteButton.Name = "PasteSpriteButton"
+        Me.PasteSpriteButton.Size = New System.Drawing.Size(44, 32)
+        Me.PasteSpriteButton.TabIndex = 263
+        Me.PasteSpriteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ToolTip1.SetToolTip(Me.PasteSpriteButton, "Paste Sprite from clipboard [Ctrl+V]")
+        Me.PasteSpriteButton.UseVisualStyleBackColor = False
+        '
+        'CopySpriteButton
+        '
+        Me.CopySpriteButton.BackColor = System.Drawing.Color.Transparent
+        Me.CopySpriteButton.BackgroundImage = Global.mSXdevtools.spriteEditor.My.Resources.Resources.button_copy
+        Me.CopySpriteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.CopySpriteButton.FlatAppearance.BorderSize = 0
+        Me.CopySpriteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.CopySpriteButton.Font = New System.Drawing.Font("Verdana", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.CopySpriteButton.Location = New System.Drawing.Point(12, 26)
+        Me.CopySpriteButton.Name = "CopySpriteButton"
+        Me.CopySpriteButton.Size = New System.Drawing.Size(44, 32)
+        Me.CopySpriteButton.TabIndex = 262
+        Me.CopySpriteButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ToolTip1.SetToolTip(Me.CopySpriteButton, "Copy current Sprite to clipboard [Ctrl+C]")
+        Me.CopySpriteButton.UseVisualStyleBackColor = False
+        '
+        'ClipboardPictureBox
+        '
+        Me.ClipboardPictureBox.BackColor = System.Drawing.Color.Black
+        Me.ClipboardPictureBox.Cursor = System.Windows.Forms.Cursors.Default
+        Me.ClipboardPictureBox.Location = New System.Drawing.Point(115, 26)
+        Me.ClipboardPictureBox.Name = "ClipboardPictureBox"
+        Me.ClipboardPictureBox.Size = New System.Drawing.Size(32, 32)
+        Me.ClipboardPictureBox.TabIndex = 42
+        Me.ClipboardPictureBox.TabStop = False
+        '
+        'PiXelGroupBox1
+        '
+        Me.PiXelGroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.PiXelGroupBox1.BGColor = System.Drawing.Color.LightSkyBlue
+        Me.PiXelGroupBox1.Controls.Add(Me.SpriteNumberLabel)
+        Me.PiXelGroupBox1.Controls.Add(Me.UpdateSpriteButton)
+        Me.PiXelGroupBox1.Controls.Add(Me.Label4)
+        Me.PiXelGroupBox1.Controls.Add(Me.spritePreviewPicture)
+        Me.PiXelGroupBox1.Controls.Add(Me.SpriteName)
+        Me.PiXelGroupBox1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.PiXelGroupBox1.LineColor = System.Drawing.Color.DimGray
+        Me.PiXelGroupBox1.Location = New System.Drawing.Point(416, 186)
+        Me.PiXelGroupBox1.Name = "PiXelGroupBox1"
+        Me.PiXelGroupBox1.Padding = New System.Windows.Forms.Padding(0)
+        Me.PiXelGroupBox1.Size = New System.Drawing.Size(160, 149)
+        Me.PiXelGroupBox1.TabIndex = 8
+        Me.PiXelGroupBox1.TabStop = False
+        Me.PiXelGroupBox1.Text = "Sprite"
+        '
+        'SpriteNumberLabel
+        '
+        Me.SpriteNumberLabel.BackColor = System.Drawing.Color.Gainsboro
+        Me.SpriteNumberLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.SpriteNumberLabel.Location = New System.Drawing.Point(17, 67)
+        Me.SpriteNumberLabel.Name = "SpriteNumberLabel"
+        Me.SpriteNumberLabel.Size = New System.Drawing.Size(64, 32)
+        Me.SpriteNumberLabel.TabIndex = 44
+        Me.SpriteNumberLabel.Text = "000"
+        Me.SpriteNumberLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'UpdateSpriteButton
+        '
+        Me.UpdateSpriteButton.BackColor = System.Drawing.Color.LightSkyBlue
+        Me.UpdateSpriteButton.ButtonColor = System.Drawing.Color.Gray
+        Me.UpdateSpriteButton.ButtonType = mSXdevtools.GUI.Controls.piXelST_Button.Button_TYPES.Confirmation
+        Me.UpdateSpriteButton.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.UpdateSpriteButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(42, Byte), Integer), CType(CType(83, Byte), Integer), CType(CType(138, Byte), Integer))
+        Me.UpdateSpriteButton.Image = Global.mSXdevtools.spriteEditor.My.Resources.Resources.icon_Ok
+        Me.UpdateSpriteButton.Location = New System.Drawing.Point(10, 109)
+        Me.UpdateSpriteButton.Name = "UpdateSpriteButton"
+        Me.UpdateSpriteButton.Padding = New System.Windows.Forms.Padding(4)
+        Me.UpdateSpriteButton.Size = New System.Drawing.Size(140, 32)
+        Me.UpdateSpriteButton.TabIndex = 43
+        Me.UpdateSpriteButton.Text = "Update"
+        Me.ToolTip1.SetToolTip(Me.UpdateSpriteButton, "Update Sprite [Ctrl+ENTER]")
+        Me.UpdateSpriteButton.UseVisualStyleBackColor = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.Font = New System.Drawing.Font("Arial", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(14, 19)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(34, 14)
+        Me.Label4.TabIndex = 40
+        Me.Label4.Text = "Name"
+        '
+        'spritePreviewPicture
+        '
+        Me.spritePreviewPicture.BackColor = System.Drawing.Color.Black
+        Me.spritePreviewPicture.Cursor = System.Windows.Forms.Cursors.Default
+        Me.spritePreviewPicture.Location = New System.Drawing.Point(115, 67)
+        Me.spritePreviewPicture.Name = "spritePreviewPicture"
+        Me.spritePreviewPicture.Size = New System.Drawing.Size(32, 32)
+        Me.spritePreviewPicture.TabIndex = 42
+        Me.spritePreviewPicture.TabStop = False
+        '
+        'SpriteName
+        '
+        Me.SpriteName.Font = New System.Drawing.Font("Verdana", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SpriteName.Location = New System.Drawing.Point(15, 35)
+        Me.SpriteName.MaxLength = 24
+        Me.SpriteName.Name = "SpriteName"
+        Me.SpriteName.Size = New System.Drawing.Size(132, 22)
+        Me.SpriteName.TabIndex = 33
+        '
+        'aSpritesetControl
+        '
+        Me.aSpritesetControl.BackColor = System.Drawing.Color.Gray
+        Me.aSpritesetControl.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.aSpritesetControl.Location = New System.Drawing.Point(40, 39)
+        Me.aSpritesetControl.Name = "aSpritesetControl"
+        Me.aSpritesetControl.Size = New System.Drawing.Size(545, 137)
+        Me.aSpritesetControl.TabIndex = 23
+        Me.aSpritesetControl.WorkMode = mSXdevtools.GUI.Controls.SpritesetControl.CONTROL_MODE.SELECTER
+        '
         'SpriteEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -801,13 +801,8 @@ Partial Class SpriteEditor
         Me.Size = New System.Drawing.Size(600, 600)
         Me.SpriteEditorPanel.ResumeLayout(False)
         Me.SpriteEditorPanel.PerformLayout()
-        Me.ClipboardPiXelGroupBox.ResumeLayout(False)
-        CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SpritePaintToolBox.ResumeLayout(False)
         Me.SpritePaintToolBox.PerformLayout()
-        Me.PiXelGroupBox1.ResumeLayout(False)
-        Me.PiXelGroupBox1.PerformLayout()
-        CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SpriteEDPanel.ResumeLayout(False)
         Me.SpriteEditorStatusStrip.ResumeLayout(False)
         Me.SpriteEditorStatusStrip.PerformLayout()
@@ -821,6 +816,11 @@ Partial Class SpriteEditor
         Me.TilesetToolboxStrip.PerformLayout()
         Me.TilesetToolStrip.ResumeLayout(False)
         Me.TilesetToolStrip.PerformLayout()
+        Me.ClipboardPiXelGroupBox.ResumeLayout(False)
+        CType(Me.ClipboardPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PiXelGroupBox1.ResumeLayout(False)
+        Me.PiXelGroupBox1.PerformLayout()
+        CType(Me.spritePreviewPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
