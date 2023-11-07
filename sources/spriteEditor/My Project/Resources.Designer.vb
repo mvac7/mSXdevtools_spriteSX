@@ -91,26 +91,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property column_info_mono1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("column_info_mono1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property column_info1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("column_info1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Busca un recurso adaptado de tipo System.Byte[].
         '''</summary>
         Friend ReadOnly Property cursor_draw01() As Byte()

@@ -871,7 +871,32 @@ Public Class SpriteEditor
 
     Private Sub SaveSpritesetDialog()
 
+        'Dim itemName As String
+        Dim itemID As Integer
+
         Dim _tmsgfxIO As New MSXOpenDocumentIO(Me.AppConfig, Me.Project)
+
+        Dim nameList As ArrayList
+        Dim aListSelectorDialog As ListSelectorDialog
+
+        If Me.Project.SpriteSets.Count > 1 Then
+            nameList = Me.Project.SpriteSets.GetNameList()
+            aListSelectorDialog = New ListSelectorDialog("Save Spriteset", "Select a Spriteset:", "Save", "All Spritesets", nameList, Me.Project.SpriteSets.GetIndexFromID(Me._spritesetSelected.ID) + 1)
+
+            If aListSelectorDialog.ShowDialog() = DialogResult.OK Then
+                If aListSelectorDialog.SelectedIndex = 0 Then
+                    itemID = 0
+                Else
+                    itemID = Me.Project.SpriteSets.GetIDFromIndex(aListSelectorDialog.SelectedIndex - 1)
+                End If
+            Else
+                Exit Sub
+            End If
+
+        Else
+            itemID = Me._spritesetSelected.ID
+        End If
+
 
         If Not Me.TilesetPath = "" Then
             Me.SaveFileDialog1.InitialDirectory = Me.TilesetPath
@@ -887,7 +912,7 @@ Public Class SpriteEditor
         Me.SaveFileDialog1.Filter = "MSX Open Document Sprite Project|*." + MSXOpenDocumentIO.Extension_SpriteDocument
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-            _tmsgfxIO.SaveSpriteset(SaveFileDialog1.FileName, Me._spritesetSelected.ID)
+            _tmsgfxIO.SaveSpriteset(SaveFileDialog1.FileName, itemID)
             Me.TilesetPath = Path.GetDirectoryName(SaveFileDialog1.FileName)
         End If
 
@@ -1193,7 +1218,7 @@ Public Class SpriteEditor
                 itemName = nameList.Item(0)
             ElseIf nameList.Count > 1 Then
                 ' show win with Map selector
-                Dim aListSelectorDialog As New ListSelectorDialog("Load Spriteset", "Select a Spriteset:", "All Spritesets", nameList)
+                Dim aListSelectorDialog As New ListSelectorDialog("Load Spriteset", "Select a Spriteset:", "Load", "All Spritesets", nameList, 0)
                 If aListSelectorDialog.ShowDialog() = DialogResult.OK Then
                     If aListSelectorDialog.SelectedIndex = 0 Then
                         itemName = ""

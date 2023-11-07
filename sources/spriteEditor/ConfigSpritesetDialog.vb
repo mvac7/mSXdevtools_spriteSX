@@ -1,14 +1,7 @@
 ﻿Public Class ConfigSpritesetDialog
 
-    'Private _size As Integer = 0
-    'Private _mode As Integer = 0
 
     Private _paletteID As Integer '= 0
-
-    'Private _foregroundColor As Byte = 15
-    'Private _backgroundColor As Byte = 0
-
-    'Private isProject As Boolean = False
 
     Private AppConfig As Config
 
@@ -16,15 +9,16 @@
 
     Private spritesetID As Integer = -1
 
-
     Public DialogType As DIALOG_TYPE
 
+
     Private PageState As PAGE = PAGE.SPRITESET_CONFIG
+
 
     Public Enum DIALOG_TYPE As Integer
         NEW_PROJECT
         NEW_SPRITESET
-        UPDATE_SPRITESET
+        CONFIG_SPRITESET
     End Enum
 
 
@@ -130,8 +124,6 @@
 
         Me._paletteID = Me.Project.Palettes.GetIDFromIndex(0)
 
-        Me.Title_Label.Text = "New Spriteset Project"
-
         'Me.isProject = True
 
         Me.Cancel_Button.Visible = False
@@ -182,7 +174,7 @@
         Me.Project = _project
         Me.spritesetID = _spritesetID
 
-        Me.DialogType = DIALOG_TYPE.UPDATE_SPRITESET
+        Me.DialogType = DIALOG_TYPE.CONFIG_SPRITESET
 
     End Sub
 
@@ -194,12 +186,28 @@
 
         Me.Size = New Size(Me.Size.Width, 470)
 
-        If Me.DialogType = DIALOG_TYPE.UPDATE_SPRITESET Then
-            spriteset = Me.Project.SpriteSets.GetSpritesetByID(Me.spritesetID)
-            SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, spriteset, True)
-        Else
-            SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, Nothing, False)
-        End If
+        Select Case Me.DialogType
+            Case DIALOG_TYPE.CONFIG_SPRITESET
+                Me.Title_Label.Text = "Config Spriteset"
+                spriteset = Me.Project.SpriteSets.GetSpritesetByID(Me.spritesetID)
+                SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, spriteset, True)
+
+            Case DIALOG_TYPE.NEW_SPRITESET
+                Me.Title_Label.Text = "New Spriteset"
+                SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, Nothing, False)
+
+            Case Else
+                Me.Title_Label.Text = "New Spriteset Project"
+                SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, Nothing, False)
+
+        End Select
+
+
+        'If Me.DialogType = DIALOG_TYPE.CONFIG_SPRITESET Then
+
+        'Else
+        '    SpritesetDataUC.Initialize(Me.AppConfig, Me.Project, Nothing, False)
+        'End If
 
     End Sub
 

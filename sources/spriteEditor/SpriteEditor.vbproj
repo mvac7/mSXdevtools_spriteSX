@@ -177,12 +177,6 @@
     <None Include="Resources\cancel_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\column_info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\column_info_mono.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\dragdrop_48_06Y.png" />
   </ItemGroup>
   <ItemGroup>
